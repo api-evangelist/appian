@@ -24,6 +24,8 @@ access: 3rd-Party
 created: '2025-02-08'
 modified: '2025-02-12'
 position: Consumer
+segments:
+  - Workflows
 description: Appian is a low-code automation platform that accelerates the creation of high-impact business applications. The platform combines intelligent automation and enterprise low-code development to help organizations build apps and workflows rapidly.
 maintainers:
 - FN: Kin Lane
