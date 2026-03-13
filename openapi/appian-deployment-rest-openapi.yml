@@ -1,0 +1,696 @@
+openapi: 3.1.0
+info:
+  title: Appian Deployment REST API
+  description: >-
+    The Appian Deployment REST API provides endpoints for exporting, inspecting,
+    and importing applications and packages as part of CI/CD deployment
+    pipelines. It supports the full deployment lifecycle including exporting
+    packages from a source environment, inspecting packages before deployment to
+    identify potential issues, importing packages into a target environment, and
+    retrieving deployment results and logs. All endpoints are authenticated using
+    an API key linked to a service account configured in the Appian Admin
+    Console.
+  version: '2'
+  contact:
+    name: Appian Corporation
+    url: https://www.appian.com
+    email: support@appian.com
+  termsOfService: https://www.appian.com/terms-of-service.html
+  license:
+    name: Proprietary
+    url: https://www.appian.com/terms-of-service.html
+externalDocs:
+  description: Deployment REST API Documentation
+  url: https://docs.appian.com/suite/help/25.4/Deployment_Rest_API.html
+servers:
+  - url: https://{domain}/suite/deployment-management/v2
+    description: Appian Cloud Production Server
+    variables:
+      domain:
+        default: mysite.appiancloud.com
+        description: >-
+          The Appian site domain, typically in the format
+          mysite.appiancloud.com for cloud deployments.
+tags:
+  - name: Export
+    description: >-
+      Operations for exporting applications and packages from an Appian
+      environment.
+  - name: Import
+    description: >-
+      Operations for importing and deploying applications and packages into an
+      Appian environment.
+  - name: Inspection
+    description: >-
+      Operations for inspecting packages before deployment to identify potential
+      issues, errors, and warnings.
+  - name: Results
+    description: >-
+      Operations for retrieving the status, results, and logs of deployments and
+      inspections.
+security:
+  - apiKeyAuth: []
+paths:
+  /deployments:
+    post:
+      operationId: createDeployment
+      summary: Export or import a deployment
+      description: >-
+        Creates a new deployment operation for either exporting or importing
+        applications and packages. The Action-Type header determines whether the
+        operation is an export or import. For exports, provide a JSON payload
+        specifying the UUIDs and export type. For imports, provide a multipart
+        form with the package files and deployment configuration. The response
+        includes a deployment UUID that can be used to track progress and
+        retrieve results.
+      tags:
+        - Export
+        - Import
+      parameters:
+        - $ref: '#/components/parameters/actionType'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DeploymentRequest'
+      responses:
+        '200':
+          description: >-
+            Deployment operation initiated successfully. The response includes a
+            UUID for tracking the deployment status.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeploymentResponse'
+        '400':
+          description: >-
+            Bad request. The request payload is malformed or missing required
+            fields.
+        '401':
+          description: >-
+            Authentication failed. The API key is missing, invalid, or the
+            associated service account does not have the required permissions.
+        '403':
+          description: >-
+            The deployment action is not permitted. The Admin Console settings
+            may restrict this deployment flow.
+  /deployments/{deploymentUuid}:
+    get:
+      operationId: getDeploymentResults
+      summary: Get deployment results
+      description: >-
+        Retrieves the current status and results of a deployment operation
+        identified by its UUID. The response structure varies depending on
+        whether the deployment was an import or export operation. For imports,
+        the response includes a summary of imported, failed, and skipped objects.
+        For exports, the response includes URLs to download the exported package,
+        plug-ins, customization files, and database scripts.
+      tags:
+        - Results
+      parameters:
+        - $ref: '#/components/parameters/deploymentUuid'
+      responses:
+        '200':
+          description: >-
+            Successfully retrieved deployment results. The response schema
+            depends on whether the deployment was an import or export.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ImportDeploymentResult'
+                  - $ref: '#/components/schemas/ExportDeploymentResult'
+        '401':
+          description: >-
+            Authentication failed. The API key is missing or invalid.
+        '404':
+          description: >-
+            The specified deployment UUID was not found.
+  /deployments/{deploymentUuid}/log:
+    get:
+      operationId: getDeploymentLog
+      summary: Get deployment log
+      description: >-
+        Retrieves the deployment log for a completed deployment operation in text
+        format. The log contains detailed information about the deployment
+        process, including any errors or warnings encountered during the
+        operation.
+      tags:
+        - Results
+      parameters:
+        - $ref: '#/components/parameters/deploymentUuid'
+      responses:
+        '200':
+          description: >-
+            Successfully retrieved the deployment log in plain text format.
+          content:
+            text/plain:
+              schema:
+                type: string
+                description: >-
+                  The deployment log content containing detailed information
+                  about the deployment process.
+        '401':
+          description: >-
+            Authentication failed. The API key is missing or invalid.
+        '404':
+          description: >-
+            The specified deployment UUID was not found.
+  /inspections:
+    post:
+      operationId: createInspection
+      summary: Inspect a package before deployment
+      description: >-
+        Creates a new inspection operation to analyze a deployment package
+        before importing it into the target environment. The inspection
+        identifies potential issues, errors, and warnings that may arise during
+        deployment. The request requires the package file, Admin Console settings
+        file, and optionally an import customization file as multipart form
+        data. The response includes an inspection UUID that can be used to
+        retrieve the inspection results.
+      tags:
+        - Inspection
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/InspectionRequest'
+      responses:
+        '200':
+          description: >-
+            Inspection operation initiated successfully. The response includes a
+            UUID for tracking the inspection status.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InspectionResponse'
+        '400':
+          description: >-
+            Bad request. Required files are missing or the request is malformed.
+        '401':
+          description: >-
+            Authentication failed. The API key is missing or invalid.
+  /inspections/{inspectionUuid}:
+    get:
+      operationId: getInspectionResults
+      summary: Get inspection results
+      description: >-
+        Retrieves the current status and results of a package inspection
+        operation identified by its UUID. The response includes a summary of
+        expected objects, Admin Console settings, and any problems (errors and
+        warnings) identified during the inspection.
+      tags:
+        - Inspection
+      parameters:
+        - $ref: '#/components/parameters/inspectionUuid'
+      responses:
+        '200':
+          description: >-
+            Successfully retrieved inspection results including any errors and
+            warnings found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InspectionResult'
+        '401':
+          description: >-
+            Authentication failed. The API key is missing or invalid.
+        '404':
+          description: >-
+            The specified inspection UUID was not found.
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      name: appian-api-key
+      in: header
+      description: >-
+        API key linked to a service account. Created and managed through the
+        Appian Admin Console. The service account must have the appropriate
+        permissions for deployment operations.
+  parameters:
+    actionType:
+      name: Action-Type
+      in: header
+      required: false
+      description: >-
+        Specifies whether the deployment operation is an export or import. If
+        omitted, defaults to import.
+      schema:
+        type: string
+        enum:
+          - export
+          - import
+        default: import
+    deploymentUuid:
+      name: deploymentUuid
+      in: path
+      required: true
+      description: >-
+        The UUID of the deployment operation to query. This is returned when
+        creating a deployment via the POST /deployments endpoint.
+      schema:
+        type: string
+        format: uuid
+      example: d243b14c-3ba5-41c3-9f51-76da51beb8f5
+    inspectionUuid:
+      name: inspectionUuid
+      in: path
+      required: true
+      description: >-
+        The UUID of the inspection operation to query. This is returned when
+        creating an inspection via the POST /inspections endpoint.
+      schema:
+        type: string
+        format: uuid
+      example: 378271a6-ca0d-4466-bac9-385e4fcb951a
+  schemas:
+    DeploymentRequest:
+      type: object
+      description: >-
+        Request body for creating a deployment operation. For exports, provide
+        the JSON configuration with export type and UUIDs. For imports, provide
+        package files along with the JSON configuration.
+      properties:
+        json:
+          type: string
+          description: >-
+            JSON string containing the deployment configuration. For exports,
+            includes exportType and uuids. For imports, includes name,
+            description, and file name references.
+        packageFileName:
+          type: string
+          format: binary
+          description: >-
+            The deployment package ZIP file to import. Required for import
+            operations.
+        adminConsoleSettingsFileName:
+          type: string
+          format: binary
+          description: >-
+            Admin Console settings ZIP file to import alongside the package.
+        customizationFileName:
+          type: string
+          format: binary
+          description: >-
+            Import customization properties file that maps source environment
+            values to target environment values.
+        pluginsFileName:
+          type: string
+          format: binary
+          description: >-
+            Plug-ins ZIP file containing plug-ins to deploy.
+    DeploymentResponse:
+      type: object
+      description: >-
+        Response returned when a deployment operation is successfully initiated.
+        Contains the UUID for tracking the deployment and its current status.
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: >-
+            Unique identifier for the deployment operation. Use this UUID to
+            retrieve deployment results and logs.
+          example: d243b14c-3ba5-41c3-9f51-76da51beb8f5
+        url:
+          type: string
+          format: uri
+          description: >-
+            URL endpoint for retrieving the deployment details and results.
+          example: https://mysite.appiancloud.com/suite/deployment-management/v2/deployments/d243b14c-3ba5-41c3-9f51-76da51beb8f5/
+        status:
+          $ref: '#/components/schemas/DeploymentStatus'
+      required:
+        - uuid
+        - url
+        - status
+    DeploymentStatus:
+      type: string
+      description: >-
+        The current status of a deployment operation. IN_PROGRESS indicates the
+        operation is still running. COMPLETED indicates success. Other statuses
+        indicate various error or review states.
+      enum:
+        - IN_PROGRESS
+        - COMPLETED
+        - COMPLETED_WITH_ERRORS
+        - COMPLETED_WITH_IMPORT_ERRORS
+        - COMPLETED_WITH_PUBLISH_ERRORS
+        - FAILED
+        - PENDING_REVIEW
+        - REJECTED
+    ImportDeploymentResult:
+      type: object
+      description: >-
+        Result of an import deployment operation, including a summary of
+        imported, failed, and skipped objects, Admin Console settings, plug-ins,
+        and database scripts.
+      properties:
+        status:
+          $ref: '#/components/schemas/DeploymentStatus'
+        summary:
+          type: object
+          description: >-
+            Summary of the import deployment operation results.
+          properties:
+            objects:
+              $ref: '#/components/schemas/ImportSummaryCount'
+            adminConsoleSettings:
+              $ref: '#/components/schemas/ImportSummaryCount'
+            plugins:
+              type: object
+              description: >-
+                Summary of plug-in import results.
+              properties:
+                total:
+                  type: integer
+                  description: Total number of plug-ins in the package.
+                  minimum: 0
+                imported:
+                  type: integer
+                  description: Number of plug-ins successfully imported.
+                  minimum: 0
+                skipped:
+                  type: integer
+                  description: Number of plug-ins skipped during import.
+                  minimum: 0
+            databaseScripts:
+              type: integer
+              description: Number of database scripts executed during import.
+              minimum: 0
+            deploymentLogUrl:
+              type: string
+              format: uri
+              description: URL to retrieve the full deployment log.
+      required:
+        - status
+        - summary
+    ExportDeploymentResult:
+      type: object
+      description: >-
+        Result of an export deployment operation, including URLs to download
+        the exported artifacts such as packages, plug-ins, customization files,
+        and database scripts.
+      properties:
+        status:
+          $ref: '#/components/schemas/DeploymentStatus'
+        packageZip:
+          type: string
+          format: uri
+          description: URL to download the exported package ZIP file.
+        dataSource:
+          type: string
+          description: The data source name or UUID associated with the export.
+        databaseScripts:
+          type: array
+          description: >-
+            Array of database script objects included in the export.
+          items:
+            $ref: '#/components/schemas/DatabaseScript'
+        pluginsZip:
+          type: string
+          format: uri
+          description: URL to download the exported plug-ins ZIP file.
+        customizationFile:
+          type: string
+          format: uri
+          description: URL to download the export customization file.
+        customizationFileTemplate:
+          type: string
+          format: uri
+          description: >-
+            URL to download a template customization file for the exported
+            package.
+        deploymentLogUrl:
+          type: string
+          format: uri
+          description: URL to retrieve the full deployment log.
+      required:
+        - status
+    DatabaseScript:
+      type: object
+      description: >-
+        Represents a database script included in an export or import deployment.
+      properties:
+        fileName:
+          type: string
+          description: The file name of the database script.
+          example: create_tables.sql
+        orderId:
+          type: integer
+          description: >-
+            The execution order of the database script, starting at 1.
+          minimum: 1
+          example: 1
+        url:
+          type: string
+          format: uri
+          description: URL to download the database script file.
+    ImportSummaryCount:
+      type: object
+      description: >-
+        Summary count of items in an import deployment, showing total, imported,
+        failed, and skipped counts.
+      properties:
+        total:
+          type: integer
+          description: Total number of items in the package.
+          minimum: 0
+        imported:
+          type: integer
+          description: Number of items successfully imported.
+          minimum: 0
+        failed:
+          type: integer
+          description: Number of items that failed to import.
+          minimum: 0
+        skipped:
+          type: integer
+          description: Number of items skipped during import.
+          minimum: 0
+    InspectionRequest:
+      type: object
+      description: >-
+        Request body for creating a package inspection operation. Requires the
+        deployment package and Admin Console settings files, with an optional
+        import customization file.
+      properties:
+        json:
+          type: string
+          description: >-
+            JSON string containing the inspection configuration with file name
+            references for the attached files.
+        adminConsoleSettingsFileName:
+          type: string
+          format: binary
+          description: >-
+            Admin Console settings ZIP file to use for the inspection.
+        packageFileName:
+          type: string
+          format: binary
+          description: >-
+            The deployment package ZIP file to inspect.
+        customizationFileName:
+          type: string
+          format: binary
+          description: >-
+            Optional import customization properties file to include in the
+            inspection.
+    InspectionResponse:
+      type: object
+      description: >-
+        Response returned when an inspection operation is successfully
+        initiated. Contains the UUID for tracking the inspection.
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: >-
+            Unique identifier for the inspection operation. Use this UUID to
+            retrieve inspection results.
+          example: 378271a6-ca0d-4466-bac9-385e4fcb951a
+        url:
+          type: string
+          format: uri
+          description: >-
+            URL endpoint for retrieving the inspection details and results.
+          example: https://mysite.appiancloud.com/suite/deployment-management/v2/inspections/378271a6-ca0d-4466-bac9-385e4fcb951a/
+      required:
+        - uuid
+        - url
+    InspectionResult:
+      type: object
+      description: >-
+        Result of a package inspection operation, including expected object
+        counts and any problems identified.
+      properties:
+        status:
+          type: string
+          description: The current status of the inspection operation.
+          enum:
+            - IN_PROGRESS
+            - COMPLETED
+            - FAILED
+        summary:
+          type: object
+          description: Summary of the inspection findings.
+          properties:
+            objectsExpected:
+              $ref: '#/components/schemas/ImportSummaryCount'
+            adminConsoleSettingsExpected:
+              $ref: '#/components/schemas/ImportSummaryCount'
+            problems:
+              $ref: '#/components/schemas/InspectionProblems'
+      required:
+        - status
+    InspectionProblems:
+      type: object
+      description: >-
+        Collection of errors and warnings identified during a package
+        inspection.
+      properties:
+        totalErrors:
+          type: integer
+          description: Total number of errors found during inspection.
+          minimum: 0
+        totalWarnings:
+          type: integer
+          description: Total number of warnings found during inspection.
+          minimum: 0
+        errors:
+          type: array
+          description: Array of error details identified during inspection.
+          items:
+            $ref: '#/components/schemas/InspectionError'
+        warnings:
+          type: array
+          description: Array of warning details identified during inspection.
+          items:
+            $ref: '#/components/schemas/InspectionWarning'
+    InspectionError:
+      type: object
+      description: >-
+        An error identified during package inspection that would prevent
+        successful deployment.
+      properties:
+        errorMessage:
+          type: string
+          description: A description of the error condition.
+        objectName:
+          type: string
+          description: The name of the object affected by the error.
+        objectUuid:
+          type: string
+          format: uuid
+          description: The UUID of the object affected by the error.
+    InspectionWarning:
+      type: object
+      description: >-
+        A warning identified during package inspection that may affect
+        deployment but would not prevent it.
+      properties:
+        warningMessage:
+          type: string
+          description: A description of the warning condition.
+        objectName:
+          type: string
+          description: The name of the object associated with the warning.
+        objectUuid:
+          type: string
+          format: uuid
+          description: The UUID of the object associated with the warning.
+    ExportConfiguration:
+      type: object
+      description: >-
+        Configuration for an export deployment operation specifying what to
+        export and how.
+      properties:
+        exportType:
+          type: string
+          description: >-
+            Specifies the kind of export being performed. Use package for a
+            single package or application for one or more applications.
+          enum:
+            - package
+            - application
+        uuids:
+          type: array
+          description: >-
+            Array of UUIDs to export. For packages, provide a single UUID. For
+            applications, provide one or more application UUIDs.
+          items:
+            type: string
+            format: uuid
+          minItems: 1
+        name:
+          type: string
+          description: >-
+            Custom name for the deployment. If omitted, a name is
+            auto-generated.
+          example: CR-176543 Add reports dashboard
+        description:
+          type: string
+          description: >-
+            Description of the deployment, displayed in Appian Designer.
+          example: Updates the executive summary view.
+      required:
+        - exportType
+        - uuids
+    ImportConfiguration:
+      type: object
+      description: >-
+        Configuration for an import deployment operation specifying the files
+        and settings to deploy.
+      properties:
+        name:
+          type: string
+          description: >-
+            Name of the deployment, displayed in Appian Designer's Deploy view.
+          example: Q4 Release Package
+        description:
+          type: string
+          description: >-
+            Description of the deployment.
+        packageFileName:
+          type: string
+          description: >-
+            File name of the deployment package ZIP file attached in the form
+            data.
+        adminConsoleSettingsFileName:
+          type: string
+          description: >-
+            File name of the Admin Console settings ZIP file attached in the
+            form data.
+        customizationFileName:
+          type: string
+          description: >-
+            File name of the import customization properties file attached in
+            the form data.
+        pluginsFileName:
+          type: string
+          description: >-
+            File name of the plug-ins ZIP file attached in the form data.
+        dataSource:
+          type: string
+          description: >-
+            The data source name or UUID for database script execution.
+        databaseScripts:
+          type: array
+          description: >-
+            Array of database script configurations specifying file names and
+            execution order.
+          items:
+            type: object
+            properties:
+              fileName:
+                type: string
+                description: The file name of the database script.
+              orderId:
+                type: string
+                description: >-
+                  The execution order for the script, starting at 1.
+      required:
+        - name

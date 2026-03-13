@@ -1,0 +1,184 @@
+openapi: 3.1.0
+info:
+  title: Appian Application Package Details API
+  description: >-
+    The Application Package Details API uses the UUID of an application to
+    retrieve data about any in-flight packages for that application. It can be
+    used to link packages to change management systems or obtain identifiers for
+    packages that can then be used with the Deployment REST API to perform
+    exports and deployments. Packages are returned in order of last modified
+    timestamp, with the most recently modified package appearing first, up to a
+    maximum of 100 packages.
+  version: '2'
+  contact:
+    name: Appian Corporation
+    url: https://www.appian.com
+    email: support@appian.com
+  termsOfService: https://www.appian.com/terms-of-service.html
+  license:
+    name: Proprietary
+    url: https://www.appian.com/terms-of-service.html
+externalDocs:
+  description: Application Package Details API Documentation
+  url: https://docs.appian.com/suite/help/25.4/Application_Package_Details_API.html
+servers:
+  - url: https://{domain}/suite/deployment-management/v2
+    description: Appian Cloud Production Server
+    variables:
+      domain:
+        default: mysite.appiancloud.com
+        description: >-
+          The Appian site domain, typically in the format
+          mysite.appiancloud.com for cloud deployments.
+tags:
+  - name: Packages
+    description: >-
+      Operations for retrieving package details associated with an Appian
+      application.
+security:
+  - apiKeyAuth: []
+paths:
+  /applications/{applicationUuid}/packages:
+    get:
+      operationId: getApplicationPackages
+      summary: Get application package details
+      description: >-
+        Retrieves data about any in-flight packages for the specified
+        application. Returns up to 100 packages ordered by last modified
+        timestamp with the most recently modified package first. This endpoint
+        can be used to link packages to change management systems or to obtain
+        package identifiers for use with the Deployment REST API.
+      tags:
+        - Packages
+      parameters:
+        - $ref: '#/components/parameters/applicationUuid'
+      responses:
+        '200':
+          description: >-
+            Successfully retrieved the list of packages for the specified
+            application.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PackageListResponse'
+        '401':
+          description: >-
+            Authentication failed. The API key is missing, invalid, or the
+            associated service account does not have access.
+        '404':
+          description: >-
+            The specified application UUID was not found or the service account
+            does not have access to the application.
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      name: appian-api-key
+      in: header
+      description: >-
+        API key linked to a service account. Created and managed through the
+        Appian Admin Console. The service account must have access to the
+        application via the application's role map.
+  parameters:
+    applicationUuid:
+      name: applicationUuid
+      in: path
+      required: true
+      description: >-
+        The UUID of the application whose packages are being retrieved. This
+        UUID can be found in the application properties within Appian Designer.
+      schema:
+        type: string
+        format: uuid
+      example: d243b14c-3ba5-41c3-9f51-76da51beb8f5
+  schemas:
+    PackageListResponse:
+      type: object
+      description: >-
+        Response containing the total count of packages and an array of package
+        detail objects for the specified application.
+      properties:
+        totalPackageCount:
+          type: integer
+          description: >-
+            The total number of in-flight packages for the application. Maximum
+            of 100.
+          minimum: 0
+          maximum: 100
+          example: 3
+        packages:
+          type: array
+          description: >-
+            Array of package objects ordered by last modified timestamp, newest
+            first.
+          items:
+            $ref: '#/components/schemas/Package'
+      required:
+        - totalPackageCount
+        - packages
+    Package:
+      type: object
+      description: >-
+        Represents an in-flight deployment package associated with an Appian
+        application. Contains metadata about the package contents and status.
+      properties:
+        name:
+          type: string
+          description: The name of the deployment package.
+          example: CR-176543 Add reports dashboard
+        description:
+          type: string
+          description: A description of the deployment package.
+          example: Updates the executive summary view with new reports.
+        uuid:
+          type: string
+          format: uuid
+          description: >-
+            The unique identifier for the package. This UUID can be used with the
+            Deployment REST API for exports and deployments.
+          example: d243b14c-3ba5-41c3-9f51-76da51beb8f5
+        objectCount:
+          type: integer
+          description: The number of design objects included in the package.
+          minimum: 0
+          example: 12
+        databaseScriptCount:
+          type: integer
+          description: The number of database scripts included in the package.
+          minimum: 0
+          example: 2
+        pluginCount:
+          type: integer
+          description: The number of plug-ins included in the package.
+          minimum: 0
+          example: 1
+        datasourceUuid:
+          type: string
+          format: uuid
+          description: >-
+            The UUID of the data source associated with the package, if
+            applicable.
+        hasCustomizationFile:
+          type: boolean
+          description: >-
+            Indicates whether the package includes an import customization file.
+          example: true
+        createdTimestamp:
+          type: string
+          format: date-time
+          description: The timestamp when the package was created.
+        lastModifiedTimestamp:
+          type: string
+          format: date-time
+          description: >-
+            The timestamp when the package was last modified. Packages are sorted
+            by this field in descending order.
+        ticketLink:
+          type: string
+          description: >-
+            A link to an external ticket or change request associated with this
+            package.
+          example: https://jira.example.com/browse/CR-176543
+      required:
+        - name
+        - uuid
