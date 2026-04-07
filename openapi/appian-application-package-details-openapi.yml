@@ -41,7 +41,7 @@ paths:
   /applications/{applicationUuid}/packages:
     get:
       operationId: getApplicationPackages
-      summary: Get application package details
+      summary: Appian Get application package details
       description: >-
         Retrieves data about any in-flight packages for the specified
         application. Returns up to 100 packages ordered by last modified

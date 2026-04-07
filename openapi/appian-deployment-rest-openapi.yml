@@ -54,7 +54,7 @@ paths:
   /deployments:
     post:
       operationId: createDeployment
-      summary: Export or import a deployment
+      summary: Appian Export or import a deployment
       description: >-
         Creates a new deployment operation for either exporting or importing
         applications and packages. The Action-Type header determines whether the
@@ -98,7 +98,7 @@ paths:
   /deployments/{deploymentUuid}:
     get:
       operationId: getDeploymentResults
-      summary: Get deployment results
+      summary: Appian Get deployment results
       description: >-
         Retrieves the current status and results of a deployment operation
         identified by its UUID. The response structure varies depending on
@@ -130,7 +130,7 @@ paths:
   /deployments/{deploymentUuid}/log:
     get:
       operationId: getDeploymentLog
-      summary: Get deployment log
+      summary: Appian Get deployment log
       description: >-
         Retrieves the deployment log for a completed deployment operation in text
         format. The log contains detailed information about the deployment
@@ -160,7 +160,7 @@ paths:
   /inspections:
     post:
       operationId: createInspection
-      summary: Inspect a package before deployment
+      summary: Appian Inspect a package before deployment
       description: >-
         Creates a new inspection operation to analyze a deployment package
         before importing it into the target environment. The inspection
@@ -195,7 +195,7 @@ paths:
   /inspections/{inspectionUuid}:
     get:
       operationId: getInspectionResults
-      summary: Get inspection results
+      summary: Appian Get inspection results
       description: >-
         Retrieves the current status and results of a package inspection
         operation identified by its UUID. The response includes a summary of
