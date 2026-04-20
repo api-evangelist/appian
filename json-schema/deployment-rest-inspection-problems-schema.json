@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/appian/refs/heads/main/json-schema/deployment-rest-inspection-problems-schema.json",
+  "title": "InspectionProblems",
+  "description": "Collection of errors and warnings identified during a package inspection.",
+  "type": "object",
+  "properties": {
+    "totalErrors": {
+      "type": "integer",
+      "description": "Total number of errors found during inspection.",
+      "minimum": 0
+    },
+    "totalWarnings": {
+      "type": "integer",
+      "description": "Total number of warnings found during inspection.",
+      "minimum": 0
+    },
+    "errors": {
+      "type": "array",
+      "description": "Array of error details identified during inspection.",
+      "items": {
+        "$ref": "#/components/schemas/InspectionError"
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "description": "Array of warning details identified during inspection.",
+      "items": {
+        "$ref": "#/components/schemas/InspectionWarning"
+      }
+    }
+  }
+}

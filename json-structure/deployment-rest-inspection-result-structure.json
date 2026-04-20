@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/appian/refs/heads/main/json-structure/deployment-rest-inspection-result-structure.json",
+  "name": "InspectionResult",
+  "description": "Result of a package inspection operation, including expected object counts and any problems identified.",
+  "type": "object",
+  "properties": {
+    "status": {
+      "description": "The current status of the inspection operation.",
+      "enum": [
+        "IN_PROGRESS",
+        "COMPLETED",
+        "FAILED"
+      ],
+      "type": "string"
+    },
+    "summary": {
+      "description": "Summary of the inspection findings.",
+      "properties": {
+        "objectsExpected": {
+          "$ref": "#/components/schemas/ImportSummaryCount",
+          "type": null
+        },
+        "adminConsoleSettingsExpected": {
+          "$ref": "#/components/schemas/ImportSummaryCount",
+          "type": null
+        },
+        "problems": {
+          "$ref": "#/components/schemas/InspectionProblems",
+          "type": null
+        }
+      },
+      "type": "object"
+    }
+  },
+  "required": [
+    "status"
+  ]
+}

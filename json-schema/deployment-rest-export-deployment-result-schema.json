@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/appian/refs/heads/main/json-schema/deployment-rest-export-deployment-result-schema.json",
+  "title": "ExportDeploymentResult",
+  "description": "Result of an export deployment operation, including URLs to download the exported artifacts such as packages, plug-ins, customization files, and database scripts.",
+  "type": "object",
+  "properties": {
+    "status": {
+      "$ref": "#/components/schemas/DeploymentStatus"
+    },
+    "packageZip": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to download the exported package ZIP file."
+    },
+    "dataSource": {
+      "type": "string",
+      "description": "The data source name or UUID associated with the export."
+    },
+    "databaseScripts": {
+      "type": "array",
+      "description": "Array of database script objects included in the export.",
+      "items": {
+        "$ref": "#/components/schemas/DatabaseScript"
+      }
+    },
+    "pluginsZip": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to download the exported plug-ins ZIP file."
+    },
+    "customizationFile": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to download the export customization file."
+    },
+    "customizationFileTemplate": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to download a template customization file for the exported package."
+    },
+    "deploymentLogUrl": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to retrieve the full deployment log."
+    }
+  },
+  "required": [
+    "status"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/appian/refs/heads/main/json-schema/deployment-rest-inspection-request-schema.json",
+  "title": "InspectionRequest",
+  "description": "Request body for creating a package inspection operation. Requires the deployment package and Admin Console settings files, with an optional import customization file.",
+  "type": "object",
+  "properties": {
+    "json": {
+      "type": "string",
+      "description": "JSON string containing the inspection configuration with file name references for the attached files."
+    },
+    "adminConsoleSettingsFileName": {
+      "type": "string",
+      "format": "binary",
+      "description": "Admin Console settings ZIP file to use for the inspection."
+    },
+    "packageFileName": {
+      "type": "string",
+      "format": "binary",
+      "description": "The deployment package ZIP file to inspect."
+    },
+    "customizationFileName": {
+      "type": "string",
+      "format": "binary",
+      "description": "Optional import customization properties file to include in the inspection."
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/appian/refs/heads/main/json-structure/deployment-rest-export-deployment-result-structure.json",
+  "name": "ExportDeploymentResult",
+  "description": "Result of an export deployment operation, including URLs to download the exported artifacts such as packages, plug-ins, customization files, and database scripts.",
+  "type": "object",
+  "properties": {
+    "status": {
+      "$ref": "#/components/schemas/DeploymentStatus",
+      "type": null
+    },
+    "packageZip": {
+      "description": "URL to download the exported package ZIP file.",
+      "type": "uri"
+    },
+    "dataSource": {
+      "description": "The data source name or UUID associated with the export.",
+      "type": "string"
+    },
+    "databaseScripts": {
+      "description": "Array of database script objects included in the export.",
+      "items": {
+        "$ref": "#/components/schemas/DatabaseScript"
+      },
+      "type": "array"
+    },
+    "pluginsZip": {
+      "description": "URL to download the exported plug-ins ZIP file.",
+      "type": "uri"
+    },
+    "customizationFile": {
+      "description": "URL to download the export customization file.",
+      "type": "uri"
+    },
+    "customizationFileTemplate": {
+      "description": "URL to download a template customization file for the exported package.",
+      "type": "uri"
+    },
+    "deploymentLogUrl": {
+      "description": "URL to retrieve the full deployment log.",
+      "type": "uri"
+    }
+  },
+  "required": [
+    "status"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/appian/refs/heads/main/json-schema/deployment-rest-deployment-response-schema.json",
+  "title": "DeploymentResponse",
+  "description": "Response returned when a deployment operation is successfully initiated. Contains the UUID for tracking the deployment and its current status.",
+  "type": "object",
+  "properties": {
+    "uuid": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for the deployment operation. Use this UUID to retrieve deployment results and logs.",
+      "example": "d243b14c-3ba5-41c3-9f51-76da51beb8f5"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL endpoint for retrieving the deployment details and results.",
+      "example": "https://mysite.appiancloud.com/suite/deployment-management/v2/deployments/d243b14c-3ba5-41c3-9f51-76da51beb8f5/"
+    },
+    "status": {
+      "$ref": "#/components/schemas/DeploymentStatus"
+    }
+  },
+  "required": [
+    "uuid",
+    "url",
+    "status"
+  ]
+}

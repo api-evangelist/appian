@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/appian/refs/heads/main/json-structure/deployment-rest-export-configuration-structure.json",
+  "name": "ExportConfiguration",
+  "description": "Configuration for an export deployment operation specifying what to export and how.",
+  "type": "object",
+  "properties": {
+    "exportType": {
+      "description": "Specifies the kind of export being performed. Use package for a single package or application for one or more applications.",
+      "enum": [
+        "package",
+        "application"
+      ],
+      "type": "string"
+    },
+    "uuids": {
+      "description": "Array of UUIDs to export. For packages, provide a single UUID. For applications, provide one or more application UUIDs.",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "name": {
+      "description": "Custom name for the deployment. If omitted, a name is auto-generated.",
+      "example": "CR-176543 Add reports dashboard",
+      "type": "string"
+    },
+    "description": {
+      "description": "Description of the deployment, displayed in Appian Designer.",
+      "example": "Updates the executive summary view.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "exportType",
+    "uuids"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/appian/refs/heads/main/json-schema/deployment-rest-deployment-request-schema.json",
+  "title": "DeploymentRequest",
+  "description": "Request body for creating a deployment operation. For exports, provide the JSON configuration with export type and UUIDs. For imports, provide package files along with the JSON configuration.",
+  "type": "object",
+  "properties": {
+    "json": {
+      "type": "string",
+      "description": "JSON string containing the deployment configuration. For exports, includes exportType and uuids. For imports, includes name, description, and file name references."
+    },
+    "packageFileName": {
+      "type": "string",
+      "format": "binary",
+      "description": "The deployment package ZIP file to import. Required for import operations."
+    },
+    "adminConsoleSettingsFileName": {
+      "type": "string",
+      "format": "binary",
+      "description": "Admin Console settings ZIP file to import alongside the package."
+    },
+    "customizationFileName": {
+      "type": "string",
+      "format": "binary",
+      "description": "Import customization properties file that maps source environment values to target environment values."
+    },
+    "pluginsFileName": {
+      "type": "string",
+      "format": "binary",
+      "description": "Plug-ins ZIP file containing plug-ins to deploy."
+    }
+  }
+}

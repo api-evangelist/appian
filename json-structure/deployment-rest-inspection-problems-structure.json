@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/appian/refs/heads/main/json-structure/deployment-rest-inspection-problems-structure.json",
+  "name": "InspectionProblems",
+  "description": "Collection of errors and warnings identified during a package inspection.",
+  "type": "object",
+  "properties": {
+    "totalErrors": {
+      "description": "Total number of errors found during inspection.",
+      "minimum": 0,
+      "type": "int32"
+    },
+    "totalWarnings": {
+      "description": "Total number of warnings found during inspection.",
+      "minimum": 0,
+      "type": "int32"
+    },
+    "errors": {
+      "description": "Array of error details identified during inspection.",
+      "items": {
+        "$ref": "#/components/schemas/InspectionError"
+      },
+      "type": "array"
+    },
+    "warnings": {
+      "description": "Array of warning details identified during inspection.",
+      "items": {
+        "$ref": "#/components/schemas/InspectionWarning"
+      },
+      "type": "array"
+    }
+  }
+}

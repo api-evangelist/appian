@@ -1,0 +1,10 @@
+{
+  "status": "SUCCESS",
+  "packageZip": "sample-packageZip",
+  "dataSource": "sample-dataSource",
+  "databaseScripts": [],
+  "pluginsZip": "sample-pluginsZip",
+  "customizationFile": "sample-customizationFile",
+  "customizationFileTemplate": "sample-customizationFileTemplate",
+  "deploymentLogUrl": "https://example.appian.com/"
+}

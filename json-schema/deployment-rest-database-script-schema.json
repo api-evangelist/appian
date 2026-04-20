@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/appian/refs/heads/main/json-schema/deployment-rest-database-script-schema.json",
+  "title": "DatabaseScript",
+  "description": "Represents a database script included in an export or import deployment.",
+  "type": "object",
+  "properties": {
+    "fileName": {
+      "type": "string",
+      "description": "The file name of the database script.",
+      "example": "create_tables.sql"
+    },
+    "orderId": {
+      "type": "integer",
+      "description": "The execution order of the database script, starting at 1.",
+      "minimum": 1,
+      "example": 1
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to download the database script file."
+    }
+  }
+}

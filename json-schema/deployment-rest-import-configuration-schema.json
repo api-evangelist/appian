@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/appian/refs/heads/main/json-schema/deployment-rest-import-configuration-schema.json",
+  "title": "ImportConfiguration",
+  "description": "Configuration for an import deployment operation specifying the files and settings to deploy.",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the deployment, displayed in Appian Designer's Deploy view.",
+      "example": "Q4 Release Package"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the deployment."
+    },
+    "packageFileName": {
+      "type": "string",
+      "description": "File name of the deployment package ZIP file attached in the form data."
+    },
+    "adminConsoleSettingsFileName": {
+      "type": "string",
+      "description": "File name of the Admin Console settings ZIP file attached in the form data."
+    },
+    "customizationFileName": {
+      "type": "string",
+      "description": "File name of the import customization properties file attached in the form data."
+    },
+    "pluginsFileName": {
+      "type": "string",
+      "description": "File name of the plug-ins ZIP file attached in the form data."
+    },
+    "dataSource": {
+      "type": "string",
+      "description": "The data source name or UUID for database script execution."
+    },
+    "databaseScripts": {
+      "type": "array",
+      "description": "Array of database script configurations specifying file names and execution order.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "fileName": {
+            "type": "string",
+            "description": "The file name of the database script."
+          },
+          "orderId": {
+            "type": "string",
+            "description": "The execution order for the script, starting at 1."
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "name"
+  ]
+}

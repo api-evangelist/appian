@@ -1,0 +1,198 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "appian": "https://appian.com/schema/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "DeploymentRequest": "appian:DeploymentRequest",
+    "DeploymentResponse": "appian:DeploymentResponse",
+    "DeploymentStatus": "appian:DeploymentStatus",
+    "ImportDeploymentResult": "appian:ImportDeploymentResult",
+    "ExportDeploymentResult": "appian:ExportDeploymentResult",
+    "DatabaseScript": "appian:DatabaseScript",
+    "ImportSummaryCount": "appian:ImportSummaryCount",
+    "InspectionRequest": "appian:InspectionRequest",
+    "InspectionResponse": "appian:InspectionResponse",
+    "InspectionResult": "appian:InspectionResult",
+    "InspectionProblems": "appian:InspectionProblems",
+    "InspectionError": "appian:InspectionError",
+    "InspectionWarning": "appian:InspectionWarning",
+    "ExportConfiguration": "appian:ExportConfiguration",
+    "ImportConfiguration": "appian:ImportConfiguration",
+    "PackageListResponse": "appian:PackageListResponse",
+    "Package": "appian:Package",
+    "json": {
+      "@id": "appian:json",
+      "@type": "xsd:string"
+    },
+    "packageFileName": {
+      "@id": "appian:packageFileName",
+      "@type": "xsd:string"
+    },
+    "adminConsoleSettingsFileName": {
+      "@id": "appian:adminConsoleSettingsFileName",
+      "@type": "xsd:string"
+    },
+    "customizationFileName": {
+      "@id": "appian:customizationFileName",
+      "@type": "xsd:string"
+    },
+    "pluginsFileName": {
+      "@id": "appian:pluginsFileName",
+      "@type": "xsd:string"
+    },
+    "uuid": {
+      "@id": "appian:uuid",
+      "@type": "xsd:string"
+    },
+    "url": "schema:url",
+    "status": {
+      "@id": "appian:status",
+      "@type": "xsd:string"
+    },
+    "summary": {
+      "@id": "appian:summary",
+      "@type": "xsd:string"
+    },
+    "packageZip": {
+      "@id": "appian:packageZip",
+      "@type": "@id"
+    },
+    "dataSource": {
+      "@id": "appian:dataSource",
+      "@type": "xsd:string"
+    },
+    "databaseScripts": {
+      "@id": "appian:databaseScripts",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "pluginsZip": {
+      "@id": "appian:pluginsZip",
+      "@type": "@id"
+    },
+    "customizationFile": {
+      "@id": "appian:customizationFile",
+      "@type": "@id"
+    },
+    "customizationFileTemplate": {
+      "@id": "appian:customizationFileTemplate",
+      "@type": "@id"
+    },
+    "deploymentLogUrl": {
+      "@id": "appian:deploymentLogUrl",
+      "@type": "@id"
+    },
+    "fileName": {
+      "@id": "appian:fileName",
+      "@type": "xsd:string"
+    },
+    "orderId": {
+      "@id": "appian:orderId",
+      "@type": "xsd:integer"
+    },
+    "total": {
+      "@id": "appian:total",
+      "@type": "xsd:integer"
+    },
+    "imported": {
+      "@id": "appian:imported",
+      "@type": "xsd:integer"
+    },
+    "failed": {
+      "@id": "appian:failed",
+      "@type": "xsd:integer"
+    },
+    "skipped": {
+      "@id": "appian:skipped",
+      "@type": "xsd:integer"
+    },
+    "totalErrors": {
+      "@id": "appian:totalErrors",
+      "@type": "xsd:integer"
+    },
+    "totalWarnings": {
+      "@id": "appian:totalWarnings",
+      "@type": "xsd:integer"
+    },
+    "errors": {
+      "@id": "appian:errors",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "warnings": {
+      "@id": "appian:warnings",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "errorMessage": {
+      "@id": "appian:errorMessage",
+      "@type": "xsd:string"
+    },
+    "objectName": {
+      "@id": "appian:objectName",
+      "@type": "xsd:string"
+    },
+    "objectUuid": {
+      "@id": "appian:objectUuid",
+      "@type": "xsd:string"
+    },
+    "warningMessage": {
+      "@id": "appian:warningMessage",
+      "@type": "xsd:string"
+    },
+    "exportType": {
+      "@id": "appian:exportType",
+      "@type": "xsd:string"
+    },
+    "uuids": {
+      "@id": "appian:uuids",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "name": "schema:name",
+    "description": "schema:description",
+    "totalPackageCount": {
+      "@id": "appian:totalPackageCount",
+      "@type": "xsd:integer"
+    },
+    "packages": {
+      "@id": "appian:packages",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "objectCount": {
+      "@id": "appian:objectCount",
+      "@type": "xsd:integer"
+    },
+    "databaseScriptCount": {
+      "@id": "appian:databaseScriptCount",
+      "@type": "xsd:integer"
+    },
+    "pluginCount": {
+      "@id": "appian:pluginCount",
+      "@type": "xsd:integer"
+    },
+    "datasourceUuid": {
+      "@id": "appian:datasourceUuid",
+      "@type": "xsd:string"
+    },
+    "hasCustomizationFile": {
+      "@id": "appian:hasCustomizationFile",
+      "@type": "xsd:boolean"
+    },
+    "createdTimestamp": {
+      "@id": "appian:createdTimestamp",
+      "@type": "xsd:dateTime"
+    },
+    "lastModifiedTimestamp": {
+      "@id": "appian:lastModifiedTimestamp",
+      "@type": "xsd:dateTime"
+    },
+    "ticketLink": {
+      "@id": "appian:ticketLink",
+      "@type": "xsd:string"
+    }
+  }
+}

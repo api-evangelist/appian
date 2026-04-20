@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/appian/refs/heads/main/json-structure/deployment-rest-deployment-status-structure.json",
+  "name": "DeploymentStatus",
+  "description": "The current status of a deployment operation. IN_PROGRESS indicates the operation is still running. COMPLETED indicates success. Other statuses indicate various error or review states.",
+  "type": "object"
+}

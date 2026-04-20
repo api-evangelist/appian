@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/appian/refs/heads/main/json-schema/deployment-rest-import-summary-count-schema.json",
+  "title": "ImportSummaryCount",
+  "description": "Summary count of items in an import deployment, showing total, imported, failed, and skipped counts.",
+  "type": "object",
+  "properties": {
+    "total": {
+      "type": "integer",
+      "description": "Total number of items in the package.",
+      "minimum": 0
+    },
+    "imported": {
+      "type": "integer",
+      "description": "Number of items successfully imported.",
+      "minimum": 0
+    },
+    "failed": {
+      "type": "integer",
+      "description": "Number of items that failed to import.",
+      "minimum": 0
+    },
+    "skipped": {
+      "type": "integer",
+      "description": "Number of items skipped during import.",
+      "minimum": 0
+    }
+  }
+}

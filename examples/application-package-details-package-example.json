@@ -1,0 +1,13 @@
+{
+  "name": "Sample name",
+  "description": "sample-description",
+  "uuid": "sample-id-001",
+  "objectCount": 1,
+  "databaseScriptCount": 1,
+  "pluginCount": 1,
+  "datasourceUuid": "sample-id-001",
+  "hasCustomizationFile": false,
+  "createdTimestamp": "2025-03-15T14:30:00Z",
+  "lastModifiedTimestamp": "2025-03-15T14:30:00Z",
+  "ticketLink": "sample-ticketLink"
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/appian/refs/heads/main/json-structure/deployment-rest-inspection-error-structure.json",
+  "name": "InspectionError",
+  "description": "An error identified during package inspection that would prevent successful deployment.",
+  "type": "object",
+  "properties": {
+    "errorMessage": {
+      "description": "A description of the error condition.",
+      "type": "string"
+    },
+    "objectName": {
+      "description": "The name of the object affected by the error.",
+      "type": "string"
+    },
+    "objectUuid": {
+      "description": "The UUID of the object affected by the error.",
+      "type": "string"
+    }
+  }
+}

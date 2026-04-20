@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/appian/refs/heads/main/json-structure/application-package-details-package-structure.json",
+  "name": "Package",
+  "description": "Represents an in-flight deployment package associated with an Appian application. Contains metadata about the package contents and status.",
+  "type": "object",
+  "properties": {
+    "name": {
+      "description": "The name of the deployment package.",
+      "example": "CR-176543 Add reports dashboard",
+      "type": "string"
+    },
+    "description": {
+      "description": "A description of the deployment package.",
+      "example": "Updates the executive summary view with new reports.",
+      "type": "string"
+    },
+    "uuid": {
+      "description": "The unique identifier for the package. This UUID can be used with the Deployment REST API for exports and deployments.",
+      "example": "d243b14c-3ba5-41c3-9f51-76da51beb8f5",
+      "type": "string"
+    },
+    "objectCount": {
+      "description": "The number of design objects included in the package.",
+      "minimum": 0,
+      "example": 12,
+      "type": "int32"
+    },
+    "databaseScriptCount": {
+      "description": "The number of database scripts included in the package.",
+      "minimum": 0,
+      "example": 2,
+      "type": "int32"
+    },
+    "pluginCount": {
+      "description": "The number of plug-ins included in the package.",
+      "minimum": 0,
+      "example": 1,
+      "type": "int32"
+    },
+    "datasourceUuid": {
+      "description": "The UUID of the data source associated with the package, if applicable.",
+      "type": "string"
+    },
+    "hasCustomizationFile": {
+      "description": "Indicates whether the package includes an import customization file.",
+      "example": true,
+      "type": "boolean"
+    },
+    "createdTimestamp": {
+      "description": "The timestamp when the package was created.",
+      "type": "datetime"
+    },
+    "lastModifiedTimestamp": {
+      "description": "The timestamp when the package was last modified. Packages are sorted by this field in descending order.",
+      "type": "datetime"
+    },
+    "ticketLink": {
+      "description": "A link to an external ticket or change request associated with this package.",
+      "example": "https://jira.example.com/browse/CR-176543",
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "uuid"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/appian/refs/heads/main/json-structure/application-package-details-package-list-response-structure.json",
+  "name": "PackageListResponse",
+  "description": "Response containing the total count of packages and an array of package detail objects for the specified application.",
+  "type": "object",
+  "properties": {
+    "totalPackageCount": {
+      "description": "The total number of in-flight packages for the application. Maximum of 100.",
+      "minimum": 0,
+      "maximum": 100,
+      "example": 3,
+      "type": "int32"
+    },
+    "packages": {
+      "description": "Array of package objects ordered by last modified timestamp, newest first.",
+      "items": {
+        "$ref": "#/components/schemas/Package"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "totalPackageCount",
+    "packages"
+  ]
+}

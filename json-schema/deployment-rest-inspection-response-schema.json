@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/appian/refs/heads/main/json-schema/deployment-rest-inspection-response-schema.json",
+  "title": "InspectionResponse",
+  "description": "Response returned when an inspection operation is successfully initiated. Contains the UUID for tracking the inspection.",
+  "type": "object",
+  "properties": {
+    "uuid": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for the inspection operation. Use this UUID to retrieve inspection results.",
+      "example": "378271a6-ca0d-4466-bac9-385e4fcb951a"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL endpoint for retrieving the inspection details and results.",
+      "example": "https://mysite.appiancloud.com/suite/deployment-management/v2/inspections/378271a6-ca0d-4466-bac9-385e4fcb951a/"
+    }
+  },
+  "required": [
+    "uuid",
+    "url"
+  ]
+}

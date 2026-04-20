@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/appian/refs/heads/main/json-structure/deployment-rest-import-deployment-result-structure.json",
+  "name": "ImportDeploymentResult",
+  "description": "Result of an import deployment operation, including a summary of imported, failed, and skipped objects, Admin Console settings, plug-ins, and database scripts.",
+  "type": "object",
+  "properties": {
+    "status": {
+      "$ref": "#/components/schemas/DeploymentStatus",
+      "type": null
+    },
+    "summary": {
+      "description": "Summary of the import deployment operation results.",
+      "properties": {
+        "objects": {
+          "$ref": "#/components/schemas/ImportSummaryCount",
+          "type": null
+        },
+        "adminConsoleSettings": {
+          "$ref": "#/components/schemas/ImportSummaryCount",
+          "type": null
+        },
+        "plugins": {
+          "description": "Summary of plug-in import results.",
+          "properties": {
+            "total": {
+              "description": "Total number of plug-ins in the package.",
+              "minimum": 0,
+              "type": "int32"
+            },
+            "imported": {
+              "description": "Number of plug-ins successfully imported.",
+              "minimum": 0,
+              "type": "int32"
+            },
+            "skipped": {
+              "description": "Number of plug-ins skipped during import.",
+              "minimum": 0,
+              "type": "int32"
+            }
+          },
+          "type": "object"
+        },
+        "databaseScripts": {
+          "description": "Number of database scripts executed during import.",
+          "minimum": 0,
+          "type": "int32"
+        },
+        "deploymentLogUrl": {
+          "description": "URL to retrieve the full deployment log.",
+          "type": "uri"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "required": [
+    "status",
+    "summary"
+  ]
+}

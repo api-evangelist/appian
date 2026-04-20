@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/appian/refs/heads/main/json-schema/deployment-rest-inspection-warning-schema.json",
+  "title": "InspectionWarning",
+  "description": "A warning identified during package inspection that may affect deployment but would not prevent it.",
+  "type": "object",
+  "properties": {
+    "warningMessage": {
+      "type": "string",
+      "description": "A description of the warning condition."
+    },
+    "objectName": {
+      "type": "string",
+      "description": "The name of the object associated with the warning."
+    },
+    "objectUuid": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The UUID of the object associated with the warning."
+    }
+  }
+}
