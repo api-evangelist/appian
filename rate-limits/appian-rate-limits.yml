@@ -4,122 +4,57 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Appian
 providerId: appian
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: false
 tags:
-  - Automation
-  - BPM
-  - Business Process Management
-  - Enterprise Software
-  - Low-Code
-  - Process Automation
-  - RPA
-  - Workflow
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Appian API surface. Captures per-tier quotas,
-  burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to be replaced
-  with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+  - Low Code
+  - BPM
+  - Appian
+description: Appian does not publish numeric rate limits for its Web APIs (Deployment REST, Application
+  Package Details, Export Package, Health Check, AI Skills). Effective ceilings are governed by the customer's
+  Appian environment sizing (Cloud or Self-Managed) and by the AI Actions monthly allotment of the chosen
+  edition (Standard 200K / Advanced 500K / Premium 1M). Heavy automation should batch requests, use webhooks
+  where available, and respect 429/503 with backoff.
+notes: No public per-second/per-minute numeric limits documented; AI Actions monthly cap is the only published
+  quota.
+sources:
+  - https://docs.appian.com/suite/help/25.4/Deployment_Rest_API.html
+  - https://appian.com/products/pricing
 responseCodes:
   throttled: 429
-  quotaExceeded: 429
   serviceUnavailable: 503
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Appian Application Package Details API
-      - Appian Deployment REST API
-      - Appian Web APIs
-      - Appian RPA REST API
-      - Appian Integration SDK
-      - Appian UI SDK
-      - Appian Suite API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Appian Application Package Details API
-      - Appian Deployment REST API
-      - Appian Web APIs
-      - Appian RPA REST API
-      - Appian Integration SDK
-      - Appian UI SDK
-      - Appian Suite API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Appian Application Package Details API
-      - Appian Deployment REST API
-      - Appian Web APIs
-      - Appian RPA REST API
-      - Appian Integration SDK
-      - Appian UI SDK
-      - Appian Suite API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Appian Application Package Details API
-      - Appian Deployment REST API
-      - Appian Web APIs
-      - Appian RPA REST API
-      - Appian Integration SDK
-      - Appian UI SDK
-      - Appian Suite API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Appian Application Package Details API
-      - Appian Deployment REST API
-      - Appian Web APIs
-      - Appian RPA REST API
-      - Appian Integration SDK
-      - Appian UI SDK
-      - Appian Suite API
+  - name: Web API throughput
+    scope: environment
+    metric: varies
+    limit: see environment sizing
+    notes: Sized by the customer's Appian Cloud tier or self-managed deployment; not published as a fixed
+      per-second number.
+  - name: AI Actions monthly cap
+    scope: account
+    metric: actions_per_month
+    limit: tier-dependent
+    notes: Standard 200,000 / Advanced 500,000 / Premium 1,000,000 actions per month; overage policy is
+      contract-defined.
+  - name: Deployment REST API
+    scope: environment
+    metric: varies
+    limit: see environment sizing
+    notes: Used for CI/CD package import/export; rate-limited implicitly by deployment queue throughput.
 policies:
   - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+    description: Implement exponential backoff with jitter; honor Retry-After when returned. Treat 503
+      as transient (Appian environment maintenance windows or scaling events).
+  - name: Batch CI/CD Calls
+    description: Deployment automation should serialize package import/export operations and avoid concurrent
+      deploys to the same environment.
+  - name: AI Actions Sampling
+    description: Track AI Actions consumption mid-month to avoid overage; batch low-priority AI tasks
+      to off-peak windows.
+  - name: Capacity Sizing
+    description: Engage Appian customer success to upsize environment when sustained API automation traffic
+      pressures shared services.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
-  - FN: Appian Corporation
-    email: support@appian.com
-    url: https://www.appian.com
