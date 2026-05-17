@@ -104,9 +104,9 @@ apis:
   - url: https://docs.appian.com/suite/help/25.4/component-plugins.html
     type: Reference
   - url: https://docs.appian.com/suite/help/25.4/develop-first-component.html
-    type: Getting Started
+    type: GettingStarted
   - url: https://docs.appian.com/suite/help/25.4/ui-sdk-versions.html
-    type: Change Log
+    type: ChangeLog
   description: The Appian UI SDK lets developers design custom component plug-ins to extend Appian interfaces by adding new components that integrate with external systems. Components are built using 
     standard web technologies including HTML, JavaScript, and CSS, and can leverage third-party libraries.
 - aid: appian:appian-suite-api
@@ -158,7 +158,7 @@ common:
 - url: https://docs.appian.com
   type: Documentation
 - url: https://docs.appian.com/suite/help/latest/Getting_Started.html
-  type: Getting Started
+  type: GettingStarted
 - url: https://docs.appian.com/suite/help/latest/Web_API_Authentication.html
   type: Authentication
 - url: https://community.appian.com/support
@@ -168,9 +168,9 @@ common:
 - url: https://appian.com/platform/pricing.html
   type: Pricing
 - url: https://www.appian.com/terms-of-service.html
-  type: Terms of Service
+  type: TermsOfService
 - url: https://www.appian.com/privacy.html
-  type: Privacy Policy
+  type: PrivacyPolicy
 - url: https://appian.com/developers
   type: DeveloperPortal
 - url: https://github.com/appian
@@ -204,7 +204,7 @@ common:
 - url: https://docs.appian.com/suite/help/25.4/Web_API_Authentication.html
   type: APIAuthentication
 - url: https://docs.appian.com/suite/help/25.4/Appian_Release_Notes.html
-  type: Change Log
+  type: ChangeLog
 - url: https://appian.com/products/platform/whats-new
   type: WhatsNew
 - url: https://community.appian.com/p/login2
