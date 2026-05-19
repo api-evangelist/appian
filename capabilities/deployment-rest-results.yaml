@@ -1,0 +1,104 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Appian Deployment REST API — Results
+  description: 'Appian Deployment REST API — Results. 2 operations. Lead operation: Appian Get deployment results. Self-contained
+    Naftiko capability covering one Appian business surface.'
+  tags:
+  - Appian
+  - Results
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    APPIAN_API_KEY: APPIAN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: deployment-rest-results
+    baseUri: https://{domain}/suite/deployment-management/v2
+    description: Appian Deployment REST API — Results business capability. Self-contained, no shared references.
+    resources:
+    - name: deployments-deploymentUuid
+      path: /deployments/{deploymentUuid}
+      operations:
+      - name: getdeploymentresults
+        method: GET
+        description: Appian Get deployment results
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: deployments-deploymentUuid-log
+      path: /deployments/{deploymentUuid}/log
+      operations:
+      - name: getdeploymentlog
+        method: GET
+        description: Appian Get deployment log
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: appian-api-key
+      value: '{{env.APPIAN_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: deployment-rest-results-rest
+    port: 8080
+    description: REST adapter for Appian Deployment REST API — Results. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/deployments/{deploymentuuid}
+      name: deployments-deploymentuuid
+      description: REST surface for deployments-deploymentUuid.
+      operations:
+      - method: GET
+        name: getdeploymentresults
+        description: Appian Get deployment results
+        call: deployment-rest-results.getdeploymentresults
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/deployments/{deploymentuuid}/log
+      name: deployments-deploymentuuid-log
+      description: REST surface for deployments-deploymentUuid-log.
+      operations:
+      - method: GET
+        name: getdeploymentlog
+        description: Appian Get deployment log
+        call: deployment-rest-results.getdeploymentlog
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: deployment-rest-results-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Appian Deployment REST API — Results. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: appian-get-deployment-results
+      description: Appian Get deployment results
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: deployment-rest-results.getdeploymentresults
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: appian-get-deployment-log
+      description: Appian Get deployment log
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: deployment-rest-results.getdeploymentlog
+      outputParameters:
+      - type: object
+        mapping: $.

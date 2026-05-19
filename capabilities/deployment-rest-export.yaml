@@ -1,0 +1,82 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Appian Deployment REST API — Export
+  description: 'Appian Deployment REST API — Export. 1 operations. Lead operation: Appian Export or import a deployment. Self-contained
+    Naftiko capability covering one Appian business surface.'
+  tags:
+  - Appian
+  - Export
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    APPIAN_API_KEY: APPIAN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: deployment-rest-export
+    baseUri: https://{domain}/suite/deployment-management/v2
+    description: Appian Deployment REST API — Export business capability. Self-contained, no shared references.
+    resources:
+    - name: deployments
+      path: /deployments
+      operations:
+      - name: createdeployment
+        method: POST
+        description: Appian Export or import a deployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: appian-api-key
+      value: '{{env.APPIAN_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: deployment-rest-export-rest
+    port: 8080
+    description: REST adapter for Appian Deployment REST API — Export. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/deployments
+      name: deployments
+      description: REST surface for deployments.
+      operations:
+      - method: POST
+        name: createdeployment
+        description: Appian Export or import a deployment
+        call: deployment-rest-export.createdeployment
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: deployment-rest-export-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Appian Deployment REST API — Export. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: appian-export-import-deployment
+      description: Appian Export or import a deployment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: deployment-rest-export.createdeployment
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
