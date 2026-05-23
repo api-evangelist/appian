@@ -1,0 +1,167 @@
+{
+  "provider": "Appian",
+  "providerId": "appian",
+  "kind": "json-structure",
+  "description": "Structural overview of the Appian API surface; extracted from openapi/.",
+  "schemaCount": 15,
+  "operationCount": 5,
+  "schemas": [
+    {
+      "name": "DeploymentRequest",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "DeploymentResponse",
+      "type": "object",
+      "propertyCount": 3,
+      "required": [
+        "uuid",
+        "url",
+        "status"
+      ]
+    },
+    {
+      "name": "DeploymentStatus",
+      "type": "string",
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "ImportDeploymentResult",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "status",
+        "summary"
+      ]
+    },
+    {
+      "name": "ExportDeploymentResult",
+      "type": "object",
+      "propertyCount": 8,
+      "required": [
+        "status"
+      ]
+    },
+    {
+      "name": "DatabaseScript",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "ImportSummaryCount",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "InspectionRequest",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "InspectionResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "uuid",
+        "url"
+      ]
+    },
+    {
+      "name": "InspectionResult",
+      "type": "object",
+      "propertyCount": 2,
+      "required": [
+        "status"
+      ]
+    },
+    {
+      "name": "InspectionProblems",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "InspectionError",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "InspectionWarning",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "ExportConfiguration",
+      "type": "object",
+      "propertyCount": 4,
+      "required": [
+        "exportType",
+        "uuids"
+      ]
+    },
+    {
+      "name": "ImportConfiguration",
+      "type": "object",
+      "propertyCount": 8,
+      "required": [
+        "name"
+      ]
+    }
+  ],
+  "operations": [
+    {
+      "method": "POST",
+      "path": "/deployments",
+      "operationId": "createDeployment",
+      "summary": "Appian Export or import a deployment",
+      "tags": [
+        "Export",
+        "Import"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/deployments/{deploymentUuid}",
+      "operationId": "getDeploymentResults",
+      "summary": "Appian Get deployment results",
+      "tags": [
+        "Results"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/deployments/{deploymentUuid}/log",
+      "operationId": "getDeploymentLog",
+      "summary": "Appian Get deployment log",
+      "tags": [
+        "Results"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/inspections",
+      "operationId": "createInspection",
+      "summary": "Appian Inspect a package before deployment",
+      "tags": [
+        "Inspection"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/inspections/{inspectionUuid}",
+      "operationId": "getInspectionResults",
+      "summary": "Appian Get inspection results",
+      "tags": [
+        "Inspection"
+      ]
+    }
+  ]
+}

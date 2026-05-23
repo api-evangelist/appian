@@ -1,0 +1,13 @@
+name: Appian Domain Vocabulary
+provider: Appian
+providerId: appian
+description: Tag-derived vocabulary for the Appian API surface; sourced from openapi/ tags.
+terms:
+- term: Export
+  description: Operations for exporting applications and packages from an Appian environment.
+- term: Import
+  description: Operations for importing and deploying applications and packages into an Appian environment.
+- term: Inspection
+  description: Operations for inspecting packages before deployment to identify potential issues, errors, and warnings.
+- term: Results
+  description: Operations for retrieving the status, results, and logs of deployments and inspections.

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/InspectionError",
+  "title": "InspectionError",
+  "type": "object",
+  "description": "An error identified during package inspection that would prevent successful deployment.",
+  "properties": {
+    "errorMessage": {
+      "type": "string",
+      "description": "A description of the error condition."
+    },
+    "objectName": {
+      "type": "string",
+      "description": "The name of the object affected by the error."
+    },
+    "objectUuid": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The UUID of the object affected by the error."
+    }
+  }
+}

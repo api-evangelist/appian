@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/InspectionResponse",
+  "title": "InspectionResponse",
+  "type": "object",
+  "description": "Response returned when an inspection operation is successfully initiated. Contains the UUID for tracking the inspection.",
+  "properties": {
+    "uuid": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for the inspection operation. Use this UUID to retrieve inspection results.",
+      "example": "378271a6-ca0d-4466-bac9-385e4fcb951a"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL endpoint for retrieving the inspection details and results.",
+      "example": "https://mysite.appiancloud.com/suite/deployment-management/v2/inspections/378271a6-ca0d-4466-bac9-385e4fcb951a/"
+    }
+  },
+  "required": [
+    "uuid",
+    "url"
+  ]
+}
