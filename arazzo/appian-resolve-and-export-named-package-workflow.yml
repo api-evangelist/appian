@@ -1,0 +1,132 @@
+arazzo: 1.0.1
+info:
+  title: Appian Resolve a Named Package and Export It
+  summary: List an application's packages, branch on whether any packages exist, and export the most recently modified one.
+  description: >-
+    Resolves a deployable package for an application and exports it, guarding
+    against the empty case. The workflow lists the application's in-flight
+    packages and branches on the total package count: when no packages exist it
+    ends without attempting an export, and when packages are present it exports
+    the most recently modified package and polls the export to completion. The
+    package list is ordered newest first, so the first entry is always the most
+    recently modified. Every step spells out its request inline so the flow can
+    be read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: packageApi
+  url: ../openapi/appian-application-package-details-openapi.yml
+  type: openapi
+- name: deploymentApi
+  url: ../openapi/appian-deployment-rest-openapi.yml
+  type: openapi
+workflows:
+- workflowId: resolve-and-export-named-package
+  summary: List packages, branch on emptiness, and export the newest package.
+  description: >-
+    Reads the application's packages and either ends when none exist or exports
+    the most recently modified package and polls the export to a terminal
+    status.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - applicationUuid
+    properties:
+      apiKey:
+        type: string
+        description: API key linked to a service account, sent in the appian-api-key header.
+      applicationUuid:
+        type: string
+        description: The UUID of the application whose newest package will be exported.
+  steps:
+  - stepId: listPackages
+    description: >-
+      List the application's in-flight packages and branch on whether any
+      packages are available to export.
+    operationId: getApplicationPackages
+    parameters:
+    - name: appian-api-key
+      in: header
+      value: $inputs.apiKey
+    - name: applicationUuid
+      in: path
+      value: $inputs.applicationUuid
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      totalPackageCount: $response.body#/totalPackageCount
+      newestPackageUuid: $response.body#/packages/0/uuid
+      newestPackageName: $response.body#/packages/0/name
+    onSuccess:
+    - name: noPackages
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.totalPackageCount == 0
+        type: jsonpath
+    - name: hasPackages
+      type: goto
+      stepId: exportNewest
+      criteria:
+      - context: $response.body
+        condition: $.totalPackageCount > 0
+        type: jsonpath
+  - stepId: exportNewest
+    description: >-
+      Export the most recently modified package by its resolved UUID, setting
+      the Action-Type header to export.
+    operationId: createDeployment
+    parameters:
+    - name: appian-api-key
+      in: header
+      value: $inputs.apiKey
+    - name: Action-Type
+      in: header
+      value: export
+    requestBody:
+      contentType: multipart/form-data
+      payload:
+        json:
+          exportType: package
+          uuids:
+          - $steps.listPackages.outputs.newestPackageUuid
+          name: $steps.listPackages.outputs.newestPackageName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      deploymentUuid: $response.body#/uuid
+      deploymentStatus: $response.body#/status
+  - stepId: pollExport
+    description: >-
+      Poll the export deployment until it leaves the IN_PROGRESS state and
+      capture the exported package download URL.
+    operationId: getDeploymentResults
+    parameters:
+    - name: appian-api-key
+      in: header
+      value: $inputs.apiKey
+    - name: deploymentUuid
+      in: path
+      value: $steps.exportNewest.outputs.deploymentUuid
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.status != "IN_PROGRESS"
+      type: jsonpath
+    onFailure:
+    - name: retryExport
+      type: retry
+      retryAfter: 5
+      retryLimit: 30
+      criteria:
+      - context: $response.body
+        condition: $.status == "IN_PROGRESS"
+        type: jsonpath
+    outputs:
+      exportStatus: $response.body#/status
+      packageZip: $response.body#/packageZip
+  outputs:
+    newestPackageUuid: $steps.listPackages.outputs.newestPackageUuid
+    deploymentUuid: $steps.exportNewest.outputs.deploymentUuid
+    exportStatus: $steps.pollExport.outputs.exportStatus
+    packageZip: $steps.pollExport.outputs.packageZip

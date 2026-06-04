@@ -1,0 +1,71 @@
+arazzo: 1.0.1
+info:
+  title: Appian Get Deployment Status and Log
+  summary: Retrieve a deployment's current results and pull its full deployment log in one pass.
+  description: >-
+    A lightweight tracking workflow for an existing Appian deployment. Given a
+    deployment UUID returned earlier by the deployment endpoint, the flow reads
+    the current deployment results to capture the status and summary, then
+    retrieves the plain-text deployment log so the status and the underlying log
+    detail are returned together. Every step spells out its request inline so
+    the flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: deploymentApi
+  url: ../openapi/appian-deployment-rest-openapi.yml
+  type: openapi
+workflows:
+- workflowId: deployment-status-and-log
+  summary: Read a deployment's results and its log for a known deployment UUID.
+  description: >-
+    Reads the current results for a deployment UUID and then retrieves the
+    deployment log, returning the status alongside the full log content.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - deploymentUuid
+    properties:
+      apiKey:
+        type: string
+        description: API key linked to a service account, sent in the appian-api-key header.
+      deploymentUuid:
+        type: string
+        description: The UUID of the deployment operation to query.
+  steps:
+  - stepId: getResults
+    description: >-
+      Read the current deployment results to capture the status and summary for
+      the supplied deployment UUID.
+    operationId: getDeploymentResults
+    parameters:
+    - name: appian-api-key
+      in: header
+      value: $inputs.apiKey
+    - name: deploymentUuid
+      in: path
+      value: $inputs.deploymentUuid
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/status
+  - stepId: getLog
+    description: >-
+      Retrieve the plain-text deployment log so the full record of the
+      deployment process is available alongside the status.
+    operationId: getDeploymentLog
+    parameters:
+    - name: appian-api-key
+      in: header
+      value: $inputs.apiKey
+    - name: deploymentUuid
+      in: path
+      value: $inputs.deploymentUuid
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      log: $response.body
+  outputs:
+    status: $steps.getResults.outputs.status
+    log: $steps.getLog.outputs.log

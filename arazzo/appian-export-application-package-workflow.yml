@@ -1,0 +1,148 @@
+arazzo: 1.0.1
+info:
+  title: Appian Export an Application Package
+  summary: Resolve an in-flight package for an application and export it as a downloadable deployment artifact.
+  description: >-
+    Drives the Appian export side of the CI/CD deployment lifecycle. The
+    workflow first reads the in-flight packages for an application to resolve
+    the package UUID, then starts an export deployment for that package,
+    polls the deployment until it leaves the IN_PROGRESS state, and finally
+    surfaces the download URLs for the exported package ZIP along with a link
+    to the full deployment log. Every step spells out its request inline so the
+    flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: packageApi
+  url: ../openapi/appian-application-package-details-openapi.yml
+  type: openapi
+- name: deploymentApi
+  url: ../openapi/appian-deployment-rest-openapi.yml
+  type: openapi
+workflows:
+- workflowId: export-application-package
+  summary: Resolve a package for an application and export it, then expose the download URLs.
+  description: >-
+    Looks up the in-flight packages for an application, selects the most
+    recently modified package, starts an export deployment for it, polls until
+    the export completes, and returns the exported artifact URLs and log link.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - applicationUuid
+    properties:
+      apiKey:
+        type: string
+        description: API key linked to a service account, sent in the appian-api-key header.
+      applicationUuid:
+        type: string
+        description: The UUID of the application whose package will be exported.
+      deploymentName:
+        type: string
+        description: Optional custom name for the export deployment.
+      deploymentDescription:
+        type: string
+        description: Optional description displayed in Appian Designer for the export.
+  steps:
+  - stepId: listPackages
+    description: >-
+      Retrieve the in-flight packages for the application so the most recently
+      modified package UUID can be used to drive the export.
+    operationId: getApplicationPackages
+    parameters:
+    - name: appian-api-key
+      in: header
+      value: $inputs.apiKey
+    - name: applicationUuid
+      in: path
+      value: $inputs.applicationUuid
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      totalPackageCount: $response.body#/totalPackageCount
+      packageUuid: $response.body#/packages/0/uuid
+      packageName: $response.body#/packages/0/name
+  - stepId: startExport
+    description: >-
+      Create an export deployment for the resolved package UUID. The
+      Action-Type header is set to export and the JSON configuration names the
+      export type and the single package UUID to export.
+    operationId: createDeployment
+    parameters:
+    - name: appian-api-key
+      in: header
+      value: $inputs.apiKey
+    - name: Action-Type
+      in: header
+      value: export
+    requestBody:
+      contentType: multipart/form-data
+      payload:
+        json:
+          exportType: package
+          uuids:
+          - $steps.listPackages.outputs.packageUuid
+          name: $inputs.deploymentName
+          description: $inputs.deploymentDescription
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      deploymentUuid: $response.body#/uuid
+      deploymentUrl: $response.body#/url
+      deploymentStatus: $response.body#/status
+  - stepId: pollExport
+    description: >-
+      Poll the deployment results until the export leaves the IN_PROGRESS
+      state. Retries while the status is still running and proceeds once a
+      terminal status is reported.
+    operationId: getDeploymentResults
+    parameters:
+    - name: appian-api-key
+      in: header
+      value: $inputs.apiKey
+    - name: deploymentUuid
+      in: path
+      value: $steps.startExport.outputs.deploymentUuid
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.status != "IN_PROGRESS"
+      type: jsonpath
+    onFailure:
+    - name: retryExport
+      type: retry
+      retryAfter: 5
+      retryLimit: 30
+      criteria:
+      - context: $response.body
+        condition: $.status == "IN_PROGRESS"
+        type: jsonpath
+    outputs:
+      exportStatus: $response.body#/status
+      packageZip: $response.body#/packageZip
+      pluginsZip: $response.body#/pluginsZip
+      customizationFile: $response.body#/customizationFile
+      deploymentLogUrl: $response.body#/deploymentLogUrl
+  - stepId: fetchLog
+    description: >-
+      Retrieve the plain-text deployment log for the completed export so the
+      full export record is available alongside the artifact URLs.
+    operationId: getDeploymentLog
+    parameters:
+    - name: appian-api-key
+      in: header
+      value: $inputs.apiKey
+    - name: deploymentUuid
+      in: path
+      value: $steps.startExport.outputs.deploymentUuid
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      log: $response.body
+  outputs:
+    packageUuid: $steps.listPackages.outputs.packageUuid
+    deploymentUuid: $steps.startExport.outputs.deploymentUuid
+    exportStatus: $steps.pollExport.outputs.exportStatus
+    packageZip: $steps.pollExport.outputs.packageZip
+    deploymentLogUrl: $steps.pollExport.outputs.deploymentLogUrl

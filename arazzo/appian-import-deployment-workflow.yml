@@ -1,0 +1,147 @@
+arazzo: 1.0.1
+info:
+  title: Appian Import a Deployment and Confirm Results
+  summary: Import a deployment package, poll until completion, and branch on whether the import succeeded or finished with errors.
+  description: >-
+    Drives the Appian import side of the CI/CD deployment lifecycle. The
+    workflow starts an import deployment from a package ZIP, polls the
+    deployment results until the operation leaves the IN_PROGRESS state, and
+    then branches on the terminal status: a clean COMPLETED status ends the
+    flow with the import object summary, while any error or review status routes
+    to a step that pulls the full deployment log for troubleshooting. Every step
+    spells out its request inline so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: deploymentApi
+  url: ../openapi/appian-deployment-rest-openapi.yml
+  type: openapi
+workflows:
+- workflowId: import-deployment
+  summary: Start an import deployment, poll to completion, and branch on success vs errors.
+  description: >-
+    Creates an import deployment from a package ZIP and supporting files, polls
+    the deployment until it reaches a terminal status, and either reports the
+    import summary on success or retrieves the deployment log when the import
+    completes with errors or is rejected.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - name
+    - packageFileName
+    properties:
+      apiKey:
+        type: string
+        description: API key linked to a service account, sent in the appian-api-key header.
+      name:
+        type: string
+        description: Name of the deployment, displayed in Appian Designer's Deploy view.
+      description:
+        type: string
+        description: Optional description of the deployment.
+      packageFileName:
+        type: string
+        description: The deployment package ZIP file content to import.
+      adminConsoleSettingsFileName:
+        type: string
+        description: Optional Admin Console settings ZIP file content to import alongside the package.
+      customizationFileName:
+        type: string
+        description: Optional import customization properties file content mapping source values to target values.
+  steps:
+  - stepId: startImport
+    description: >-
+      Create an import deployment. The Action-Type header is set to import and
+      the multipart form carries the JSON configuration plus the package and
+      optional settings and customization files.
+    operationId: createDeployment
+    parameters:
+    - name: appian-api-key
+      in: header
+      value: $inputs.apiKey
+    - name: Action-Type
+      in: header
+      value: import
+    requestBody:
+      contentType: multipart/form-data
+      payload:
+        json:
+          name: $inputs.name
+          description: $inputs.description
+          packageFileName: package.zip
+          adminConsoleSettingsFileName: admin-console-settings.zip
+          customizationFileName: customization.properties
+        packageFileName: $inputs.packageFileName
+        adminConsoleSettingsFileName: $inputs.adminConsoleSettingsFileName
+        customizationFileName: $inputs.customizationFileName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      deploymentUuid: $response.body#/uuid
+      deploymentStatus: $response.body#/status
+  - stepId: pollImport
+    description: >-
+      Poll the deployment results until the import leaves the IN_PROGRESS
+      state, then branch on the terminal status.
+    operationId: getDeploymentResults
+    parameters:
+    - name: appian-api-key
+      in: header
+      value: $inputs.apiKey
+    - name: deploymentUuid
+      in: path
+      value: $steps.startImport.outputs.deploymentUuid
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.status != "IN_PROGRESS"
+      type: jsonpath
+    onFailure:
+    - name: retryImport
+      type: retry
+      retryAfter: 5
+      retryLimit: 60
+      criteria:
+      - context: $response.body
+        condition: $.status == "IN_PROGRESS"
+        type: jsonpath
+    outputs:
+      importStatus: $response.body#/status
+      objectSummary: $response.body#/summary/objects
+      deploymentLogUrl: $response.body#/summary/deploymentLogUrl
+    onSuccess:
+    - name: importClean
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status == "COMPLETED"
+        type: jsonpath
+    - name: importHadErrors
+      type: goto
+      stepId: fetchLog
+      criteria:
+      - context: $response.body
+        condition: $.status != "COMPLETED"
+        type: jsonpath
+  - stepId: fetchLog
+    description: >-
+      Retrieve the plain-text deployment log when the import did not complete
+      cleanly so the failure detail is available for troubleshooting.
+    operationId: getDeploymentLog
+    parameters:
+    - name: appian-api-key
+      in: header
+      value: $inputs.apiKey
+    - name: deploymentUuid
+      in: path
+      value: $steps.startImport.outputs.deploymentUuid
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      log: $response.body
+  outputs:
+    deploymentUuid: $steps.startImport.outputs.deploymentUuid
+    importStatus: $steps.pollImport.outputs.importStatus
+    objectSummary: $steps.pollImport.outputs.objectSummary
+    log: $steps.fetchLog.outputs.log

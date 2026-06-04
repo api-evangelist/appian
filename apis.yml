@@ -166,6 +166,30 @@ maintainers:
   url: https://www.appian.com
 specificationVersion: '0.19'
 common:
+- type: ArazzoWorkflows
+  url: arazzo/
+  workflows:
+  - url: arazzo/appian-deployment-status-and-log-workflow.yml
+    name: Appian Get Deployment Status and Log
+    summary: Retrieve a deployment's current results and pull its full deployment log in one pass.
+  - url: arazzo/appian-export-application-package-workflow.yml
+    name: Appian Export an Application Package
+    summary: Resolve an in-flight package for an application and export it as a downloadable deployment artifact.
+  - url: arazzo/appian-export-full-application-workflow.yml
+    name: Appian Export a Full Application
+    summary: Confirm an application has in-flight packages, then export the entire application and wait for the artifacts.
+  - url: arazzo/appian-import-deployment-workflow.yml
+    name: Appian Import a Deployment and Confirm Results
+    summary: Import a deployment package, poll until completion, and branch on whether the import succeeded or finished with errors.
+  - url: arazzo/appian-inspect-package-workflow.yml
+    name: Appian Inspect a Package Before Deployment
+    summary: Start a package inspection, poll for results, and branch on whether blocking errors were found.
+  - url: arazzo/appian-inspect-then-import-workflow.yml
+    name: Appian Gated Inspect-then-Import Promotion
+    summary: Inspect a package first and only import it when the inspection reports no blocking errors.
+  - url: arazzo/appian-resolve-and-export-named-package-workflow.yml
+    name: Appian Resolve a Named Package and Export It
+    summary: List an application's packages, branch on whether any packages exist, and export the most recently modified one.
 - url: https://community.appian.com
   type: Portal
 - url: https://docs.appian.com

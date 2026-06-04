@@ -1,0 +1,136 @@
+arazzo: 1.0.1
+info:
+  title: Appian Inspect a Package Before Deployment
+  summary: Start a package inspection, poll for results, and branch on whether blocking errors were found.
+  description: >-
+    Runs the pre-deployment safety check in the Appian CI/CD lifecycle. The
+    workflow submits a package and Admin Console settings for inspection, polls
+    the inspection results until the operation completes, and then branches on
+    the problem counts: when no errors are present the package is considered
+    safe to deploy, and when errors are reported the flow surfaces the error
+    details so they can be resolved before importing. Every step spells out its
+    request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: deploymentApi
+  url: ../openapi/appian-deployment-rest-openapi.yml
+  type: openapi
+workflows:
+- workflowId: inspect-package
+  summary: Inspect a deployment package and branch on whether errors block deployment.
+  description: >-
+    Submits a package and settings for inspection, polls until the inspection
+    completes, and reports the error and warning counts, branching to surface
+    error detail when blocking problems are found.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - packageFileName
+    - adminConsoleSettingsFileName
+    properties:
+      apiKey:
+        type: string
+        description: API key linked to a service account, sent in the appian-api-key header.
+      packageFileName:
+        type: string
+        description: The deployment package ZIP file content to inspect.
+      adminConsoleSettingsFileName:
+        type: string
+        description: The Admin Console settings ZIP file content used for the inspection.
+      customizationFileName:
+        type: string
+        description: Optional import customization properties file content to include in the inspection.
+  steps:
+  - stepId: startInspection
+    description: >-
+      Create an inspection operation for the supplied package and settings
+      files so potential deployment problems can be detected ahead of import.
+    operationId: createInspection
+    parameters:
+    - name: appian-api-key
+      in: header
+      value: $inputs.apiKey
+    requestBody:
+      contentType: multipart/form-data
+      payload:
+        json:
+          packageFileName: package.zip
+          adminConsoleSettingsFileName: admin-console-settings.zip
+          customizationFileName: customization.properties
+        packageFileName: $inputs.packageFileName
+        adminConsoleSettingsFileName: $inputs.adminConsoleSettingsFileName
+        customizationFileName: $inputs.customizationFileName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      inspectionUuid: $response.body#/uuid
+      inspectionUrl: $response.body#/url
+  - stepId: pollInspection
+    description: >-
+      Poll the inspection results until the operation leaves the IN_PROGRESS
+      state, then branch on whether any blocking errors were reported.
+    operationId: getInspectionResults
+    parameters:
+    - name: appian-api-key
+      in: header
+      value: $inputs.apiKey
+    - name: inspectionUuid
+      in: path
+      value: $steps.startInspection.outputs.inspectionUuid
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.status != "IN_PROGRESS"
+      type: jsonpath
+    onFailure:
+    - name: retryInspection
+      type: retry
+      retryAfter: 5
+      retryLimit: 30
+      criteria:
+      - context: $response.body
+        condition: $.status == "IN_PROGRESS"
+        type: jsonpath
+    outputs:
+      inspectionStatus: $response.body#/status
+      totalErrors: $response.body#/summary/problems/totalErrors
+      totalWarnings: $response.body#/summary/problems/totalWarnings
+    onSuccess:
+    - name: inspectionClean
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.summary.problems.totalErrors == 0
+        type: jsonpath
+    - name: inspectionHasErrors
+      type: goto
+      stepId: surfaceErrors
+      criteria:
+      - context: $response.body
+        condition: $.summary.problems.totalErrors > 0
+        type: jsonpath
+  - stepId: surfaceErrors
+    description: >-
+      Re-read the inspection results to surface the detailed error list when
+      blocking problems were found so they can be reviewed and resolved.
+    operationId: getInspectionResults
+    parameters:
+    - name: appian-api-key
+      in: header
+      value: $inputs.apiKey
+    - name: inspectionUuid
+      in: path
+      value: $steps.startInspection.outputs.inspectionUuid
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      errors: $response.body#/summary/problems/errors
+      firstErrorMessage: $response.body#/summary/problems/errors/0/errorMessage
+  outputs:
+    inspectionUuid: $steps.startInspection.outputs.inspectionUuid
+    inspectionStatus: $steps.pollInspection.outputs.inspectionStatus
+    totalErrors: $steps.pollInspection.outputs.totalErrors
+    totalWarnings: $steps.pollInspection.outputs.totalWarnings
+    errors: $steps.surfaceErrors.outputs.errors

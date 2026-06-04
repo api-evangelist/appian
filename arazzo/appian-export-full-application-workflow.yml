@@ -1,0 +1,121 @@
+arazzo: 1.0.1
+info:
+  title: Appian Export a Full Application
+  summary: Confirm an application has in-flight packages, then export the entire application and wait for the artifacts.
+  description: >-
+    Exports an entire Appian application rather than a single package. The
+    workflow first reads the application's in-flight packages as a guard that
+    the application UUID is valid and visible to the service account, then
+    starts an export deployment with exportType set to application for that
+    application UUID, and polls the deployment until the export reaches a
+    terminal status before returning the download URLs. Every step spells out
+    its request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: packageApi
+  url: ../openapi/appian-application-package-details-openapi.yml
+  type: openapi
+- name: deploymentApi
+  url: ../openapi/appian-deployment-rest-openapi.yml
+  type: openapi
+workflows:
+- workflowId: export-full-application
+  summary: Validate an application then export the whole application and wait for the artifacts.
+  description: >-
+    Reads the application's packages as a validity guard, starts an
+    application-level export deployment, polls it to a terminal status, and
+    returns the exported artifact URLs.
+  inputs:
+    type: object
+    required:
+    - apiKey
+    - applicationUuid
+    properties:
+      apiKey:
+        type: string
+        description: API key linked to a service account, sent in the appian-api-key header.
+      applicationUuid:
+        type: string
+        description: The UUID of the application to export in full.
+      deploymentName:
+        type: string
+        description: Optional custom name for the export deployment.
+  steps:
+  - stepId: validateApplication
+    description: >-
+      Read the application's in-flight packages to confirm the application UUID
+      resolves and is accessible before launching a full export.
+    operationId: getApplicationPackages
+    parameters:
+    - name: appian-api-key
+      in: header
+      value: $inputs.apiKey
+    - name: applicationUuid
+      in: path
+      value: $inputs.applicationUuid
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      totalPackageCount: $response.body#/totalPackageCount
+  - stepId: startExport
+    description: >-
+      Create an application-level export deployment for the validated
+      application UUID, setting the Action-Type header to export.
+    operationId: createDeployment
+    parameters:
+    - name: appian-api-key
+      in: header
+      value: $inputs.apiKey
+    - name: Action-Type
+      in: header
+      value: export
+    requestBody:
+      contentType: multipart/form-data
+      payload:
+        json:
+          exportType: application
+          uuids:
+          - $inputs.applicationUuid
+          name: $inputs.deploymentName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      deploymentUuid: $response.body#/uuid
+      deploymentStatus: $response.body#/status
+  - stepId: pollExport
+    description: >-
+      Poll the export deployment until it leaves the IN_PROGRESS state, then
+      capture the artifact download URLs.
+    operationId: getDeploymentResults
+    parameters:
+    - name: appian-api-key
+      in: header
+      value: $inputs.apiKey
+    - name: deploymentUuid
+      in: path
+      value: $steps.startExport.outputs.deploymentUuid
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.status != "IN_PROGRESS"
+      type: jsonpath
+    onFailure:
+    - name: retryExport
+      type: retry
+      retryAfter: 5
+      retryLimit: 60
+      criteria:
+      - context: $response.body
+        condition: $.status == "IN_PROGRESS"
+        type: jsonpath
+    outputs:
+      exportStatus: $response.body#/status
+      packageZip: $response.body#/packageZip
+      pluginsZip: $response.body#/pluginsZip
+      deploymentLogUrl: $response.body#/deploymentLogUrl
+  outputs:
+    deploymentUuid: $steps.startExport.outputs.deploymentUuid
+    exportStatus: $steps.pollExport.outputs.exportStatus
+    packageZip: $steps.pollExport.outputs.packageZip
+    deploymentLogUrl: $steps.pollExport.outputs.deploymentLogUrl
