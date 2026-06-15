@@ -1,0 +1,2063 @@
+{
+  "item": [
+    {
+      "id": "a845ac60-962d-4444-80cf-0163363e10f0",
+      "name": "Export",
+      "description": {
+        "content": "Operations for exporting applications and packages from an Appian environment.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "32f45ccb-2972-4ee8-83e5-cced47dc246e",
+          "name": "Appian Export or import a deployment",
+          "request": {
+            "name": "Appian Export or import a deployment",
+            "description": {
+              "content": "Creates a new deployment operation for either exporting or importing applications and packages. The Action-Type header determines whether the operation is an export or import. For exports, provide a JSON payload specifying the UUIDs and export type. For imports, provide a multipart form with the package files and deployment configuration. The response includes a deployment UUID that can be used to track progress and retrieve results.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "deployments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                  "type": "any",
+                  "value": "{{domain}}",
+                  "key": "domain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Specifies whether the deployment operation is an export or import. If omitted, defaults to import.",
+                "key": "Action-Type",
+                "value": "import"
+              },
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "json",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "JSON string containing the deployment configuration. For exports, includes exportType and uuids. For imports, includes name, description, and file name references."
+                },
+                {
+                  "key": "packageFileName",
+                  "value": "<binary>",
+                  "type": "text",
+                  "description": "The deployment package ZIP file to import. Required for import operations."
+                },
+                {
+                  "key": "adminConsoleSettingsFileName",
+                  "value": "<binary>",
+                  "type": "text",
+                  "description": "Admin Console settings ZIP file to import alongside the package."
+                },
+                {
+                  "key": "customizationFileName",
+                  "value": "<binary>",
+                  "type": "text",
+                  "description": "Import customization properties file that maps source environment values to target environment values."
+                },
+                {
+                  "key": "pluginsFileName",
+                  "value": "<binary>",
+                  "type": "text",
+                  "description": "Plug-ins ZIP file containing plug-ins to deploy."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6e1889c2-b823-49d0-844f-747e748d8102",
+              "name": "Deployment operation initiated successfully. The response includes a UUID for tracking the deployment status.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "deployments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                      "type": "any",
+                      "value": "{{domain}}",
+                      "key": "domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "appian-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Specifies whether the deployment operation is an export or import. If omitted, defaults to import.",
+                    "key": "Action-Type",
+                    "value": "import"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "JSON string containing the deployment configuration. For exports, includes exportType and uuids. For imports, includes name, description, and file name references.",
+                        "type": "text/plain"
+                      },
+                      "key": "json",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "The deployment package ZIP file to import. Required for import operations.",
+                        "type": "text/plain"
+                      },
+                      "key": "packageFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Admin Console settings ZIP file to import alongside the package.",
+                        "type": "text/plain"
+                      },
+                      "key": "adminConsoleSettingsFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Import customization properties file that maps source environment values to target environment values.",
+                        "type": "text/plain"
+                      },
+                      "key": "customizationFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Plug-ins ZIP file containing plug-ins to deploy.",
+                        "type": "text/plain"
+                      },
+                      "key": "pluginsFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uuid\": \"d243b14c-3ba5-41c3-9f51-76da51beb8f5\",\n  \"url\": \"https://mysite.appiancloud.com/suite/deployment-management/v2/deployments/d243b14c-3ba5-41c3-9f51-76da51beb8f5/\",\n  \"status\": \"FAILED\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ff2b6545-2f76-4648-85f1-1994d49fcfff",
+              "name": "Bad request. The request payload is malformed or missing required fields.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "deployments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                      "type": "any",
+                      "value": "{{domain}}",
+                      "key": "domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "appian-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Specifies whether the deployment operation is an export or import. If omitted, defaults to import.",
+                    "key": "Action-Type",
+                    "value": "import"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "JSON string containing the deployment configuration. For exports, includes exportType and uuids. For imports, includes name, description, and file name references.",
+                        "type": "text/plain"
+                      },
+                      "key": "json",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "The deployment package ZIP file to import. Required for import operations.",
+                        "type": "text/plain"
+                      },
+                      "key": "packageFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Admin Console settings ZIP file to import alongside the package.",
+                        "type": "text/plain"
+                      },
+                      "key": "adminConsoleSettingsFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Import customization properties file that maps source environment values to target environment values.",
+                        "type": "text/plain"
+                      },
+                      "key": "customizationFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Plug-ins ZIP file containing plug-ins to deploy.",
+                        "type": "text/plain"
+                      },
+                      "key": "pluginsFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "63f6e547-138b-4a29-84e3-274748989b8d",
+              "name": "Authentication failed. The API key is missing, invalid, or the associated service account does not have the required permissions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "deployments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                      "type": "any",
+                      "value": "{{domain}}",
+                      "key": "domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "appian-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Specifies whether the deployment operation is an export or import. If omitted, defaults to import.",
+                    "key": "Action-Type",
+                    "value": "import"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "JSON string containing the deployment configuration. For exports, includes exportType and uuids. For imports, includes name, description, and file name references.",
+                        "type": "text/plain"
+                      },
+                      "key": "json",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "The deployment package ZIP file to import. Required for import operations.",
+                        "type": "text/plain"
+                      },
+                      "key": "packageFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Admin Console settings ZIP file to import alongside the package.",
+                        "type": "text/plain"
+                      },
+                      "key": "adminConsoleSettingsFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Import customization properties file that maps source environment values to target environment values.",
+                        "type": "text/plain"
+                      },
+                      "key": "customizationFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Plug-ins ZIP file containing plug-ins to deploy.",
+                        "type": "text/plain"
+                      },
+                      "key": "pluginsFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0dbe2849-4d59-4c5b-a28f-c0036844abc8",
+              "name": "The deployment action is not permitted. The Admin Console settings may restrict this deployment flow.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "deployments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                      "type": "any",
+                      "value": "{{domain}}",
+                      "key": "domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "appian-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Specifies whether the deployment operation is an export or import. If omitted, defaults to import.",
+                    "key": "Action-Type",
+                    "value": "import"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "JSON string containing the deployment configuration. For exports, includes exportType and uuids. For imports, includes name, description, and file name references.",
+                        "type": "text/plain"
+                      },
+                      "key": "json",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "The deployment package ZIP file to import. Required for import operations.",
+                        "type": "text/plain"
+                      },
+                      "key": "packageFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Admin Console settings ZIP file to import alongside the package.",
+                        "type": "text/plain"
+                      },
+                      "key": "adminConsoleSettingsFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Import customization properties file that maps source environment values to target environment values.",
+                        "type": "text/plain"
+                      },
+                      "key": "customizationFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Plug-ins ZIP file containing plug-ins to deploy.",
+                        "type": "text/plain"
+                      },
+                      "key": "pluginsFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "897a5bd2-edab-4b3f-8746-47f0b3fd193a",
+      "name": "Import",
+      "description": {
+        "content": "Operations for importing and deploying applications and packages into an Appian environment.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fe03dc88-2c06-4c9a-8bf7-5cdee4788dad",
+          "name": "Appian Export or import a deployment",
+          "request": {
+            "name": "Appian Export or import a deployment",
+            "description": {
+              "content": "Creates a new deployment operation for either exporting or importing applications and packages. The Action-Type header determines whether the operation is an export or import. For exports, provide a JSON payload specifying the UUIDs and export type. For imports, provide a multipart form with the package files and deployment configuration. The response includes a deployment UUID that can be used to track progress and retrieve results.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "deployments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                  "type": "any",
+                  "value": "{{domain}}",
+                  "key": "domain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Specifies whether the deployment operation is an export or import. If omitted, defaults to import.",
+                "key": "Action-Type",
+                "value": "import"
+              },
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "json",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "JSON string containing the deployment configuration. For exports, includes exportType and uuids. For imports, includes name, description, and file name references."
+                },
+                {
+                  "key": "packageFileName",
+                  "type": "file",
+                  "description": "The deployment package ZIP file to import. Required for import operations."
+                },
+                {
+                  "key": "adminConsoleSettingsFileName",
+                  "type": "file",
+                  "description": "Admin Console settings ZIP file to import alongside the package."
+                },
+                {
+                  "key": "customizationFileName",
+                  "type": "file",
+                  "description": "Import customization properties file that maps source environment values to target environment values."
+                },
+                {
+                  "key": "pluginsFileName",
+                  "type": "file",
+                  "description": "Plug-ins ZIP file containing plug-ins to deploy."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "43d1e1da-94d2-43d8-859f-6369c9cd8efc",
+              "name": "Deployment operation initiated successfully. The response includes a UUID for tracking the deployment status.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "deployments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                      "type": "any",
+                      "value": "{{domain}}",
+                      "key": "domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "appian-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Specifies whether the deployment operation is an export or import. If omitted, defaults to import.",
+                    "key": "Action-Type",
+                    "value": "import"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "JSON string containing the deployment configuration. For exports, includes exportType and uuids. For imports, includes name, description, and file name references.",
+                        "type": "text/plain"
+                      },
+                      "key": "json",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "The deployment package ZIP file to import. Required for import operations.",
+                        "type": "text/plain"
+                      },
+                      "key": "packageFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Admin Console settings ZIP file to import alongside the package.",
+                        "type": "text/plain"
+                      },
+                      "key": "adminConsoleSettingsFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Import customization properties file that maps source environment values to target environment values.",
+                        "type": "text/plain"
+                      },
+                      "key": "customizationFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Plug-ins ZIP file containing plug-ins to deploy.",
+                        "type": "text/plain"
+                      },
+                      "key": "pluginsFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uuid\": \"d243b14c-3ba5-41c3-9f51-76da51beb8f5\",\n  \"url\": \"https://mysite.appiancloud.com/suite/deployment-management/v2/deployments/d243b14c-3ba5-41c3-9f51-76da51beb8f5/\",\n  \"status\": \"FAILED\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8bdea608-0984-4461-9bc6-1265354f8e10",
+              "name": "Bad request. The request payload is malformed or missing required fields.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "deployments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                      "type": "any",
+                      "value": "{{domain}}",
+                      "key": "domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "appian-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Specifies whether the deployment operation is an export or import. If omitted, defaults to import.",
+                    "key": "Action-Type",
+                    "value": "import"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "JSON string containing the deployment configuration. For exports, includes exportType and uuids. For imports, includes name, description, and file name references.",
+                        "type": "text/plain"
+                      },
+                      "key": "json",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "The deployment package ZIP file to import. Required for import operations.",
+                        "type": "text/plain"
+                      },
+                      "key": "packageFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Admin Console settings ZIP file to import alongside the package.",
+                        "type": "text/plain"
+                      },
+                      "key": "adminConsoleSettingsFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Import customization properties file that maps source environment values to target environment values.",
+                        "type": "text/plain"
+                      },
+                      "key": "customizationFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Plug-ins ZIP file containing plug-ins to deploy.",
+                        "type": "text/plain"
+                      },
+                      "key": "pluginsFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ada31aac-de12-4d74-93b7-f39965f35fbc",
+              "name": "Authentication failed. The API key is missing, invalid, or the associated service account does not have the required permissions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "deployments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                      "type": "any",
+                      "value": "{{domain}}",
+                      "key": "domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "appian-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Specifies whether the deployment operation is an export or import. If omitted, defaults to import.",
+                    "key": "Action-Type",
+                    "value": "import"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "JSON string containing the deployment configuration. For exports, includes exportType and uuids. For imports, includes name, description, and file name references.",
+                        "type": "text/plain"
+                      },
+                      "key": "json",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "The deployment package ZIP file to import. Required for import operations.",
+                        "type": "text/plain"
+                      },
+                      "key": "packageFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Admin Console settings ZIP file to import alongside the package.",
+                        "type": "text/plain"
+                      },
+                      "key": "adminConsoleSettingsFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Import customization properties file that maps source environment values to target environment values.",
+                        "type": "text/plain"
+                      },
+                      "key": "customizationFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Plug-ins ZIP file containing plug-ins to deploy.",
+                        "type": "text/plain"
+                      },
+                      "key": "pluginsFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6d85e4e8-e5e6-4fc5-b94d-f0d6cde66b20",
+              "name": "The deployment action is not permitted. The Admin Console settings may restrict this deployment flow.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "deployments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                      "type": "any",
+                      "value": "{{domain}}",
+                      "key": "domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "appian-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Specifies whether the deployment operation is an export or import. If omitted, defaults to import.",
+                    "key": "Action-Type",
+                    "value": "import"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "JSON string containing the deployment configuration. For exports, includes exportType and uuids. For imports, includes name, description, and file name references.",
+                        "type": "text/plain"
+                      },
+                      "key": "json",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "The deployment package ZIP file to import. Required for import operations.",
+                        "type": "text/plain"
+                      },
+                      "key": "packageFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Admin Console settings ZIP file to import alongside the package.",
+                        "type": "text/plain"
+                      },
+                      "key": "adminConsoleSettingsFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Import customization properties file that maps source environment values to target environment values.",
+                        "type": "text/plain"
+                      },
+                      "key": "customizationFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Plug-ins ZIP file containing plug-ins to deploy.",
+                        "type": "text/plain"
+                      },
+                      "key": "pluginsFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "c756fd02-6f6f-481c-9ac2-75465c4fe0ba",
+      "name": "Inspection",
+      "description": {
+        "content": "Operations for inspecting packages before deployment to identify potential issues, errors, and warnings.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c6d04bfc-28d9-43b2-a346-0321712c042f",
+          "name": "Appian Inspect a package before deployment",
+          "request": {
+            "name": "Appian Inspect a package before deployment",
+            "description": {
+              "content": "Creates a new inspection operation to analyze a deployment package before importing it into the target environment. The inspection identifies potential issues, errors, and warnings that may arise during deployment. The request requires the package file, Admin Console settings file, and optionally an import customization file as multipart form data. The response includes an inspection UUID that can be used to retrieve the inspection results.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "inspections"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                  "type": "any",
+                  "value": "{{domain}}",
+                  "key": "domain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "json",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "JSON string containing the inspection configuration with file name references for the attached files."
+                },
+                {
+                  "key": "adminConsoleSettingsFileName",
+                  "type": "file",
+                  "description": "Admin Console settings ZIP file to use for the inspection."
+                },
+                {
+                  "key": "packageFileName",
+                  "type": "file",
+                  "description": "The deployment package ZIP file to inspect."
+                },
+                {
+                  "key": "customizationFileName",
+                  "type": "file",
+                  "description": "Optional import customization properties file to include in the inspection."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "fcbb3d24-eedc-4466-b417-67e05cf14e43",
+              "name": "Inspection operation initiated successfully. The response includes a UUID for tracking the inspection status.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inspections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                      "type": "any",
+                      "value": "{{domain}}",
+                      "key": "domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "appian-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "JSON string containing the inspection configuration with file name references for the attached files.",
+                        "type": "text/plain"
+                      },
+                      "key": "json",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Admin Console settings ZIP file to use for the inspection.",
+                        "type": "text/plain"
+                      },
+                      "key": "adminConsoleSettingsFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "The deployment package ZIP file to inspect.",
+                        "type": "text/plain"
+                      },
+                      "key": "packageFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Optional import customization properties file to include in the inspection.",
+                        "type": "text/plain"
+                      },
+                      "key": "customizationFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uuid\": \"378271a6-ca0d-4466-bac9-385e4fcb951a\",\n  \"url\": \"https://mysite.appiancloud.com/suite/deployment-management/v2/inspections/378271a6-ca0d-4466-bac9-385e4fcb951a/\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6970bb26-e21e-4717-8172-4f5db1616252",
+              "name": "Bad request. Required files are missing or the request is malformed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inspections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                      "type": "any",
+                      "value": "{{domain}}",
+                      "key": "domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "appian-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "JSON string containing the inspection configuration with file name references for the attached files.",
+                        "type": "text/plain"
+                      },
+                      "key": "json",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Admin Console settings ZIP file to use for the inspection.",
+                        "type": "text/plain"
+                      },
+                      "key": "adminConsoleSettingsFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "The deployment package ZIP file to inspect.",
+                        "type": "text/plain"
+                      },
+                      "key": "packageFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Optional import customization properties file to include in the inspection.",
+                        "type": "text/plain"
+                      },
+                      "key": "customizationFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e9c39230-1f45-4cb9-856c-c22c21330420",
+              "name": "Authentication failed. The API key is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inspections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                      "type": "any",
+                      "value": "{{domain}}",
+                      "key": "domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "appian-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "JSON string containing the inspection configuration with file name references for the attached files.",
+                        "type": "text/plain"
+                      },
+                      "key": "json",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Admin Console settings ZIP file to use for the inspection.",
+                        "type": "text/plain"
+                      },
+                      "key": "adminConsoleSettingsFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "The deployment package ZIP file to inspect.",
+                        "type": "text/plain"
+                      },
+                      "key": "packageFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Optional import customization properties file to include in the inspection.",
+                        "type": "text/plain"
+                      },
+                      "key": "customizationFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0ba6c864-55c7-447f-b456-98d9c2d03196",
+          "name": "Appian Get inspection results",
+          "request": {
+            "name": "Appian Get inspection results",
+            "description": {
+              "content": "Retrieves the current status and results of a package inspection operation identified by its UUID. The response includes a summary of expected objects, Admin Console settings, and any problems (errors and warnings) identified during the inspection.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "inspections",
+                ":inspectionUuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "inspectionUuid",
+                  "description": "(Required) The UUID of the inspection operation to query. This is returned when creating an inspection via the POST /inspections endpoint."
+                },
+                {
+                  "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                  "type": "any",
+                  "value": "{{domain}}",
+                  "key": "domain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bb202267-e92b-4cfb-a268-cb5fe8e74750",
+              "name": "Successfully retrieved inspection results including any errors and warnings found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inspections",
+                    ":inspectionUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "inspectionUuid",
+                      "description": "(Required) The UUID of the inspection operation to query. This is returned when creating an inspection via the POST /inspections endpoint."
+                    },
+                    {
+                      "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                      "type": "any",
+                      "value": "{{domain}}",
+                      "key": "domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "appian-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"FAILED\",\n  \"summary\": {\n    \"objectsExpected\": {\n      \"total\": 5450,\n      \"imported\": 903,\n      \"failed\": 7432,\n      \"skipped\": 1484\n    },\n    \"adminConsoleSettingsExpected\": {\n      \"total\": 4812,\n      \"imported\": 4939,\n      \"failed\": 3625,\n      \"skipped\": 5331\n    },\n    \"problems\": {\n      \"totalErrors\": 6993,\n      \"totalWarnings\": 695,\n      \"errors\": [\n        {\n          \"errorMessage\": \"string\",\n          \"objectName\": \"string\",\n          \"objectUuid\": \"e719db68-716e-f51c-dfb9-91d875234c9a\"\n        },\n        {\n          \"errorMessage\": \"string\",\n          \"objectName\": \"string\",\n          \"objectUuid\": \"09c24d7e-3ffa-0b9e-e1a2-4c34d59e1adf\"\n        }\n      ],\n      \"warnings\": [\n        {\n          \"warningMessage\": \"string\",\n          \"objectName\": \"string\",\n          \"objectUuid\": \"e4ef4a71-85c9-7cfe-1b07-f3a51ae64e72\"\n        },\n        {\n          \"warningMessage\": \"string\",\n          \"objectName\": \"string\",\n          \"objectUuid\": \"08c42bee-4d99-7ecf-24c5-07212b0d46cf\"\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "93829517-89b0-48d1-a53a-97d451a473b6",
+              "name": "Authentication failed. The API key is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inspections",
+                    ":inspectionUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "inspectionUuid",
+                      "description": "(Required) The UUID of the inspection operation to query. This is returned when creating an inspection via the POST /inspections endpoint."
+                    },
+                    {
+                      "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                      "type": "any",
+                      "value": "{{domain}}",
+                      "key": "domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "appian-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "99f83bb9-f1fa-49b3-bc5b-f7870fd319d8",
+              "name": "The specified inspection UUID was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inspections",
+                    ":inspectionUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "inspectionUuid",
+                      "description": "(Required) The UUID of the inspection operation to query. This is returned when creating an inspection via the POST /inspections endpoint."
+                    },
+                    {
+                      "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                      "type": "any",
+                      "value": "{{domain}}",
+                      "key": "domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "appian-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "d56dfb98-ed07-4de1-96a2-cf4e5c9723b2",
+      "name": "Results",
+      "description": {
+        "content": "Operations for retrieving the status, results, and logs of deployments and inspections.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b35337b6-b515-46fb-8d6b-c113c5dbc0e9",
+          "name": "Appian Get deployment results",
+          "request": {
+            "name": "Appian Get deployment results",
+            "description": {
+              "content": "Retrieves the current status and results of a deployment operation identified by its UUID. The response structure varies depending on whether the deployment was an import or export operation. For imports, the response includes a summary of imported, failed, and skipped objects. For exports, the response includes URLs to download the exported package, plug-ins, customization files, and database scripts.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "deployments",
+                ":deploymentUuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "deploymentUuid",
+                  "description": "(Required) The UUID of the deployment operation to query. This is returned when creating a deployment via the POST /deployments endpoint."
+                },
+                {
+                  "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                  "type": "any",
+                  "value": "{{domain}}",
+                  "key": "domain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cde891bf-2fab-4238-98c9-3f258a34b8e2",
+              "name": "Successfully retrieved deployment results. The response schema depends on whether the deployment was an import or export.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "deployments",
+                    ":deploymentUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "deploymentUuid",
+                      "description": "(Required) The UUID of the deployment operation to query. This is returned when creating a deployment via the POST /deployments endpoint."
+                    },
+                    {
+                      "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                      "type": "any",
+                      "value": "{{domain}}",
+                      "key": "domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "appian-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"IN_PROGRESS\",\n  \"summary\": {\n    \"objects\": {\n      \"total\": 9915,\n      \"imported\": 7068,\n      \"failed\": 2990,\n      \"skipped\": 7436\n    },\n    \"adminConsoleSettings\": {\n      \"total\": 3001,\n      \"imported\": 1117,\n      \"failed\": 2338,\n      \"skipped\": 8609\n    },\n    \"plugins\": {\n      \"total\": 7923,\n      \"imported\": 8145,\n      \"skipped\": 5391\n    },\n    \"databaseScripts\": 1485,\n    \"deploymentLogUrl\": \"http://wtUmjbtj.oeniPABmgUlYBPDLSKGJN2wjS4vSXReQZrto5AuMLg\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8d8ada57-f997-41c0-aca9-e10e5d4fe835",
+              "name": "Authentication failed. The API key is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "deployments",
+                    ":deploymentUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "deploymentUuid",
+                      "description": "(Required) The UUID of the deployment operation to query. This is returned when creating a deployment via the POST /deployments endpoint."
+                    },
+                    {
+                      "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                      "type": "any",
+                      "value": "{{domain}}",
+                      "key": "domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "appian-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9fd4387a-527e-4458-8c3c-9d458bbe414f",
+              "name": "The specified deployment UUID was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "deployments",
+                    ":deploymentUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "deploymentUuid",
+                      "description": "(Required) The UUID of the deployment operation to query. This is returned when creating a deployment via the POST /deployments endpoint."
+                    },
+                    {
+                      "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                      "type": "any",
+                      "value": "{{domain}}",
+                      "key": "domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "appian-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7e5f739d-11d6-4118-b722-efb0e68c4a18",
+          "name": "Appian Get deployment log",
+          "request": {
+            "name": "Appian Get deployment log",
+            "description": {
+              "content": "Retrieves the deployment log for a completed deployment operation in text format. The log contains detailed information about the deployment process, including any errors or warnings encountered during the operation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "deployments",
+                ":deploymentUuid",
+                "log"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "deploymentUuid",
+                  "description": "(Required) The UUID of the deployment operation to query. This is returned when creating a deployment via the POST /deployments endpoint."
+                },
+                {
+                  "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                  "type": "any",
+                  "value": "{{domain}}",
+                  "key": "domain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fc72052a-1057-4abf-8de1-b9e7b13671fb",
+              "name": "Successfully retrieved the deployment log in plain text format.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "deployments",
+                    ":deploymentUuid",
+                    "log"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "deploymentUuid",
+                      "description": "(Required) The UUID of the deployment operation to query. This is returned when creating a deployment via the POST /deployments endpoint."
+                    },
+                    {
+                      "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                      "type": "any",
+                      "value": "{{domain}}",
+                      "key": "domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "appian-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "65d7dfad-65b1-4bfc-8d1b-1ad361e7ddc1",
+              "name": "Authentication failed. The API key is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "deployments",
+                    ":deploymentUuid",
+                    "log"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "deploymentUuid",
+                      "description": "(Required) The UUID of the deployment operation to query. This is returned when creating a deployment via the POST /deployments endpoint."
+                    },
+                    {
+                      "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                      "type": "any",
+                      "value": "{{domain}}",
+                      "key": "domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "appian-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b24488b4-8e76-4769-bc3c-fe0b27e1db19",
+              "name": "The specified deployment UUID was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "deployments",
+                    ":deploymentUuid",
+                    "log"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "deploymentUuid",
+                      "description": "(Required) The UUID of the deployment operation to query. This is returned when creating a deployment via the POST /deployments endpoint."
+                    },
+                    {
+                      "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                      "type": "any",
+                      "value": "{{domain}}",
+                      "key": "domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "appian-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "mysite.appiancloud.com",
+      "key": "domain"
+    },
+    {
+      "type": "string",
+      "value": "https://{{domain}}/suite/deployment-management/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "appian-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b802627e-7a83-4a48-a2b7-48cbf4f252d7",
+    "name": "Appian Deployment REST API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Appian Deployment REST API provides endpoints for exporting, inspecting, and importing applications and packages as part of CI/CD deployment pipelines. It supports the full deployment lifecycle including exporting packages from a source environment, inspecting packages before deployment to identify potential issues, importing packages into a target environment, and retrieving deployment results and logs. All endpoints are authenticated using an API key linked to a service account configured in the Appian Admin Console.\n\nContact Support:\n Name: Appian Corporation\n Email: support@appian.com",
+      "type": "text/plain"
+    }
+  }
+}

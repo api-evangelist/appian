@@ -1,0 +1,45 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Appian Application Package Details API",
+    "version": "2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "appian-api-key",
+      "value": "{{appian-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Packages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Appian Get application package details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/suite/deployment-management/v2/applications/:applicationUuid/packages",
+            "params": [
+              {
+                "name": "applicationUuid",
+                "value": "d243b14c-3ba5-41c3-9f51-76da51beb8f5",
+                "type": "path",
+                "description": "The UUID of the application whose packages are being retrieved. This UUID can be found in the application properties within Appian Designer."
+              }
+            ]
+          },
+          "docs": "Retrieves data about any in-flight packages for the specified application. Returns up to 100 packages ordered by last modified timestamp with the most recently modified package first. This endpoint can be used to link packages to change management systems or to obtain package identifiers for use with the Deployment REST API."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

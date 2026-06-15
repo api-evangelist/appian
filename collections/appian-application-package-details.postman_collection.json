@@ -1,0 +1,278 @@
+{
+  "item": [
+    {
+      "id": "65fcd916-b1e4-44fa-998e-1965ccd3326d",
+      "name": "Packages",
+      "description": {
+        "content": "Operations for retrieving package details associated with an Appian application.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7b38a065-bf36-4f6d-b8d0-1b7bef7d4722",
+          "name": "Appian Get application package details",
+          "request": {
+            "name": "Appian Get application package details",
+            "description": {
+              "content": "Retrieves data about any in-flight packages for the specified application. Returns up to 100 packages ordered by last modified timestamp with the most recently modified package first. This endpoint can be used to link packages to change management systems or to obtain package identifiers for use with the Deployment REST API.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "applications",
+                ":applicationUuid",
+                "packages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "applicationUuid",
+                  "description": "(Required) The UUID of the application whose packages are being retrieved. This UUID can be found in the application properties within Appian Designer."
+                },
+                {
+                  "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                  "type": "any",
+                  "value": "{{domain}}",
+                  "key": "domain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "edf3e278-e796-491a-9b3d-89908171854c",
+              "name": "Successfully retrieved the list of packages for the specified application.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":applicationUuid",
+                    "packages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "applicationUuid",
+                      "description": "(Required) The UUID of the application whose packages are being retrieved. This UUID can be found in the application properties within Appian Designer."
+                    },
+                    {
+                      "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                      "type": "any",
+                      "value": "{{domain}}",
+                      "key": "domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "appian-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"totalPackageCount\": 3,\n  \"packages\": [\n    {\n      \"name\": \"CR-176543 Add reports dashboard\",\n      \"uuid\": \"d243b14c-3ba5-41c3-9f51-76da51beb8f5\",\n      \"description\": \"Updates the executive summary view with new reports.\",\n      \"objectCount\": 12,\n      \"databaseScriptCount\": 2,\n      \"pluginCount\": 1,\n      \"datasourceUuid\": \"e65c978f-561d-79f9-e263-7d9018b86642\",\n      \"hasCustomizationFile\": true,\n      \"createdTimestamp\": \"1999-06-05T09:44:47.349Z\",\n      \"lastModifiedTimestamp\": \"1977-06-11T05:21:47.346Z\",\n      \"ticketLink\": \"https://jira.example.com/browse/CR-176543\"\n    },\n    {\n      \"name\": \"CR-176543 Add reports dashboard\",\n      \"uuid\": \"d243b14c-3ba5-41c3-9f51-76da51beb8f5\",\n      \"description\": \"Updates the executive summary view with new reports.\",\n      \"objectCount\": 12,\n      \"databaseScriptCount\": 2,\n      \"pluginCount\": 1,\n      \"datasourceUuid\": \"2337a74d-a798-7e93-8a3e-1dbd092f6672\",\n      \"hasCustomizationFile\": true,\n      \"createdTimestamp\": \"2010-12-17T00:26:10.715Z\",\n      \"lastModifiedTimestamp\": \"1997-03-02T17:59:02.665Z\",\n      \"ticketLink\": \"https://jira.example.com/browse/CR-176543\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "acbde2af-7f25-4327-bb40-8d4f28f4a6ef",
+              "name": "Authentication failed. The API key is missing, invalid, or the associated service account does not have access.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":applicationUuid",
+                    "packages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "applicationUuid",
+                      "description": "(Required) The UUID of the application whose packages are being retrieved. This UUID can be found in the application properties within Appian Designer."
+                    },
+                    {
+                      "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                      "type": "any",
+                      "value": "{{domain}}",
+                      "key": "domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "appian-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fdfdae82-0156-4e17-bda9-6513d2b0fef7",
+              "name": "The specified application UUID was not found or the service account does not have access to the application.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":applicationUuid",
+                    "packages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "applicationUuid",
+                      "description": "(Required) The UUID of the application whose packages are being retrieved. This UUID can be found in the application properties within Appian Designer."
+                    },
+                    {
+                      "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                      "type": "any",
+                      "value": "{{domain}}",
+                      "key": "domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "appian-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "mysite.appiancloud.com",
+      "key": "domain"
+    },
+    {
+      "type": "string",
+      "value": "https://{{domain}}/suite/deployment-management/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "appian-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0deef911-cde6-439f-a573-c6cc2c079eb1",
+    "name": "Appian Application Package Details API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Application Package Details API uses the UUID of an application to retrieve data about any in-flight packages for that application. It can be used to link packages to change management systems or obtain identifiers for packages that can then be used with the Deployment REST API to perform exports and deployments. Packages are returned in order of last modified timestamp, with the most recently modified package appearing first, up to a maximum of 100 packages.\n\nContact Support:\n Name: Appian Corporation\n Email: support@appian.com",
+      "type": "text/plain"
+    }
+  }
+}

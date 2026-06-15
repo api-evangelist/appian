@@ -1,0 +1,135 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Appian Deployment REST API",
+    "version": "2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "appian-api-key",
+      "value": "{{appian-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Export",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Appian Export or import a deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{domain}/suite/deployment-management/v2/deployments",
+            "headers": [
+              {
+                "name": "Action-Type",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "Creates a new deployment operation for either exporting or importing applications and packages. The Action-Type header determines whether the operation is an export or import. For exports, provide a JSON payload specifying the UUIDs and export type. For imports, provide a multipart form with the package files and deployment configuration. The response includes a deployment UUID that can be used to track progress and retrieve results."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Results",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Appian Get deployment results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/suite/deployment-management/v2/deployments/:deploymentUuid",
+            "params": [
+              {
+                "name": "deploymentUuid",
+                "value": "d243b14c-3ba5-41c3-9f51-76da51beb8f5",
+                "type": "path",
+                "description": "The UUID of the deployment operation to query. This is returned when creating a deployment via the POST /deployments endpoint."
+              }
+            ]
+          },
+          "docs": "Retrieves the current status and results of a deployment operation identified by its UUID. The response structure varies depending on whether the deployment was an import or export operation. For imports, the response includes a summary of imported, failed, and skipped objects. For exports, the response includes URLs to download the exported package, plug-ins, customization files, and database scripts."
+        },
+        {
+          "info": {
+            "name": "Appian Get deployment log",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/suite/deployment-management/v2/deployments/:deploymentUuid/log",
+            "params": [
+              {
+                "name": "deploymentUuid",
+                "value": "d243b14c-3ba5-41c3-9f51-76da51beb8f5",
+                "type": "path",
+                "description": "The UUID of the deployment operation to query. This is returned when creating a deployment via the POST /deployments endpoint."
+              }
+            ]
+          },
+          "docs": "Retrieves the deployment log for a completed deployment operation in text format. The log contains detailed information about the deployment process, including any errors or warnings encountered during the operation."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Inspection",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Appian Inspect a package before deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{domain}/suite/deployment-management/v2/inspections",
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "Creates a new inspection operation to analyze a deployment package before importing it into the target environment. The inspection identifies potential issues, errors, and warnings that may arise during deployment. The request requires the package file, Admin Console settings file, and optionally an import customization file as multipart form data. The response includes an inspection UUID that can be used to retrieve the inspection results."
+        },
+        {
+          "info": {
+            "name": "Appian Get inspection results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/suite/deployment-management/v2/inspections/:inspectionUuid",
+            "params": [
+              {
+                "name": "inspectionUuid",
+                "value": "378271a6-ca0d-4466-bac9-385e4fcb951a",
+                "type": "path",
+                "description": "The UUID of the inspection operation to query. This is returned when creating an inspection via the POST /inspections endpoint."
+              }
+            ]
+          },
+          "docs": "Retrieves the current status and results of a package inspection operation identified by its UUID. The response includes a summary of expected objects, Admin Console settings, and any problems (errors and warnings) identified during the inspection."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
