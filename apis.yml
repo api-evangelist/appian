@@ -165,34 +165,27 @@ maintainers:
     url: https://www.appian.com
 specificationVersion: '0.19'
 common:
-  - type: ArazzoWorkflows
-    url: arazzo/
-    workflows:
-      - url: arazzo/appian-deployment-status-and-log-workflow.yml
-        name: Appian Get Deployment Status and Log
-        summary: Retrieve a deployment's current results and pull its full deployment log in one pass.
-      - url: arazzo/appian-export-application-package-workflow.yml
-        name: Appian Export an Application Package
-        summary: Resolve an in-flight package for an application and export it as a downloadable deployment artifact.
-      - url: arazzo/appian-export-full-application-workflow.yml
-        name: Appian Export a Full Application
-        summary: Confirm an application has in-flight packages, then export the entire application and wait for the artifacts.
-      - url: arazzo/appian-import-deployment-workflow.yml
-        name: Appian Import a Deployment and Confirm Results
-        summary: >-
-          Import a deployment package, poll until completion, and branch on whether the import succeeded or finished
-          with errors.
-      - url: arazzo/appian-inspect-package-workflow.yml
-        name: Appian Inspect a Package Before Deployment
-        summary: Start a package inspection, poll for results, and branch on whether blocking errors were found.
-      - url: arazzo/appian-inspect-then-import-workflow.yml
-        name: Appian Gated Inspect-then-Import Promotion
-        summary: Inspect a package first and only import it when the inspection reports no blocking errors.
-      - url: arazzo/appian-resolve-and-export-named-package-workflow.yml
-        name: Appian Resolve a Named Package and Export It
-        summary: >-
-          List an application's packages, branch on whether any packages exist, and export the most recently modified
-          one.
+  - type: Arazzo
+    url: arazzo/appian-deployment-status-and-log-workflow.yml
+    name: Appian Get Deployment Status and Log
+  - type: Arazzo
+    url: arazzo/appian-export-application-package-workflow.yml
+    name: Appian Export an Application Package
+  - type: Arazzo
+    url: arazzo/appian-export-full-application-workflow.yml
+    name: Appian Export a Full Application
+  - type: Arazzo
+    url: arazzo/appian-import-deployment-workflow.yml
+    name: Appian Import a Deployment and Confirm Results
+  - type: Arazzo
+    url: arazzo/appian-inspect-package-workflow.yml
+    name: Appian Inspect a Package Before Deployment
+  - type: Arazzo
+    url: arazzo/appian-inspect-then-import-workflow.yml
+    name: Appian Gated Inspect-then-Import Promotion
+  - type: Arazzo
+    url: arazzo/appian-resolve-and-export-named-package-workflow.yml
+    name: Appian Resolve a Named Package and Export It
   - url: https://community.appian.com
     type: Portal
   - url: https://docs.appian.com
@@ -327,39 +320,39 @@ common:
     url: json-structure/deployment-rest-inspection-result-structure.json
   - type: JSONStructure
     url: json-structure/deployment-rest-inspection-warning-structure.json
-  - type: Example
+  - type: Examples
     url: examples/application-package-details-package-example.json
-  - type: Example
+  - type: Examples
     url: examples/application-package-details-package-list-response-example.json
-  - type: Example
+  - type: Examples
     url: examples/deployment-rest-database-script-example.json
-  - type: Example
+  - type: Examples
     url: examples/deployment-rest-deployment-request-example.json
-  - type: Example
+  - type: Examples
     url: examples/deployment-rest-deployment-response-example.json
-  - type: Example
+  - type: Examples
     url: examples/deployment-rest-deployment-status-example.json
-  - type: Example
+  - type: Examples
     url: examples/deployment-rest-export-configuration-example.json
-  - type: Example
+  - type: Examples
     url: examples/deployment-rest-export-deployment-result-example.json
-  - type: Example
+  - type: Examples
     url: examples/deployment-rest-import-configuration-example.json
-  - type: Example
+  - type: Examples
     url: examples/deployment-rest-import-deployment-result-example.json
-  - type: Example
+  - type: Examples
     url: examples/deployment-rest-import-summary-count-example.json
-  - type: Example
+  - type: Examples
     url: examples/deployment-rest-inspection-error-example.json
-  - type: Example
+  - type: Examples
     url: examples/deployment-rest-inspection-problems-example.json
-  - type: Example
+  - type: Examples
     url: examples/deployment-rest-inspection-request-example.json
-  - type: Example
+  - type: Examples
     url: examples/deployment-rest-inspection-response-example.json
-  - type: Example
+  - type: Examples
     url: examples/deployment-rest-inspection-result-example.json
-  - type: Example
+  - type: Examples
     url: examples/deployment-rest-inspection-warning-example.json
   - type: Features
     data:
