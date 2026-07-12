@@ -1,0 +1,19 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/appian-application-package-details-openapi.yml, openapi/appian-deployment-rest-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: apiKeyAuth
+  type: apiKey
+  in: header
+  parameter: appian-api-key
+  description: API key linked to a service account. Created and managed through the Appian Admin
+    Console. The service account must have access to the application via the application's role
+    map.
+  sources:
+  - openapi/appian-application-package-details-openapi.yml
+  - openapi/appian-deployment-rest-openapi.yml

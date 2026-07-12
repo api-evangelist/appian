@@ -165,6 +165,12 @@ maintainers:
     url: https://www.appian.com
 specificationVersion: '0.19'
 common:
+  - type: VulnerabilityDisclosure
+    url: security/appian-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/appian-domain-security.yml
+  - type: Authentication
+    url: authentication/appian-authentication.yml
   - type: Arazzo
     url: arazzo/appian-deployment-status-and-log-workflow.yml
     name: Appian Get Deployment Status and Log
