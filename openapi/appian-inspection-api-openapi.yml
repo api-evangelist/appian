@@ -1,0 +1,220 @@
+openapi: 3.1.0
+info:
+  title: Appian Application Package Details Export Inspection API
+  description: The Application Package Details API uses the UUID of an application to retrieve data about any in-flight packages for that application. It can be used to link packages to change management systems or obtain identifiers for packages that can then be used with the Deployment REST API to perform exports and deployments. Packages are returned in order of last modified timestamp, with the most recently modified package appearing first, up to a maximum of 100 packages.
+  version: '2'
+  contact:
+    name: Appian Corporation
+    url: https://www.appian.com
+    email: support@appian.com
+  termsOfService: https://www.appian.com/terms-of-service.html
+  license:
+    name: Proprietary
+    url: https://www.appian.com/terms-of-service.html
+servers:
+- url: https://{domain}/suite/deployment-management/v2
+  description: Appian Cloud Production Server
+  variables:
+    domain:
+      default: mysite.appiancloud.com
+      description: The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.
+security:
+- apiKeyAuth: []
+tags:
+- name: Inspection
+  description: Operations for inspecting packages before deployment to identify potential issues, errors, and warnings.
+paths:
+  /inspections:
+    post:
+      operationId: createInspection
+      summary: Appian Inspect a package before deployment
+      description: Creates a new inspection operation to analyze a deployment package before importing it into the target environment. The inspection identifies potential issues, errors, and warnings that may arise during deployment. The request requires the package file, Admin Console settings file, and optionally an import customization file as multipart form data. The response includes an inspection UUID that can be used to retrieve the inspection results.
+      tags:
+      - Inspection
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/InspectionRequest'
+      responses:
+        '200':
+          description: Inspection operation initiated successfully. The response includes a UUID for tracking the inspection status.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InspectionResponse'
+        '400':
+          description: Bad request. Required files are missing or the request is malformed.
+        '401':
+          description: Authentication failed. The API key is missing or invalid.
+  /inspections/{inspectionUuid}:
+    get:
+      operationId: getInspectionResults
+      summary: Appian Get inspection results
+      description: Retrieves the current status and results of a package inspection operation identified by its UUID. The response includes a summary of expected objects, Admin Console settings, and any problems (errors and warnings) identified during the inspection.
+      tags:
+      - Inspection
+      parameters:
+      - $ref: '#/components/parameters/inspectionUuid'
+      responses:
+        '200':
+          description: Successfully retrieved inspection results including any errors and warnings found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InspectionResult'
+        '401':
+          description: Authentication failed. The API key is missing or invalid.
+        '404':
+          description: The specified inspection UUID was not found.
+components:
+  schemas:
+    InspectionWarning:
+      type: object
+      description: A warning identified during package inspection that may affect deployment but would not prevent it.
+      properties:
+        warningMessage:
+          type: string
+          description: A description of the warning condition.
+        objectName:
+          type: string
+          description: The name of the object associated with the warning.
+        objectUuid:
+          type: string
+          format: uuid
+          description: The UUID of the object associated with the warning.
+    InspectionError:
+      type: object
+      description: An error identified during package inspection that would prevent successful deployment.
+      properties:
+        errorMessage:
+          type: string
+          description: A description of the error condition.
+        objectName:
+          type: string
+          description: The name of the object affected by the error.
+        objectUuid:
+          type: string
+          format: uuid
+          description: The UUID of the object affected by the error.
+    InspectionResult:
+      type: object
+      description: Result of a package inspection operation, including expected object counts and any problems identified.
+      properties:
+        status:
+          type: string
+          description: The current status of the inspection operation.
+          enum:
+          - IN_PROGRESS
+          - COMPLETED
+          - FAILED
+        summary:
+          type: object
+          description: Summary of the inspection findings.
+          properties:
+            objectsExpected:
+              $ref: '#/components/schemas/ImportSummaryCount'
+            adminConsoleSettingsExpected:
+              $ref: '#/components/schemas/ImportSummaryCount'
+            problems:
+              $ref: '#/components/schemas/InspectionProblems'
+      required:
+      - status
+    InspectionResponse:
+      type: object
+      description: Response returned when an inspection operation is successfully initiated. Contains the UUID for tracking the inspection.
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Unique identifier for the inspection operation. Use this UUID to retrieve inspection results.
+          example: 378271a6-ca0d-4466-bac9-385e4fcb951a
+        url:
+          type: string
+          format: uri
+          description: URL endpoint for retrieving the inspection details and results.
+          example: https://mysite.appiancloud.com/suite/deployment-management/v2/inspections/378271a6-ca0d-4466-bac9-385e4fcb951a/
+      required:
+      - uuid
+      - url
+    InspectionRequest:
+      type: object
+      description: Request body for creating a package inspection operation. Requires the deployment package and Admin Console settings files, with an optional import customization file.
+      properties:
+        json:
+          type: string
+          description: JSON string containing the inspection configuration with file name references for the attached files.
+        adminConsoleSettingsFileName:
+          type: string
+          format: binary
+          description: Admin Console settings ZIP file to use for the inspection.
+        packageFileName:
+          type: string
+          format: binary
+          description: The deployment package ZIP file to inspect.
+        customizationFileName:
+          type: string
+          format: binary
+          description: Optional import customization properties file to include in the inspection.
+    ImportSummaryCount:
+      type: object
+      description: Summary count of items in an import deployment, showing total, imported, failed, and skipped counts.
+      properties:
+        total:
+          type: integer
+          description: Total number of items in the package.
+          minimum: 0
+        imported:
+          type: integer
+          description: Number of items successfully imported.
+          minimum: 0
+        failed:
+          type: integer
+          description: Number of items that failed to import.
+          minimum: 0
+        skipped:
+          type: integer
+          description: Number of items skipped during import.
+          minimum: 0
+    InspectionProblems:
+      type: object
+      description: Collection of errors and warnings identified during a package inspection.
+      properties:
+        totalErrors:
+          type: integer
+          description: Total number of errors found during inspection.
+          minimum: 0
+        totalWarnings:
+          type: integer
+          description: Total number of warnings found during inspection.
+          minimum: 0
+        errors:
+          type: array
+          description: Array of error details identified during inspection.
+          items:
+            $ref: '#/components/schemas/InspectionError'
+        warnings:
+          type: array
+          description: Array of warning details identified during inspection.
+          items:
+            $ref: '#/components/schemas/InspectionWarning'
+  parameters:
+    inspectionUuid:
+      name: inspectionUuid
+      in: path
+      required: true
+      description: The UUID of the inspection operation to query. This is returned when creating an inspection via the POST /inspections endpoint.
+      schema:
+        type: string
+        format: uuid
+      example: 378271a6-ca0d-4466-bac9-385e4fcb951a
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      name: appian-api-key
+      in: header
+      description: API key linked to a service account. Created and managed through the Appian Admin Console. The service account must have access to the application via the application's role map.
+externalDocs:
+  description: Application Package Details API Documentation
+  url: https://docs.appian.com/suite/help/25.4/Application_Package_Details_API.html

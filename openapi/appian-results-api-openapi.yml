@@ -1,0 +1,216 @@
+openapi: 3.1.0
+info:
+  title: Appian Application Package Details Export Results API
+  description: The Application Package Details API uses the UUID of an application to retrieve data about any in-flight packages for that application. It can be used to link packages to change management systems or obtain identifiers for packages that can then be used with the Deployment REST API to perform exports and deployments. Packages are returned in order of last modified timestamp, with the most recently modified package appearing first, up to a maximum of 100 packages.
+  version: '2'
+  contact:
+    name: Appian Corporation
+    url: https://www.appian.com
+    email: support@appian.com
+  termsOfService: https://www.appian.com/terms-of-service.html
+  license:
+    name: Proprietary
+    url: https://www.appian.com/terms-of-service.html
+servers:
+- url: https://{domain}/suite/deployment-management/v2
+  description: Appian Cloud Production Server
+  variables:
+    domain:
+      default: mysite.appiancloud.com
+      description: The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.
+security:
+- apiKeyAuth: []
+tags:
+- name: Results
+  description: Operations for retrieving the status, results, and logs of deployments and inspections.
+paths:
+  /deployments/{deploymentUuid}:
+    get:
+      operationId: getDeploymentResults
+      summary: Appian Get deployment results
+      description: Retrieves the current status and results of a deployment operation identified by its UUID. The response structure varies depending on whether the deployment was an import or export operation. For imports, the response includes a summary of imported, failed, and skipped objects. For exports, the response includes URLs to download the exported package, plug-ins, customization files, and database scripts.
+      tags:
+      - Results
+      parameters:
+      - $ref: '#/components/parameters/deploymentUuid'
+      responses:
+        '200':
+          description: Successfully retrieved deployment results. The response schema depends on whether the deployment was an import or export.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/ImportDeploymentResult'
+                - $ref: '#/components/schemas/ExportDeploymentResult'
+        '401':
+          description: Authentication failed. The API key is missing or invalid.
+        '404':
+          description: The specified deployment UUID was not found.
+  /deployments/{deploymentUuid}/log:
+    get:
+      operationId: getDeploymentLog
+      summary: Appian Get deployment log
+      description: Retrieves the deployment log for a completed deployment operation in text format. The log contains detailed information about the deployment process, including any errors or warnings encountered during the operation.
+      tags:
+      - Results
+      parameters:
+      - $ref: '#/components/parameters/deploymentUuid'
+      responses:
+        '200':
+          description: Successfully retrieved the deployment log in plain text format.
+          content:
+            text/plain:
+              schema:
+                type: string
+                description: The deployment log content containing detailed information about the deployment process.
+        '401':
+          description: Authentication failed. The API key is missing or invalid.
+        '404':
+          description: The specified deployment UUID was not found.
+components:
+  schemas:
+    DatabaseScript:
+      type: object
+      description: Represents a database script included in an export or import deployment.
+      properties:
+        fileName:
+          type: string
+          description: The file name of the database script.
+          example: create_tables.sql
+        orderId:
+          type: integer
+          description: The execution order of the database script, starting at 1.
+          minimum: 1
+          example: 1
+        url:
+          type: string
+          format: uri
+          description: URL to download the database script file.
+    ExportDeploymentResult:
+      type: object
+      description: Result of an export deployment operation, including URLs to download the exported artifacts such as packages, plug-ins, customization files, and database scripts.
+      properties:
+        status:
+          $ref: '#/components/schemas/DeploymentStatus'
+        packageZip:
+          type: string
+          format: uri
+          description: URL to download the exported package ZIP file.
+        dataSource:
+          type: string
+          description: The data source name or UUID associated with the export.
+        databaseScripts:
+          type: array
+          description: Array of database script objects included in the export.
+          items:
+            $ref: '#/components/schemas/DatabaseScript'
+        pluginsZip:
+          type: string
+          format: uri
+          description: URL to download the exported plug-ins ZIP file.
+        customizationFile:
+          type: string
+          format: uri
+          description: URL to download the export customization file.
+        customizationFileTemplate:
+          type: string
+          format: uri
+          description: URL to download a template customization file for the exported package.
+        deploymentLogUrl:
+          type: string
+          format: uri
+          description: URL to retrieve the full deployment log.
+      required:
+      - status
+    DeploymentStatus:
+      type: string
+      description: The current status of a deployment operation. IN_PROGRESS indicates the operation is still running. COMPLETED indicates success. Other statuses indicate various error or review states.
+      enum:
+      - IN_PROGRESS
+      - COMPLETED
+      - COMPLETED_WITH_ERRORS
+      - COMPLETED_WITH_IMPORT_ERRORS
+      - COMPLETED_WITH_PUBLISH_ERRORS
+      - FAILED
+      - PENDING_REVIEW
+      - REJECTED
+    ImportDeploymentResult:
+      type: object
+      description: Result of an import deployment operation, including a summary of imported, failed, and skipped objects, Admin Console settings, plug-ins, and database scripts.
+      properties:
+        status:
+          $ref: '#/components/schemas/DeploymentStatus'
+        summary:
+          type: object
+          description: Summary of the import deployment operation results.
+          properties:
+            objects:
+              $ref: '#/components/schemas/ImportSummaryCount'
+            adminConsoleSettings:
+              $ref: '#/components/schemas/ImportSummaryCount'
+            plugins:
+              type: object
+              description: Summary of plug-in import results.
+              properties:
+                total:
+                  type: integer
+                  description: Total number of plug-ins in the package.
+                  minimum: 0
+                imported:
+                  type: integer
+                  description: Number of plug-ins successfully imported.
+                  minimum: 0
+                skipped:
+                  type: integer
+                  description: Number of plug-ins skipped during import.
+                  minimum: 0
+            databaseScripts:
+              type: integer
+              description: Number of database scripts executed during import.
+              minimum: 0
+            deploymentLogUrl:
+              type: string
+              format: uri
+              description: URL to retrieve the full deployment log.
+      required:
+      - status
+      - summary
+    ImportSummaryCount:
+      type: object
+      description: Summary count of items in an import deployment, showing total, imported, failed, and skipped counts.
+      properties:
+        total:
+          type: integer
+          description: Total number of items in the package.
+          minimum: 0
+        imported:
+          type: integer
+          description: Number of items successfully imported.
+          minimum: 0
+        failed:
+          type: integer
+          description: Number of items that failed to import.
+          minimum: 0
+        skipped:
+          type: integer
+          description: Number of items skipped during import.
+          minimum: 0
+  parameters:
+    deploymentUuid:
+      name: deploymentUuid
+      in: path
+      required: true
+      description: The UUID of the deployment operation to query. This is returned when creating a deployment via the POST /deployments endpoint.
+      schema:
+        type: string
+        format: uuid
+      example: d243b14c-3ba5-41c3-9f51-76da51beb8f5
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      name: appian-api-key
+      in: header
+      description: API key linked to a service account. Created and managed through the Appian Admin Console. The service account must have access to the application via the application's role map.
+externalDocs:
+  description: Application Package Details API Documentation
+  url: https://docs.appian.com/suite/help/25.4/Application_Package_Details_API.html

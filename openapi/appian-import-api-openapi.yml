@@ -1,0 +1,132 @@
+openapi: 3.1.0
+info:
+  title: Appian Application Package Details Export Import API
+  description: The Application Package Details API uses the UUID of an application to retrieve data about any in-flight packages for that application. It can be used to link packages to change management systems or obtain identifiers for packages that can then be used with the Deployment REST API to perform exports and deployments. Packages are returned in order of last modified timestamp, with the most recently modified package appearing first, up to a maximum of 100 packages.
+  version: '2'
+  contact:
+    name: Appian Corporation
+    url: https://www.appian.com
+    email: support@appian.com
+  termsOfService: https://www.appian.com/terms-of-service.html
+  license:
+    name: Proprietary
+    url: https://www.appian.com/terms-of-service.html
+servers:
+- url: https://{domain}/suite/deployment-management/v2
+  description: Appian Cloud Production Server
+  variables:
+    domain:
+      default: mysite.appiancloud.com
+      description: The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.
+security:
+- apiKeyAuth: []
+tags:
+- name: Import
+  description: Operations for importing and deploying applications and packages into an Appian environment.
+paths:
+  /deployments:
+    post:
+      operationId: createDeployment
+      summary: Appian Export or import a deployment
+      description: Creates a new deployment operation for either exporting or importing applications and packages. The Action-Type header determines whether the operation is an export or import. For exports, provide a JSON payload specifying the UUIDs and export type. For imports, provide a multipart form with the package files and deployment configuration. The response includes a deployment UUID that can be used to track progress and retrieve results.
+      tags:
+      - Import
+      parameters:
+      - $ref: '#/components/parameters/actionType'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DeploymentRequest'
+      responses:
+        '200':
+          description: Deployment operation initiated successfully. The response includes a UUID for tracking the deployment status.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeploymentResponse'
+        '400':
+          description: Bad request. The request payload is malformed or missing required fields.
+        '401':
+          description: Authentication failed. The API key is missing, invalid, or the associated service account does not have the required permissions.
+        '403':
+          description: The deployment action is not permitted. The Admin Console settings may restrict this deployment flow.
+components:
+  schemas:
+    DeploymentStatus:
+      type: string
+      description: The current status of a deployment operation. IN_PROGRESS indicates the operation is still running. COMPLETED indicates success. Other statuses indicate various error or review states.
+      enum:
+      - IN_PROGRESS
+      - COMPLETED
+      - COMPLETED_WITH_ERRORS
+      - COMPLETED_WITH_IMPORT_ERRORS
+      - COMPLETED_WITH_PUBLISH_ERRORS
+      - FAILED
+      - PENDING_REVIEW
+      - REJECTED
+    DeploymentRequest:
+      type: object
+      description: Request body for creating a deployment operation. For exports, provide the JSON configuration with export type and UUIDs. For imports, provide package files along with the JSON configuration.
+      properties:
+        json:
+          type: string
+          description: JSON string containing the deployment configuration. For exports, includes exportType and uuids. For imports, includes name, description, and file name references.
+        packageFileName:
+          type: string
+          format: binary
+          description: The deployment package ZIP file to import. Required for import operations.
+        adminConsoleSettingsFileName:
+          type: string
+          format: binary
+          description: Admin Console settings ZIP file to import alongside the package.
+        customizationFileName:
+          type: string
+          format: binary
+          description: Import customization properties file that maps source environment values to target environment values.
+        pluginsFileName:
+          type: string
+          format: binary
+          description: Plug-ins ZIP file containing plug-ins to deploy.
+    DeploymentResponse:
+      type: object
+      description: Response returned when a deployment operation is successfully initiated. Contains the UUID for tracking the deployment and its current status.
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Unique identifier for the deployment operation. Use this UUID to retrieve deployment results and logs.
+          example: d243b14c-3ba5-41c3-9f51-76da51beb8f5
+        url:
+          type: string
+          format: uri
+          description: URL endpoint for retrieving the deployment details and results.
+          example: https://mysite.appiancloud.com/suite/deployment-management/v2/deployments/d243b14c-3ba5-41c3-9f51-76da51beb8f5/
+        status:
+          $ref: '#/components/schemas/DeploymentStatus'
+      required:
+      - uuid
+      - url
+      - status
+  parameters:
+    actionType:
+      name: Action-Type
+      in: header
+      required: false
+      description: Specifies whether the deployment operation is an export or import. If omitted, defaults to import.
+      schema:
+        type: string
+        enum:
+        - export
+        - import
+        default: import
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      name: appian-api-key
+      in: header
+      description: API key linked to a service account. Created and managed through the Appian Admin Console. The service account must have access to the application via the application's role map.
+externalDocs:
+  description: Application Package Details API Documentation
+  url: https://docs.appian.com/suite/help/25.4/Application_Package_Details_API.html
