@@ -1,0 +1,241 @@
+{
+  "info": {
+    "_postman_id": "c9456118-8ea9-4219-9eb9-50fb41e3a206",
+    "name": "Appian Application Package Details Export Packages API",
+    "description": "The Application Package Details API uses the UUID of an application to retrieve data about any in-flight packages for that application. It can be used to link packages to change management systems or obtain identifiers for packages that can then be used with the Deployment REST API to perform exports and deployments. Packages are returned in order of last modified timestamp, with the most recently modified package appearing first, up to a maximum of 100 packages.\n\nContact Support:\n Name: Appian Corporation\n Email: support@appian.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:03:29.000Z",
+    "updatedAt": "2026-07-28T01:03:30.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-c9456118-8ea9-4219-9eb9-50fb41e3a206"
+  },
+  "item": [
+    {
+      "name": "applications",
+      "item": [
+        {
+          "name": "{applicationUuid}",
+          "item": [
+            {
+              "name": "packages",
+              "item": [
+                {
+                  "name": "Appian Get application package details",
+                  "id": "176c2978-8ee3-4ce8-8dc5-5f4e4c45eef7",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/applications/:applicationUuid/packages",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "applications",
+                        ":applicationUuid",
+                        "packages"
+                      ],
+                      "variable": [
+                        {
+                          "id": "c5df04fc-9cc1-4723-9093-d1f2cf8d4ed0",
+                          "key": "applicationUuid",
+                          "value": "<uuid>",
+                          "description": "(Required) The UUID of the application whose packages are being retrieved. This UUID can be found in the application properties within Appian Designer."
+                        }
+                      ]
+                    },
+                    "description": "Retrieves data about any in-flight packages for the specified application. Returns up to 100 packages ordered by last modified timestamp with the most recently modified package first. This endpoint can be used to link packages to change management systems or to obtain package identifiers for use with the Deployment REST API."
+                  },
+                  "response": [
+                    {
+                      "id": "131b4258-acb9-40a1-ab3e-aff0706d1043",
+                      "name": "Successfully retrieved the list of packages for the specified application.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "appian-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/applications/:applicationUuid/packages",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "applications",
+                            ":applicationUuid",
+                            "packages"
+                          ],
+                          "variable": [
+                            {
+                              "key": "applicationUuid"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"totalPackageCount\": \"<integer>\",\n  \"packages\": [\n    {\n      \"name\": \"<string>\",\n      \"uuid\": \"<uuid>\",\n      \"description\": \"<string>\",\n      \"objectCount\": \"<integer>\",\n      \"databaseScriptCount\": \"<integer>\",\n      \"pluginCount\": \"<integer>\",\n      \"datasourceUuid\": \"<uuid>\",\n      \"hasCustomizationFile\": \"<boolean>\",\n      \"createdTimestamp\": \"<dateTime>\",\n      \"lastModifiedTimestamp\": \"<dateTime>\",\n      \"ticketLink\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"uuid\": \"<uuid>\",\n      \"description\": \"<string>\",\n      \"objectCount\": \"<integer>\",\n      \"databaseScriptCount\": \"<integer>\",\n      \"pluginCount\": \"<integer>\",\n      \"datasourceUuid\": \"<uuid>\",\n      \"hasCustomizationFile\": \"<boolean>\",\n      \"createdTimestamp\": \"<dateTime>\",\n      \"lastModifiedTimestamp\": \"<dateTime>\",\n      \"ticketLink\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T01:03:30.000Z",
+                      "updatedAt": "2026-07-28T01:03:30.000Z",
+                      "uid": "35240-131b4258-acb9-40a1-ab3e-aff0706d1043"
+                    },
+                    {
+                      "id": "d7a8fb70-d157-4333-86c8-dbdb1d784049",
+                      "name": "Authentication failed. The API key is missing, invalid, or the associated service account does not have access.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "appian-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/applications/:applicationUuid/packages",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "applications",
+                            ":applicationUuid",
+                            "packages"
+                          ],
+                          "variable": [
+                            {
+                              "key": "applicationUuid"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:03:30.000Z",
+                      "updatedAt": "2026-07-28T01:03:30.000Z",
+                      "uid": "35240-d7a8fb70-d157-4333-86c8-dbdb1d784049"
+                    },
+                    {
+                      "id": "9492990b-45f6-4844-bfbc-d7fdffa79f65",
+                      "name": "The specified application UUID was not found or the service account does not have access to the application.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "appian-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/applications/:applicationUuid/packages",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "applications",
+                            ":applicationUuid",
+                            "packages"
+                          ],
+                          "variable": [
+                            {
+                              "key": "applicationUuid"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:03:30.000Z",
+                      "updatedAt": "2026-07-28T01:03:30.000Z",
+                      "uid": "35240-9492990b-45f6-4844-bfbc-d7fdffa79f65"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:03:30.000Z",
+                  "updatedAt": "2026-07-28T01:03:30.000Z",
+                  "uid": "35240-176c2978-8ee3-4ce8-8dc5-5f4e4c45eef7"
+                }
+              ],
+              "id": "a267d5dc-feba-450b-b016-936d9b7b2085",
+              "createdAt": "2026-07-28T01:03:30.000Z",
+              "updatedAt": "2026-07-28T01:03:30.000Z",
+              "uid": "35240-a267d5dc-feba-450b-b016-936d9b7b2085"
+            }
+          ],
+          "id": "0f4c8dbd-6744-4aca-80d8-eeec38ecd95f",
+          "createdAt": "2026-07-28T01:03:30.000Z",
+          "updatedAt": "2026-07-28T01:03:30.000Z",
+          "uid": "35240-0f4c8dbd-6744-4aca-80d8-eeec38ecd95f"
+        }
+      ],
+      "id": "de5dbe17-8ff0-4c05-834a-7b3fa64cadac",
+      "createdAt": "2026-07-28T01:03:30.000Z",
+      "updatedAt": "2026-07-28T01:03:30.000Z",
+      "uid": "35240-de5dbe17-8ff0-4c05-834a-7b3fa64cadac"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "appian-api-key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "domain",
+      "value": "mysite.appiancloud.com"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{domain}}/suite/deployment-management/v2"
+    }
+  ]
+}

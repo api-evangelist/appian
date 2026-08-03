@@ -1,0 +1,407 @@
+{
+  "info": {
+    "_postman_id": "b5ccba3d-d8c5-41e6-b245-e18a1b70f627",
+    "name": "Appian Application Package Details Export Results API",
+    "description": "The Application Package Details API uses the UUID of an application to retrieve data about any in-flight packages for that application. It can be used to link packages to change management systems or obtain identifiers for packages that can then be used with the Deployment REST API to perform exports and deployments. Packages are returned in order of last modified timestamp, with the most recently modified package appearing first, up to a maximum of 100 packages.\n\nContact Support:\n Name: Appian Corporation\n Email: support@appian.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:03:31.000Z",
+    "updatedAt": "2026-07-28T01:03:31.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-b5ccba3d-d8c5-41e6-b245-e18a1b70f627"
+  },
+  "item": [
+    {
+      "name": "deployments",
+      "item": [
+        {
+          "name": "{deploymentUuid}",
+          "item": [
+            {
+              "name": "log",
+              "item": [
+                {
+                  "name": "Appian Get deployment log",
+                  "id": "7645552f-5fac-4dbc-a690-70505710616b",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "text/plain"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/deployments/:deploymentUuid/log",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "deployments",
+                        ":deploymentUuid",
+                        "log"
+                      ],
+                      "variable": [
+                        {
+                          "id": "30cbab41-0f12-4925-a6ab-8bdbc4aaa9c4",
+                          "key": "deploymentUuid",
+                          "value": "<uuid>",
+                          "description": "(Required) The UUID of the deployment operation to query. This is returned when creating a deployment via the POST /deployments endpoint."
+                        }
+                      ]
+                    },
+                    "description": "Retrieves the deployment log for a completed deployment operation in text format. The log contains detailed information about the deployment process, including any errors or warnings encountered during the operation."
+                  },
+                  "response": [
+                    {
+                      "id": "4990c25f-5147-45c2-9c55-38bd2df5f840",
+                      "name": "Successfully retrieved the deployment log in plain text format.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "text/plain"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "appian-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/deployments/:deploymentUuid/log",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "deployments",
+                            ":deploymentUuid",
+                            "log"
+                          ],
+                          "variable": [
+                            {
+                              "key": "deploymentUuid"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "text/plain"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-07-28T01:03:31.000Z",
+                      "updatedAt": "2026-07-28T01:03:31.000Z",
+                      "uid": "35240-4990c25f-5147-45c2-9c55-38bd2df5f840"
+                    },
+                    {
+                      "id": "2330d798-9093-429c-b8a6-a35a788867da",
+                      "name": "Authentication failed. The API key is missing or invalid.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "appian-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/deployments/:deploymentUuid/log",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "deployments",
+                            ":deploymentUuid",
+                            "log"
+                          ],
+                          "variable": [
+                            {
+                              "key": "deploymentUuid"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:03:31.000Z",
+                      "updatedAt": "2026-07-28T01:03:31.000Z",
+                      "uid": "35240-2330d798-9093-429c-b8a6-a35a788867da"
+                    },
+                    {
+                      "id": "a1ddd189-b7ee-4445-b095-42babbe8dc57",
+                      "name": "The specified deployment UUID was not found.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "appian-api-key",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/deployments/:deploymentUuid/log",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "deployments",
+                            ":deploymentUuid",
+                            "log"
+                          ],
+                          "variable": [
+                            {
+                              "key": "deploymentUuid"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:03:31.000Z",
+                      "updatedAt": "2026-07-28T01:03:31.000Z",
+                      "uid": "35240-a1ddd189-b7ee-4445-b095-42babbe8dc57"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:03:31.000Z",
+                  "updatedAt": "2026-07-28T01:03:31.000Z",
+                  "uid": "35240-7645552f-5fac-4dbc-a690-70505710616b"
+                }
+              ],
+              "id": "78b8ab5c-25f1-41a4-9546-fe375a67913c",
+              "createdAt": "2026-07-28T01:03:31.000Z",
+              "updatedAt": "2026-07-28T01:03:31.000Z",
+              "uid": "35240-78b8ab5c-25f1-41a4-9546-fe375a67913c"
+            },
+            {
+              "name": "Appian Get deployment results",
+              "id": "83b77703-4c2d-4941-b895-6a5f40a77a40",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/deployments/:deploymentUuid",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "deployments",
+                    ":deploymentUuid"
+                  ],
+                  "variable": [
+                    {
+                      "id": "2461bb5f-1104-4e26-8f7b-c5de3251b78a",
+                      "key": "deploymentUuid",
+                      "value": "<uuid>",
+                      "description": "(Required) The UUID of the deployment operation to query. This is returned when creating a deployment via the POST /deployments endpoint."
+                    }
+                  ]
+                },
+                "description": "Retrieves the current status and results of a deployment operation identified by its UUID. The response structure varies depending on whether the deployment was an import or export operation. For imports, the response includes a summary of imported, failed, and skipped objects. For exports, the response includes URLs to download the exported package, plug-ins, customization files, and database scripts."
+              },
+              "response": [
+                {
+                  "id": "111b85aa-5a47-4bc1-aae3-ba695644423e",
+                  "name": "Successfully retrieved deployment results. The response schema depends on whether the deployment was an import or export.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "appian-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/deployments/:deploymentUuid",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "deployments",
+                        ":deploymentUuid"
+                      ],
+                      "variable": [
+                        {
+                          "key": "deploymentUuid"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"IN_PROGRESS\",\n  \"summary\": {\n    \"objects\": {\n      \"total\": \"<integer>\",\n      \"imported\": \"<integer>\",\n      \"failed\": \"<integer>\",\n      \"skipped\": \"<integer>\"\n    },\n    \"adminConsoleSettings\": {\n      \"total\": \"<integer>\",\n      \"imported\": \"<integer>\",\n      \"failed\": \"<integer>\",\n      \"skipped\": \"<integer>\"\n    },\n    \"plugins\": {\n      \"total\": \"<integer>\",\n      \"imported\": \"<integer>\",\n      \"skipped\": \"<integer>\"\n    },\n    \"databaseScripts\": \"<integer>\",\n    \"deploymentLogUrl\": \"<uri>\"\n  }\n}",
+                  "createdAt": "2026-07-28T01:03:31.000Z",
+                  "updatedAt": "2026-07-28T01:03:31.000Z",
+                  "uid": "35240-111b85aa-5a47-4bc1-aae3-ba695644423e"
+                },
+                {
+                  "id": "fd62cc13-5f59-4055-85f3-2e8ad65d60a8",
+                  "name": "Authentication failed. The API key is missing or invalid.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "appian-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/deployments/:deploymentUuid",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "deployments",
+                        ":deploymentUuid"
+                      ],
+                      "variable": [
+                        {
+                          "key": "deploymentUuid"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:03:31.000Z",
+                  "updatedAt": "2026-07-28T01:03:31.000Z",
+                  "uid": "35240-fd62cc13-5f59-4055-85f3-2e8ad65d60a8"
+                },
+                {
+                  "id": "f60eaa93-f891-4fe0-adfd-b975f1142ae5",
+                  "name": "The specified deployment UUID was not found.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "appian-api-key",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/deployments/:deploymentUuid",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "deployments",
+                        ":deploymentUuid"
+                      ],
+                      "variable": [
+                        {
+                          "key": "deploymentUuid"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:03:31.000Z",
+                  "updatedAt": "2026-07-28T01:03:31.000Z",
+                  "uid": "35240-f60eaa93-f891-4fe0-adfd-b975f1142ae5"
+                }
+              ],
+              "createdAt": "2026-07-28T01:03:31.000Z",
+              "updatedAt": "2026-07-28T01:03:31.000Z",
+              "uid": "35240-83b77703-4c2d-4941-b895-6a5f40a77a40"
+            }
+          ],
+          "id": "ec56f97b-526e-41a8-bb09-694c3eaae78a",
+          "createdAt": "2026-07-28T01:03:31.000Z",
+          "updatedAt": "2026-07-28T01:03:31.000Z",
+          "uid": "35240-ec56f97b-526e-41a8-bb09-694c3eaae78a"
+        }
+      ],
+      "id": "ff730f08-707d-4fde-93aa-264b5b0068d3",
+      "createdAt": "2026-07-28T01:03:31.000Z",
+      "updatedAt": "2026-07-28T01:03:31.000Z",
+      "uid": "35240-ff730f08-707d-4fde-93aa-264b5b0068d3"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "appian-api-key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "domain",
+      "value": "mysite.appiancloud.com"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{domain}}/suite/deployment-management/v2"
+    }
+  ]
+}

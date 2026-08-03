@@ -1,0 +1,22 @@
+{
+  "provider": "appian",
+  "sources": [
+    "appian-export-api-openapi.yml",
+    "appian-import-api-openapi.yml",
+    "appian-inspection-api-openapi.yml",
+    "appian-packages-api-openapi.yml",
+    "appian-results-api-openapi.yml"
+  ],
+  "outputs": [
+    "appian-export-api-openapi.yml",
+    "appian-import-api-openapi.yml",
+    "appian-inspection-api-openapi.yml",
+    "appian-packages-api-openapi.yml",
+    "appian-results-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
