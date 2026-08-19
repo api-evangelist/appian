@@ -227,7 +227,7 @@ maintainers:
   - FN: Appian Corporation
     email: support@appian.com
     url: https://www.appian.com
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 common:
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/appian/overview
