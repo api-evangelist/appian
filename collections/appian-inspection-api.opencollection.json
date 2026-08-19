@@ -1,0 +1,60 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Appian Application Package Details Export Inspection API",
+    "version": "2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "appian-api-key",
+      "value": "{{appian-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Inspection",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Appian Inspect a package before deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{domain}/suite/deployment-management/v2/inspections",
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "Creates a new inspection operation to analyze a deployment package before importing it into the target environment. The inspection identifies potential issues, errors, and warnings that may arise during deployment. The request requires the package file, Admin Console settings file, and optionally an import customization file as multipart form data. The response includes an inspection UUID that can be used to retrieve the inspection results."
+        },
+        {
+          "info": {
+            "name": "Appian Get inspection results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/suite/deployment-management/v2/inspections/:inspectionUuid",
+            "params": [
+              {
+                "name": "inspectionUuid",
+                "value": "378271a6-ca0d-4466-bac9-385e4fcb951a",
+                "type": "path",
+                "description": "The UUID of the inspection operation to query. This is returned when creating an inspection via the POST /inspections endpoint."
+              }
+            ]
+          },
+          "docs": "Retrieves the current status and results of a package inspection operation identified by its UUID. The response includes a summary of expected objects, Admin Console settings, and any problems (errors and warnings) identified during the inspection."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

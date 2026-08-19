@@ -1,0 +1,494 @@
+{
+  "item": [
+    {
+      "id": "c30b538d-4e8a-432b-ba5b-d020f73cf128",
+      "name": "Results",
+      "description": {
+        "content": "Operations for retrieving the status, results, and logs of deployments and inspections.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "08b833a7-6992-4aac-ac82-0299ace8a7fb",
+          "name": "Appian Get deployment results",
+          "request": {
+            "name": "Appian Get deployment results",
+            "description": {
+              "content": "Retrieves the current status and results of a deployment operation identified by its UUID. The response structure varies depending on whether the deployment was an import or export operation. For imports, the response includes a summary of imported, failed, and skipped objects. For exports, the response includes URLs to download the exported package, plug-ins, customization files, and database scripts.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "deployments",
+                ":deploymentUuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "deploymentUuid",
+                  "description": "(Required) The UUID of the deployment operation to query. This is returned when creating a deployment via the POST /deployments endpoint."
+                },
+                {
+                  "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                  "type": "any",
+                  "value": "{{domain}}",
+                  "key": "domain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ab35ed7d-dbe2-48e8-82f9-f1e78a365832",
+              "name": "Successfully retrieved deployment results. The response schema depends on whether the deployment was an import or export.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "deployments",
+                    ":deploymentUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "deploymentUuid",
+                      "description": "(Required) The UUID of the deployment operation to query. This is returned when creating a deployment via the POST /deployments endpoint."
+                    },
+                    {
+                      "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                      "type": "any",
+                      "value": "{{domain}}",
+                      "key": "domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "appian-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"COMPLETED\",\n  \"summary\": {\n    \"objects\": {\n      \"total\": 6398,\n      \"imported\": 9249,\n      \"failed\": 9296,\n      \"skipped\": 5116\n    },\n    \"adminConsoleSettings\": {\n      \"total\": 2968,\n      \"imported\": 7053,\n      \"failed\": 9292,\n      \"skipped\": 149\n    },\n    \"plugins\": {\n      \"total\": 3225,\n      \"imported\": 9143,\n      \"skipped\": 2888\n    },\n    \"databaseScripts\": 3423,\n    \"deploymentLogUrl\": \"https://XdlYBqcINGdaRsGzpRJwZzGeyWt.xgXaI7j-ve-Ripk-nBNGCsyrm56AWc7k+Ab4ERVa+.34fI\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e5cd5b38-b062-4c7b-9ba3-65e3c9f37e01",
+              "name": "Authentication failed. The API key is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "deployments",
+                    ":deploymentUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "deploymentUuid",
+                      "description": "(Required) The UUID of the deployment operation to query. This is returned when creating a deployment via the POST /deployments endpoint."
+                    },
+                    {
+                      "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                      "type": "any",
+                      "value": "{{domain}}",
+                      "key": "domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "appian-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2cc772fa-0fb2-4841-8611-23a24f4ab301",
+              "name": "The specified deployment UUID was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "deployments",
+                    ":deploymentUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "deploymentUuid",
+                      "description": "(Required) The UUID of the deployment operation to query. This is returned when creating a deployment via the POST /deployments endpoint."
+                    },
+                    {
+                      "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                      "type": "any",
+                      "value": "{{domain}}",
+                      "key": "domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "appian-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d5fd4ad0-87a3-4c2d-a67e-21bd82e4dc0c",
+          "name": "Appian Get deployment log",
+          "request": {
+            "name": "Appian Get deployment log",
+            "description": {
+              "content": "Retrieves the deployment log for a completed deployment operation in text format. The log contains detailed information about the deployment process, including any errors or warnings encountered during the operation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "deployments",
+                ":deploymentUuid",
+                "log"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "deploymentUuid",
+                  "description": "(Required) The UUID of the deployment operation to query. This is returned when creating a deployment via the POST /deployments endpoint."
+                },
+                {
+                  "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                  "type": "any",
+                  "value": "{{domain}}",
+                  "key": "domain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1b42aeb6-de9f-4989-a7b7-f8c0a6127b2c",
+              "name": "Successfully retrieved the deployment log in plain text format.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "deployments",
+                    ":deploymentUuid",
+                    "log"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "deploymentUuid",
+                      "description": "(Required) The UUID of the deployment operation to query. This is returned when creating a deployment via the POST /deployments endpoint."
+                    },
+                    {
+                      "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                      "type": "any",
+                      "value": "{{domain}}",
+                      "key": "domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "appian-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "402b9810-6fea-4612-94c1-1ad57825d5e7",
+              "name": "Authentication failed. The API key is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "deployments",
+                    ":deploymentUuid",
+                    "log"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "deploymentUuid",
+                      "description": "(Required) The UUID of the deployment operation to query. This is returned when creating a deployment via the POST /deployments endpoint."
+                    },
+                    {
+                      "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                      "type": "any",
+                      "value": "{{domain}}",
+                      "key": "domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "appian-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b89b6c24-d106-4ce2-bb53-47e4ce7a5953",
+              "name": "The specified deployment UUID was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "deployments",
+                    ":deploymentUuid",
+                    "log"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "deploymentUuid",
+                      "description": "(Required) The UUID of the deployment operation to query. This is returned when creating a deployment via the POST /deployments endpoint."
+                    },
+                    {
+                      "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                      "type": "any",
+                      "value": "{{domain}}",
+                      "key": "domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "appian-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "mysite.appiancloud.com",
+      "key": "domain"
+    },
+    {
+      "type": "string",
+      "value": "https://{{domain}}/suite/deployment-management/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "appian-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "8502a4f6-58da-4911-ac1c-32315610babc",
+    "name": "Appian Application Package Details Export Results API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Application Package Details API uses the UUID of an application to retrieve data about any in-flight packages for that application. It can be used to link packages to change management systems or obtain identifiers for packages that can then be used with the Deployment REST API to perform exports and deployments. Packages are returned in order of last modified timestamp, with the most recently modified package appearing first, up to a maximum of 100 packages.\n\nContact Support:\n Name: Appian Corporation\n Email: support@appian.com",
+      "type": "text/plain"
+    }
+  }
+}

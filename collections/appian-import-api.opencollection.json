@@ -1,0 +1,47 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Appian Application Package Details Export Import API",
+    "version": "2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "appian-api-key",
+      "value": "{{appian-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Import",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Appian Export or import a deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{domain}/suite/deployment-management/v2/deployments",
+            "headers": [
+              {
+                "name": "Action-Type",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "Creates a new deployment operation for either exporting or importing applications and packages. The Action-Type header determines whether the operation is an export or import. For exports, provide a JSON payload specifying the UUIDs and export type. For imports, provide a multipart form with the package files and deployment configuration. The response includes a deployment UUID that can be used to track progress and retrieve results."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

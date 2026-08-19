@@ -1,0 +1,608 @@
+{
+  "item": [
+    {
+      "id": "f1373785-a35a-4e61-8090-7b29db1fa597",
+      "name": "Inspection",
+      "description": {
+        "content": "Operations for inspecting packages before deployment to identify potential issues, errors, and warnings.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e27c275b-dae6-49ab-837c-a5a8259e6c18",
+          "name": "Appian Inspect a package before deployment",
+          "request": {
+            "name": "Appian Inspect a package before deployment",
+            "description": {
+              "content": "Creates a new inspection operation to analyze a deployment package before importing it into the target environment. The inspection identifies potential issues, errors, and warnings that may arise during deployment. The request requires the package file, Admin Console settings file, and optionally an import customization file as multipart form data. The response includes an inspection UUID that can be used to retrieve the inspection results.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "inspections"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                  "type": "any",
+                  "value": "{{domain}}",
+                  "key": "domain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "json",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "JSON string containing the inspection configuration with file name references for the attached files."
+                },
+                {
+                  "key": "adminConsoleSettingsFileName",
+                  "type": "file",
+                  "description": "Admin Console settings ZIP file to use for the inspection."
+                },
+                {
+                  "key": "packageFileName",
+                  "type": "file",
+                  "description": "The deployment package ZIP file to inspect."
+                },
+                {
+                  "key": "customizationFileName",
+                  "type": "file",
+                  "description": "Optional import customization properties file to include in the inspection."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b9d83c82-59b4-4354-8083-c98549a06f37",
+              "name": "Inspection operation initiated successfully. The response includes a UUID for tracking the inspection status.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inspections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                      "type": "any",
+                      "value": "{{domain}}",
+                      "key": "domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "appian-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "JSON string containing the inspection configuration with file name references for the attached files.",
+                        "type": "text/plain"
+                      },
+                      "key": "json",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Admin Console settings ZIP file to use for the inspection.",
+                        "type": "text/plain"
+                      },
+                      "key": "adminConsoleSettingsFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "The deployment package ZIP file to inspect.",
+                        "type": "text/plain"
+                      },
+                      "key": "packageFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Optional import customization properties file to include in the inspection.",
+                        "type": "text/plain"
+                      },
+                      "key": "customizationFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uuid\": \"378271a6-ca0d-4466-bac9-385e4fcb951a\",\n  \"url\": \"https://mysite.appiancloud.com/suite/deployment-management/v2/inspections/378271a6-ca0d-4466-bac9-385e4fcb951a/\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "69bbaf30-a1f1-4daf-9fce-2a23bc1424b6",
+              "name": "Bad request. Required files are missing or the request is malformed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inspections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                      "type": "any",
+                      "value": "{{domain}}",
+                      "key": "domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "appian-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "JSON string containing the inspection configuration with file name references for the attached files.",
+                        "type": "text/plain"
+                      },
+                      "key": "json",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Admin Console settings ZIP file to use for the inspection.",
+                        "type": "text/plain"
+                      },
+                      "key": "adminConsoleSettingsFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "The deployment package ZIP file to inspect.",
+                        "type": "text/plain"
+                      },
+                      "key": "packageFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Optional import customization properties file to include in the inspection.",
+                        "type": "text/plain"
+                      },
+                      "key": "customizationFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "546ff235-2f9b-4321-b43d-8cac83d5ee05",
+              "name": "Authentication failed. The API key is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inspections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                      "type": "any",
+                      "value": "{{domain}}",
+                      "key": "domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "appian-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "JSON string containing the inspection configuration with file name references for the attached files.",
+                        "type": "text/plain"
+                      },
+                      "key": "json",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Admin Console settings ZIP file to use for the inspection.",
+                        "type": "text/plain"
+                      },
+                      "key": "adminConsoleSettingsFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "The deployment package ZIP file to inspect.",
+                        "type": "text/plain"
+                      },
+                      "key": "packageFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Optional import customization properties file to include in the inspection.",
+                        "type": "text/plain"
+                      },
+                      "key": "customizationFileName",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e5bfbec9-88fa-4751-afef-ab1be06a88ab",
+          "name": "Appian Get inspection results",
+          "request": {
+            "name": "Appian Get inspection results",
+            "description": {
+              "content": "Retrieves the current status and results of a package inspection operation identified by its UUID. The response includes a summary of expected objects, Admin Console settings, and any problems (errors and warnings) identified during the inspection.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "inspections",
+                ":inspectionUuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "inspectionUuid",
+                  "description": "(Required) The UUID of the inspection operation to query. This is returned when creating an inspection via the POST /inspections endpoint."
+                },
+                {
+                  "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                  "type": "any",
+                  "value": "{{domain}}",
+                  "key": "domain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "11d1024d-a1b8-4b07-a2a2-6a19061bf4a8",
+              "name": "Successfully retrieved inspection results including any errors and warnings found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inspections",
+                    ":inspectionUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "inspectionUuid",
+                      "description": "(Required) The UUID of the inspection operation to query. This is returned when creating an inspection via the POST /inspections endpoint."
+                    },
+                    {
+                      "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                      "type": "any",
+                      "value": "{{domain}}",
+                      "key": "domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "appian-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"IN_PROGRESS\",\n  \"summary\": {\n    \"objectsExpected\": {\n      \"total\": 7263,\n      \"imported\": 5531,\n      \"failed\": 8538,\n      \"skipped\": 1241\n    },\n    \"adminConsoleSettingsExpected\": {\n      \"total\": 2617,\n      \"imported\": 4272,\n      \"failed\": 7239,\n      \"skipped\": 5589\n    },\n    \"problems\": {\n      \"totalErrors\": 5353,\n      \"totalWarnings\": 3803,\n      \"errors\": [\n        {\n          \"errorMessage\": \"string\",\n          \"objectName\": \"string\",\n          \"objectUuid\": \"1bcc5fb9-1456-8882-859b-8e559639c369\"\n        },\n        {\n          \"errorMessage\": \"string\",\n          \"objectName\": \"string\",\n          \"objectUuid\": \"d87d9fcb-0126-7e69-c5a2-d269c2537ea6\"\n        }\n      ],\n      \"warnings\": [\n        {\n          \"warningMessage\": \"string\",\n          \"objectName\": \"string\",\n          \"objectUuid\": \"b419836b-e12c-2b28-4eef-38e7de441c7a\"\n        },\n        {\n          \"warningMessage\": \"string\",\n          \"objectName\": \"string\",\n          \"objectUuid\": \"95d4c768-0485-9ee3-b71a-bb2f26999669\"\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "28d697a2-fc14-44f5-b767-fc64a575a394",
+              "name": "Authentication failed. The API key is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inspections",
+                    ":inspectionUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "inspectionUuid",
+                      "description": "(Required) The UUID of the inspection operation to query. This is returned when creating an inspection via the POST /inspections endpoint."
+                    },
+                    {
+                      "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                      "type": "any",
+                      "value": "{{domain}}",
+                      "key": "domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "appian-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "57976fe4-ebe1-4b5d-b0eb-849404164400",
+              "name": "The specified inspection UUID was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inspections",
+                    ":inspectionUuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "inspectionUuid",
+                      "description": "(Required) The UUID of the inspection operation to query. This is returned when creating an inspection via the POST /inspections endpoint."
+                    },
+                    {
+                      "description": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+                      "type": "any",
+                      "value": "{{domain}}",
+                      "key": "domain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "appian-api-key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The Appian site domain, typically in the format mysite.appiancloud.com for cloud deployments.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "mysite.appiancloud.com",
+      "key": "domain"
+    },
+    {
+      "type": "string",
+      "value": "https://{{domain}}/suite/deployment-management/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "appian-api-key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5eb3f527-a05d-4733-821a-e4e96d93f4a0",
+    "name": "Appian Application Package Details Export Inspection API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Application Package Details API uses the UUID of an application to retrieve data about any in-flight packages for that application. It can be used to link packages to change management systems or obtain identifiers for packages that can then be used with the Deployment REST API to perform exports and deployments. Packages are returned in order of last modified timestamp, with the most recently modified package appearing first, up to a maximum of 100 packages.\n\nContact Support:\n Name: Appian Corporation\n Email: support@appian.com",
+      "type": "text/plain"
+    }
+  }
+}

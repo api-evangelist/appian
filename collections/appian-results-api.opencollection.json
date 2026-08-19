@@ -1,0 +1,64 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Appian Application Package Details Export Results API",
+    "version": "2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "appian-api-key",
+      "value": "{{appian-api-key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Results",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Appian Get deployment results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/suite/deployment-management/v2/deployments/:deploymentUuid",
+            "params": [
+              {
+                "name": "deploymentUuid",
+                "value": "d243b14c-3ba5-41c3-9f51-76da51beb8f5",
+                "type": "path",
+                "description": "The UUID of the deployment operation to query. This is returned when creating a deployment via the POST /deployments endpoint."
+              }
+            ]
+          },
+          "docs": "Retrieves the current status and results of a deployment operation identified by its UUID. The response structure varies depending on whether the deployment was an import or export operation. For imports, the response includes a summary of imported, failed, and skipped objects. For exports, the response includes URLs to download the exported package, plug-ins, customization files, and database scripts."
+        },
+        {
+          "info": {
+            "name": "Appian Get deployment log",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/suite/deployment-management/v2/deployments/:deploymentUuid/log",
+            "params": [
+              {
+                "name": "deploymentUuid",
+                "value": "d243b14c-3ba5-41c3-9f51-76da51beb8f5",
+                "type": "path",
+                "description": "The UUID of the deployment operation to query. This is returned when creating a deployment via the POST /deployments endpoint."
+              }
+            ]
+          },
+          "docs": "Retrieves the deployment log for a completed deployment operation in text format. The log contains detailed information about the deployment process, including any errors or warnings encountered during the operation."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
