@@ -85,6 +85,11 @@ apis:
   tags:
   - Connected Systems
   - Integration
+  - Plugins
+  - SDK
+  tags_raw:
+  - Connected Systems
+  - Integration
   - Plug-Ins
   - SDK
   humanURL: https://docs.appian.com/suite/help/25.4/connected-system-plug-in-landing.html
@@ -103,6 +108,11 @@ apis:
 - aid: appian:ui-sdk
   name: Appian UI SDK
   tags:
+  - Components
+  - Plugins
+  - SDK
+  - UI
+  tags_raw:
   - Components
   - Plug-Ins
   - SDK
@@ -124,6 +134,10 @@ apis:
 - aid: appian:appian-suite-api
   name: Appian Suite API
   tags:
+  - Extensibility
+  - Java
+  - Plugins
+  tags_raw:
   - Extensibility
   - Java
   - Plug-Ins
@@ -188,6 +202,15 @@ apis:
     url: openapi/appian-results-api-openapi.yml
 name: Appian
 tags:
+  - Automation
+  - BPM
+  - Business Process Management
+  - Enterprise Software
+  - Low-Code
+  - Process Automation
+  - RPA
+  - Workflows
+tags_raw:
   - Automation
   - BPM
   - Business Process Management
