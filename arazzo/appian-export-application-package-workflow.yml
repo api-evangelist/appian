@@ -13,11 +13,14 @@ info:
     description.
   version: 1.0.0
 sourceDescriptions:
-- name: packageApi
-  url: ../openapi/appian-application-package-details-openapi.yml
+- name: exportApi
+  url: ../openapi/appian-export-api-openapi.yml
   type: openapi
-- name: deploymentApi
-  url: ../openapi/appian-deployment-rest-openapi.yml
+- name: packagesApi
+  url: ../openapi/appian-packages-api-openapi.yml
+  type: openapi
+- name: resultsApi
+  url: ../openapi/appian-results-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: export-application-package

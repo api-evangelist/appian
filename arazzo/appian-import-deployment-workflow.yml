@@ -13,8 +13,11 @@ info:
     opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: deploymentApi
-  url: ../openapi/appian-deployment-rest-openapi.yml
+- name: exportApi
+  url: ../openapi/appian-export-api-openapi.yml
+  type: openapi
+- name: resultsApi
+  url: ../openapi/appian-results-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: import-deployment

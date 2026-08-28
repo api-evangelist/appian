@@ -12,8 +12,8 @@ info:
     description.
   version: 1.0.0
 sourceDescriptions:
-- name: deploymentApi
-  url: ../openapi/appian-deployment-rest-openapi.yml
+- name: resultsApi
+  url: ../openapi/appian-results-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: deployment-status-and-log
