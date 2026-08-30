@@ -85,7 +85,7 @@ apis:
   tags:
   - Connected Systems
   - Integration
-  - Plugins
+  - Plug-Ins
   - SDK
   tags_raw:
   - Connected Systems
@@ -109,7 +109,7 @@ apis:
   name: Appian UI SDK
   tags:
   - Components
-  - Plugins
+  - Plug-Ins
   - SDK
   - UI
   tags_raw:
@@ -136,7 +136,7 @@ apis:
   tags:
   - Extensibility
   - Java
-  - Plugins
+  - Plug-Ins
   tags_raw:
   - Extensibility
   - Java
