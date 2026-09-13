@@ -203,7 +203,6 @@ apis:
 name: Appian
 tags:
   - Automation
-  - BPM
   - Business Process Management
   - Enterprise Software
   - Low-Code
