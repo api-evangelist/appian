@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Appian Application Package Details Export Import API
-  description: The Application Package Details API uses the UUID of an application to retrieve data about any in-flight packages for that application. It can be used to link packages to change management systems or obtain identifiers for packages that can then be used with the Deployment REST API to perform exports and deployments. Packages are returned in order of last modified timestamp, with the most recently modified package appearing first, up to a maximum of 100 packages.
+  title: Appian Deployment REST Import API
+  description: The Appian Deployment REST API provides endpoints for exporting, inspecting, and importing applications and packages as part of CI/CD deployment pipelines.
   version: '2'
   contact:
     name: Appian Corporation
@@ -54,18 +54,26 @@ paths:
           description: The deployment action is not permitted. The Admin Console settings may restrict this deployment flow.
 components:
   schemas:
-    DeploymentStatus:
-      type: string
-      description: The current status of a deployment operation. IN_PROGRESS indicates the operation is still running. COMPLETED indicates success. Other statuses indicate various error or review states.
-      enum:
-      - IN_PROGRESS
-      - COMPLETED
-      - COMPLETED_WITH_ERRORS
-      - COMPLETED_WITH_IMPORT_ERRORS
-      - COMPLETED_WITH_PUBLISH_ERRORS
-      - FAILED
-      - PENDING_REVIEW
-      - REJECTED
+    DeploymentResponse:
+      type: object
+      description: Response returned when a deployment operation is successfully initiated. Contains the UUID for tracking the deployment and its current status.
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Unique identifier for the deployment operation. Use this UUID to retrieve deployment results and logs.
+          example: d243b14c-3ba5-41c3-9f51-76da51beb8f5
+        url:
+          type: string
+          format: uri
+          description: URL endpoint for retrieving the deployment details and results.
+          example: https://mysite.appiancloud.com/suite/deployment-management/v2/deployments/d243b14c-3ba5-41c3-9f51-76da51beb8f5/
+        status:
+          $ref: '#/components/schemas/DeploymentStatus'
+      required:
+      - uuid
+      - url
+      - status
     DeploymentRequest:
       type: object
       description: Request body for creating a deployment operation. For exports, provide the JSON configuration with export type and UUIDs. For imports, provide package files along with the JSON configuration.
@@ -89,26 +97,18 @@ components:
           type: string
           format: binary
           description: Plug-ins ZIP file containing plug-ins to deploy.
-    DeploymentResponse:
-      type: object
-      description: Response returned when a deployment operation is successfully initiated. Contains the UUID for tracking the deployment and its current status.
-      properties:
-        uuid:
-          type: string
-          format: uuid
-          description: Unique identifier for the deployment operation. Use this UUID to retrieve deployment results and logs.
-          example: d243b14c-3ba5-41c3-9f51-76da51beb8f5
-        url:
-          type: string
-          format: uri
-          description: URL endpoint for retrieving the deployment details and results.
-          example: https://mysite.appiancloud.com/suite/deployment-management/v2/deployments/d243b14c-3ba5-41c3-9f51-76da51beb8f5/
-        status:
-          $ref: '#/components/schemas/DeploymentStatus'
-      required:
-      - uuid
-      - url
-      - status
+    DeploymentStatus:
+      type: string
+      description: The current status of a deployment operation. IN_PROGRESS indicates the operation is still running. COMPLETED indicates success. Other statuses indicate various error or review states.
+      enum:
+      - IN_PROGRESS
+      - COMPLETED
+      - COMPLETED_WITH_ERRORS
+      - COMPLETED_WITH_IMPORT_ERRORS
+      - COMPLETED_WITH_PUBLISH_ERRORS
+      - FAILED
+      - PENDING_REVIEW
+      - REJECTED
   parameters:
     actionType:
       name: Action-Type
@@ -126,7 +126,7 @@ components:
       type: apiKey
       name: appian-api-key
       in: header
-      description: API key linked to a service account. Created and managed through the Appian Admin Console. The service account must have access to the application via the application's role map.
+      description: API key linked to a service account. Created and managed through the Appian Admin Console. The service account must have the appropriate permissions for deployment operations.
 externalDocs:
-  description: Application Package Details API Documentation
-  url: https://docs.appian.com/suite/help/25.4/Application_Package_Details_API.html
+  description: Deployment REST API Documentation
+  url: https://docs.appian.com/suite/help/25.4/Deployment_Rest_API.html

@@ -1,22 +1,30 @@
 {
   "provider": "appian",
   "sources": [
-    "appian-export-api-openapi.yml",
-    "appian-import-api-openapi.yml",
-    "appian-inspection-api-openapi.yml",
-    "appian-packages-api-openapi.yml",
-    "appian-results-api-openapi.yml"
+    "_original/appian-application-package-details-openapi.yml",
+    "_original/appian-deployment-rest-openapi.yml"
   ],
   "outputs": [
+    "appian-packages-api-openapi.yml",
     "appian-export-api-openapi.yml",
     "appian-import-api-openapi.yml",
     "appian-inspection-api-openapi.yml",
-    "appian-packages-api-openapi.yml",
     "appian-results-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "appian-application-package-details-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "appian-deployment-rest-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "appian-export-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "appian-import-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "appian-inspection-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "appian-packages-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "appian-results-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
