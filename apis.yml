@@ -62,6 +62,8 @@ apis:
 - aid: appian:rpa-rest-api
   name: Appian RPA REST API
   tags:
+  - RPA
+  tags_raw:
   - Robotic Process Automation
   - RPA
   humanURL: https://docs.appian.com/suite/help/25.4/rpa-9.18/api-architecture.html
@@ -221,15 +223,19 @@ tags_raw:
 type: Index
 deliveryModel:
   model: saas
-  open_source: false
+  license_evidence:
+    not_product:
+    - appian/integration-sdk-examples
+  open_source: unknown
   commercial: true
   callable_host: false
   label: Hosted service · you call their endpoint
-  confidence: medium
+  confidence: low
   source:
   - openapi
   - pricing
-  generated: '2026-08-28'
+  - repository-not-product
+  generated: '2026-09-25'
   method: derived
 accessModel:
   pricing: freemium

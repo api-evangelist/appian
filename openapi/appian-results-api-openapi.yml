@@ -69,23 +69,26 @@ paths:
           description: The specified deployment UUID was not found.
 components:
   schemas:
-    DatabaseScript:
+    ImportSummaryCount:
       type: object
-      description: Represents a database script included in an export or import deployment.
+      description: Summary count of items in an import deployment, showing total, imported, failed, and skipped counts.
       properties:
-        fileName:
-          type: string
-          description: The file name of the database script.
-          example: create_tables.sql
-        orderId:
+        total:
           type: integer
-          description: The execution order of the database script, starting at 1.
-          minimum: 1
-          example: 1
-        url:
-          type: string
-          format: uri
-          description: URL to download the database script file.
+          description: Total number of items in the package.
+          minimum: 0
+        imported:
+          type: integer
+          description: Number of items successfully imported.
+          minimum: 0
+        failed:
+          type: integer
+          description: Number of items that failed to import.
+          minimum: 0
+        skipped:
+          type: integer
+          description: Number of items skipped during import.
+          minimum: 0
     DeploymentStatus:
       type: string
       description: The current status of a deployment operation. IN_PROGRESS indicates the operation is still running. COMPLETED indicates success. Other statuses indicate various error or review states.
@@ -175,26 +178,23 @@ components:
       required:
       - status
       - summary
-    ImportSummaryCount:
+    DatabaseScript:
       type: object
-      description: Summary count of items in an import deployment, showing total, imported, failed, and skipped counts.
+      description: Represents a database script included in an export or import deployment.
       properties:
-        total:
+        fileName:
+          type: string
+          description: The file name of the database script.
+          example: create_tables.sql
+        orderId:
           type: integer
-          description: Total number of items in the package.
-          minimum: 0
-        imported:
-          type: integer
-          description: Number of items successfully imported.
-          minimum: 0
-        failed:
-          type: integer
-          description: Number of items that failed to import.
-          minimum: 0
-        skipped:
-          type: integer
-          description: Number of items skipped during import.
-          minimum: 0
+          description: The execution order of the database script, starting at 1.
+          minimum: 1
+          example: 1
+        url:
+          type: string
+          format: uri
+          description: URL to download the database script file.
   parameters:
     deploymentUuid:
       name: deploymentUuid
