@@ -69,38 +69,6 @@ paths:
           description: The specified deployment UUID was not found.
 components:
   schemas:
-    ImportSummaryCount:
-      type: object
-      description: Summary count of items in an import deployment, showing total, imported, failed, and skipped counts.
-      properties:
-        total:
-          type: integer
-          description: Total number of items in the package.
-          minimum: 0
-        imported:
-          type: integer
-          description: Number of items successfully imported.
-          minimum: 0
-        failed:
-          type: integer
-          description: Number of items that failed to import.
-          minimum: 0
-        skipped:
-          type: integer
-          description: Number of items skipped during import.
-          minimum: 0
-    DeploymentStatus:
-      type: string
-      description: The current status of a deployment operation. IN_PROGRESS indicates the operation is still running. COMPLETED indicates success. Other statuses indicate various error or review states.
-      enum:
-      - IN_PROGRESS
-      - COMPLETED
-      - COMPLETED_WITH_ERRORS
-      - COMPLETED_WITH_IMPORT_ERRORS
-      - COMPLETED_WITH_PUBLISH_ERRORS
-      - FAILED
-      - PENDING_REVIEW
-      - REJECTED
     ExportDeploymentResult:
       type: object
       description: Result of an export deployment operation, including URLs to download the exported artifacts such as packages, plug-ins, customization files, and database scripts.
@@ -137,6 +105,55 @@ components:
           description: URL to retrieve the full deployment log.
       required:
       - status
+    DatabaseScript:
+      type: object
+      description: Represents a database script included in an export or import deployment.
+      properties:
+        fileName:
+          type: string
+          description: The file name of the database script.
+          example: create_tables.sql
+        orderId:
+          type: integer
+          description: The execution order of the database script, starting at 1.
+          minimum: 1
+          example: 1
+        url:
+          type: string
+          format: uri
+          description: URL to download the database script file.
+    ImportSummaryCount:
+      type: object
+      description: Summary count of items in an import deployment, showing total, imported, failed, and skipped counts.
+      properties:
+        total:
+          type: integer
+          description: Total number of items in the package.
+          minimum: 0
+        imported:
+          type: integer
+          description: Number of items successfully imported.
+          minimum: 0
+        failed:
+          type: integer
+          description: Number of items that failed to import.
+          minimum: 0
+        skipped:
+          type: integer
+          description: Number of items skipped during import.
+          minimum: 0
+    DeploymentStatus:
+      type: string
+      description: The current status of a deployment operation. IN_PROGRESS indicates the operation is still running. COMPLETED indicates success. Other statuses indicate various error or review states.
+      enum:
+      - IN_PROGRESS
+      - COMPLETED
+      - COMPLETED_WITH_ERRORS
+      - COMPLETED_WITH_IMPORT_ERRORS
+      - COMPLETED_WITH_PUBLISH_ERRORS
+      - FAILED
+      - PENDING_REVIEW
+      - REJECTED
     ImportDeploymentResult:
       type: object
       description: Result of an import deployment operation, including a summary of imported, failed, and skipped objects, Admin Console settings, plug-ins, and database scripts.
@@ -178,23 +195,6 @@ components:
       required:
       - status
       - summary
-    DatabaseScript:
-      type: object
-      description: Represents a database script included in an export or import deployment.
-      properties:
-        fileName:
-          type: string
-          description: The file name of the database script.
-          example: create_tables.sql
-        orderId:
-          type: integer
-          description: The execution order of the database script, starting at 1.
-          minimum: 1
-          example: 1
-        url:
-          type: string
-          format: uri
-          description: URL to download the database script file.
   parameters:
     deploymentUuid:
       name: deploymentUuid
