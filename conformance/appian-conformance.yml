@@ -1,0 +1,30 @@
+generated: '2026-10-03'
+method: searched
+generator: extract-docs-artifacts.py (local)
+source: https://appian.com/fr/support/resources/trust/compliance
+sources:
+- https://appian.com/fr/support/resources/trust/compliance
+- https://appian.com/es/support/resources/trust/security
+- https://appian.com/de/support/resources/trust/compliance
+- https://appian.com/it/support/resources/trust/compliance
+standards:
+- id: soc2
+  conforms: true
+  evidence: Le rapport SOC 2 de type II offre un examen détaillé et réalisé par un cabinet d’audit indépendant de la sécurité, de la disponibilité
+    et des contrôles de confidentialité Appian Cloud.
+- id: soc2
+  conforms: true
+  evidence: Appian publie un rapport SOC 1 type II et un rapport International Standards for Assurance Engagements (ISAE) 3402.
+- id: openapi-3.2
+  conforms: true
+  evidence: the document declares 3.2.0
+- id: oauth2
+  conforms: false
+  evidence: 'securitySchemes: apiKeyAuth (apiKey)'
+- id: rfc9457
+  conforms: false
+  evidence: no response declares application/problem+json
+- id: idempotency
+  conforms: false
+  evidence: no idempotency key parameter on mutating operations
+docs: https://appian.com/fr/support/resources/trust/compliance

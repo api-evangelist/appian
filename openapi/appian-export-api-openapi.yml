@@ -54,26 +54,6 @@ paths:
           description: The deployment action is not permitted. The Admin Console settings may restrict this deployment flow.
 components:
   schemas:
-    DeploymentResponse:
-      type: object
-      description: Response returned when a deployment operation is successfully initiated. Contains the UUID for tracking the deployment and its current status.
-      properties:
-        uuid:
-          type: string
-          format: uuid
-          description: Unique identifier for the deployment operation. Use this UUID to retrieve deployment results and logs.
-          example: d243b14c-3ba5-41c3-9f51-76da51beb8f5
-        url:
-          type: string
-          format: uri
-          description: URL endpoint for retrieving the deployment details and results.
-          example: https://mysite.appiancloud.com/suite/deployment-management/v2/deployments/d243b14c-3ba5-41c3-9f51-76da51beb8f5/
-        status:
-          $ref: '#/components/schemas/DeploymentStatus'
-      required:
-      - uuid
-      - url
-      - status
     DeploymentRequest:
       type: object
       description: Request body for creating a deployment operation. For exports, provide the JSON configuration with export type and UUIDs. For imports, provide package files along with the JSON configuration.
@@ -109,6 +89,26 @@ components:
       - FAILED
       - PENDING_REVIEW
       - REJECTED
+    DeploymentResponse:
+      type: object
+      description: Response returned when a deployment operation is successfully initiated. Contains the UUID for tracking the deployment and its current status.
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Unique identifier for the deployment operation. Use this UUID to retrieve deployment results and logs.
+          example: d243b14c-3ba5-41c3-9f51-76da51beb8f5
+        url:
+          type: string
+          format: uri
+          description: URL endpoint for retrieving the deployment details and results.
+          example: https://mysite.appiancloud.com/suite/deployment-management/v2/deployments/d243b14c-3ba5-41c3-9f51-76da51beb8f5/
+        status:
+          $ref: '#/components/schemas/DeploymentStatus'
+      required:
+      - uuid
+      - url
+      - status
   parameters:
     actionType:
       name: Action-Type

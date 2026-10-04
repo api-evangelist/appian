@@ -1,0 +1,82 @@
+generated: '2026-10-03'
+method: searched
+generator: extract-docs-artifacts.py (local)
+source: https://docs.appian.com:443/suite/help/26.9/Appian_Release_Notes.html
+sources:
+- https://docs.appian.com:443/suite/help/26.9/Appian_Release_Notes.html
+- https://appian.com/products/platform/whats-new
+- https://appian.com/es/products/platform/whats-new
+- https://appian.com/fr/products/platform/whats-new
+entries:
+- breaking: false
+  highlights:
+  - Deploy Appian AI on any self-managed infrastructure
+  - We're expanding Appian AI capabilities for self-managed environments . You can now deploy the following Appian AI capabilities using your
+    choice of cloud-agnostic infrastructure, with no AWS dependency.
+  - You can use certain AI capabilities within your own infrastructure, even offline.
+  - Stay tuned to future releases as we expand the list of AI features available for self-managed environments.
+- breaking: false
+  highlights:
+  - 'Plug-In Composer: Build Appian Plug-ins from a prompt'
+  - Plug-In Composer turns time‑consuming, manual plug‑in development into an accelerated, prompt‑driven experience.
+  - If a new plug‑in is needed, Plug‑In Composer asks focused clarifying questions and guides you from intent to implementation.
+  - Plug‑In Composer also supports the work that comes next.
+- breaking: false
+  highlights:
+  - Partner with AI to analyze process performance
+  - Explore your process data through natural language using the Appian MCP Server .
+  - We've added process insights capabilities to the Appian MCP Server, so you can ask questions like "How long are cases taking?"
+  - Get to insights faster with an AI‑powered analysis partner.
+- breaking: false
+  highlights:
+  - Unlock smart search for AI agents
+  - AI agents connected through Appian MCP Server can now use smart search to search across the fields in your record types.
+  - When you enable smart search on text fields, extra long text fields, or documents in a synced record type, the data fabric tools identify
+    those fields.
+  - This allows your agents to go beyond exact‑match filters and find records by meaning.
+- breaking: false
+  highlights:
+  - Find the right record types faster
+  - We've enhanced the appian_data_fabric_metadata tool in our Appian MCP Server so AI agents can now find the right record types even when they
+    don't know the exact names.
+  - This means that simple search queries always bring back the most relevant record types across your data fabric.
+- breaking: false
+  highlights:
+  - Uncover root causes and process bottlenecks with AI
+  - We've extended the Appian MCP Server's process insights capabilities so your AI applications can go beyond querying and start analyzing your
+    data.
+  - Your agents can now generate suggested insights that surface combinations of characteristics driving KPI performance.
+  - Ask "why is this KPI underperforming?" and your agent identifies which characteristics have the most impact.
+- breaking: false
+  highlights:
+  - Quickly add AI agents to your process models
+  - Bringing an AI agent into a process is now a streamlined experience.
+  - Instead of configuring manual expressions, just select your AI agent in the new Setup tab of the Execute AI Agent smart service.
+  - You'll also get built‑in outputs for success status, run summary, error messages, and AI actions consumed.
+- breaking: false
+  highlights:
+  - Trim process model tool results to only what your agent needs
+  - Reduce AI action consumption while keeping your agent's context sharp.
+  - When you configure a process model tool in your AI agent, you can now exclude input parameters and hidden process variables from the response
+    to the agent.
+  - Filtering is optional, giving you precise control over what each tool sends back.
+- breaking: false
+  highlights:
+  - Rapidly test chat agents
+  - Test and refine your chat agents faster with new testing tools and flexible visual styling.
+  - The Build tab now includes a dedicated test console where you can send messages, stream responses, and inspect full chat agent timelines.
+  - A new STOP button lets you interrupt active responses instantly in both the test console during development and in production.
+- breaking: false
+  highlights:
+  - Customize chat field styling with precision
+  - The a!agentChatField() component now enables you to take full visual control over your chat interfaces with new shape and showBorder parameters.
+  - These parameters let you quickly configure the shape of container corners, as well as show or hide outer borders.
+- breaking: false
+  highlights:
+  - Watch parallel tool calls finish in real time
+  - When an AI agent runs several tools at once, each result now appears the moment that tool finishes instead of making you wait for the entire
+    batch.
+  - Now you can spot exactly when a tool is slow or failing and give a thumbs up or down on any individual tool call.
+scheme: major.minor
+current_version: '26.9'
+docs: https://docs.appian.com:443/suite/help/26.9/Appian_Release_Notes.html

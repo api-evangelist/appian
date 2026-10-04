@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/appian/main/json-schema/appian-package-list-response-schema.json",
+  "title": "PackageListResponse",
+  "description": "Response containing the total count of packages and an array of package detail objects for the specified application.",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/appian-packages-api-openapi.yml#/components/schemas/PackageListResponse",
+  "type": "object",
+  "properties": {
+    "totalPackageCount": {
+      "type": "integer",
+      "description": "The total number of in-flight packages for the application. Maximum of 100.",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "packages": {
+      "type": "array",
+      "description": "Array of package objects ordered by last modified timestamp, newest first.",
+      "items": {
+        "$ref": "#/$defs/Package"
+      }
+    }
+  },
+  "required": [
+    "totalPackageCount",
+    "packages"
+  ],
+  "$defs": {
+    "Package": {
+      "type": "object",
+      "description": "Represents an in-flight deployment package associated with an Appian application. Contains metadata about the package contents and status.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the deployment package."
+        },
+        "description": {
+          "type": "string",
+          "description": "A description of the deployment package."
+        },
+        "uuid": {
+          "type": "string",
+          "format": "uuid",
+          "description": "The unique identifier for the package. This UUID can be used with the Deployment REST API for exports and deployments."
+        },
+        "objectCount": {
+          "type": "integer",
+          "description": "The number of design objects included in the package.",
+          "minimum": 0
+        },
+        "databaseScriptCount": {
+          "type": "integer",
+          "description": "The number of database scripts included in the package.",
+          "minimum": 0
+        },
+        "pluginCount": {
+          "type": "integer",
+          "description": "The number of plug-ins included in the package.",
+          "minimum": 0
+        },
+        "datasourceUuid": {
+          "type": "string",
+          "format": "uuid",
+          "description": "The UUID of the data source associated with the package, if applicable."
+        },
+        "hasCustomizationFile": {
+          "type": "boolean",
+          "description": "Indicates whether the package includes an import customization file."
+        },
+        "createdTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp when the package was created."
+        },
+        "lastModifiedTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp when the package was last modified. Packages are sorted by this field in descending order."
+        },
+        "ticketLink": {
+          "type": "string",
+          "description": "A link to an external ticket or change request associated with this package."
+        }
+      },
+      "required": [
+        "name",
+        "uuid"
+      ]
+    }
+  }
+}

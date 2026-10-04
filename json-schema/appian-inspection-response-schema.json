@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/appian/main/json-schema/appian-inspection-response-schema.json",
+  "title": "InspectionResponse",
+  "description": "Response returned when an inspection operation is successfully initiated. Contains the UUID for tracking the inspection.",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/appian-inspection-api-openapi.yml#/components/schemas/InspectionResponse",
+  "type": "object",
+  "properties": {
+    "uuid": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for the inspection operation. Use this UUID to retrieve inspection results."
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL endpoint for retrieving the inspection details and results."
+    }
+  },
+  "required": [
+    "uuid",
+    "url"
+  ]
+}

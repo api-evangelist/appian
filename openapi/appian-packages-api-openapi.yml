@@ -45,25 +45,17 @@ paths:
         '404':
           description: The specified application UUID was not found or the service account does not have access to the application.
 components:
+  parameters:
+    applicationUuid:
+      name: applicationUuid
+      in: path
+      required: true
+      description: The UUID of the application whose packages are being retrieved. This UUID can be found in the application properties within Appian Designer.
+      schema:
+        type: string
+        format: uuid
+      example: d243b14c-3ba5-41c3-9f51-76da51beb8f5
   schemas:
-    PackageListResponse:
-      type: object
-      description: Response containing the total count of packages and an array of package detail objects for the specified application.
-      properties:
-        totalPackageCount:
-          type: integer
-          description: The total number of in-flight packages for the application. Maximum of 100.
-          minimum: 0
-          maximum: 100
-          example: 3
-        packages:
-          type: array
-          description: Array of package objects ordered by last modified timestamp, newest first.
-          items:
-            $ref: '#/components/schemas/Package'
-      required:
-      - totalPackageCount
-      - packages
     Package:
       type: object
       description: Represents an in-flight deployment package associated with an Appian application. Contains metadata about the package contents and status.
@@ -119,16 +111,24 @@ components:
       required:
       - name
       - uuid
-  parameters:
-    applicationUuid:
-      name: applicationUuid
-      in: path
-      required: true
-      description: The UUID of the application whose packages are being retrieved. This UUID can be found in the application properties within Appian Designer.
-      schema:
-        type: string
-        format: uuid
-      example: d243b14c-3ba5-41c3-9f51-76da51beb8f5
+    PackageListResponse:
+      type: object
+      description: Response containing the total count of packages and an array of package detail objects for the specified application.
+      properties:
+        totalPackageCount:
+          type: integer
+          description: The total number of in-flight packages for the application. Maximum of 100.
+          minimum: 0
+          maximum: 100
+          example: 3
+        packages:
+          type: array
+          description: Array of package objects ordered by last modified timestamp, newest first.
+          items:
+            $ref: '#/components/schemas/Package'
+      required:
+      - totalPackageCount
+      - packages
   securitySchemes:
     apiKeyAuth:
       type: apiKey

@@ -69,42 +69,18 @@ paths:
           description: The specified deployment UUID was not found.
 components:
   schemas:
-    ExportDeploymentResult:
-      type: object
-      description: Result of an export deployment operation, including URLs to download the exported artifacts such as packages, plug-ins, customization files, and database scripts.
-      properties:
-        status:
-          $ref: '#/components/schemas/DeploymentStatus'
-        packageZip:
-          type: string
-          format: uri
-          description: URL to download the exported package ZIP file.
-        dataSource:
-          type: string
-          description: The data source name or UUID associated with the export.
-        databaseScripts:
-          type: array
-          description: Array of database script objects included in the export.
-          items:
-            $ref: '#/components/schemas/DatabaseScript'
-        pluginsZip:
-          type: string
-          format: uri
-          description: URL to download the exported plug-ins ZIP file.
-        customizationFile:
-          type: string
-          format: uri
-          description: URL to download the export customization file.
-        customizationFileTemplate:
-          type: string
-          format: uri
-          description: URL to download a template customization file for the exported package.
-        deploymentLogUrl:
-          type: string
-          format: uri
-          description: URL to retrieve the full deployment log.
-      required:
-      - status
+    DeploymentStatus:
+      type: string
+      description: The current status of a deployment operation. IN_PROGRESS indicates the operation is still running. COMPLETED indicates success. Other statuses indicate various error or review states.
+      enum:
+      - IN_PROGRESS
+      - COMPLETED
+      - COMPLETED_WITH_ERRORS
+      - COMPLETED_WITH_IMPORT_ERRORS
+      - COMPLETED_WITH_PUBLISH_ERRORS
+      - FAILED
+      - PENDING_REVIEW
+      - REJECTED
     DatabaseScript:
       type: object
       description: Represents a database script included in an export or import deployment.
@@ -122,38 +98,6 @@ components:
           type: string
           format: uri
           description: URL to download the database script file.
-    ImportSummaryCount:
-      type: object
-      description: Summary count of items in an import deployment, showing total, imported, failed, and skipped counts.
-      properties:
-        total:
-          type: integer
-          description: Total number of items in the package.
-          minimum: 0
-        imported:
-          type: integer
-          description: Number of items successfully imported.
-          minimum: 0
-        failed:
-          type: integer
-          description: Number of items that failed to import.
-          minimum: 0
-        skipped:
-          type: integer
-          description: Number of items skipped during import.
-          minimum: 0
-    DeploymentStatus:
-      type: string
-      description: The current status of a deployment operation. IN_PROGRESS indicates the operation is still running. COMPLETED indicates success. Other statuses indicate various error or review states.
-      enum:
-      - IN_PROGRESS
-      - COMPLETED
-      - COMPLETED_WITH_ERRORS
-      - COMPLETED_WITH_IMPORT_ERRORS
-      - COMPLETED_WITH_PUBLISH_ERRORS
-      - FAILED
-      - PENDING_REVIEW
-      - REJECTED
     ImportDeploymentResult:
       type: object
       description: Result of an import deployment operation, including a summary of imported, failed, and skipped objects, Admin Console settings, plug-ins, and database scripts.
@@ -195,6 +139,62 @@ components:
       required:
       - status
       - summary
+    ImportSummaryCount:
+      type: object
+      description: Summary count of items in an import deployment, showing total, imported, failed, and skipped counts.
+      properties:
+        total:
+          type: integer
+          description: Total number of items in the package.
+          minimum: 0
+        imported:
+          type: integer
+          description: Number of items successfully imported.
+          minimum: 0
+        failed:
+          type: integer
+          description: Number of items that failed to import.
+          minimum: 0
+        skipped:
+          type: integer
+          description: Number of items skipped during import.
+          minimum: 0
+    ExportDeploymentResult:
+      type: object
+      description: Result of an export deployment operation, including URLs to download the exported artifacts such as packages, plug-ins, customization files, and database scripts.
+      properties:
+        status:
+          $ref: '#/components/schemas/DeploymentStatus'
+        packageZip:
+          type: string
+          format: uri
+          description: URL to download the exported package ZIP file.
+        dataSource:
+          type: string
+          description: The data source name or UUID associated with the export.
+        databaseScripts:
+          type: array
+          description: Array of database script objects included in the export.
+          items:
+            $ref: '#/components/schemas/DatabaseScript'
+        pluginsZip:
+          type: string
+          format: uri
+          description: URL to download the exported plug-ins ZIP file.
+        customizationFile:
+          type: string
+          format: uri
+          description: URL to download the export customization file.
+        customizationFileTemplate:
+          type: string
+          format: uri
+          description: URL to download a template customization file for the exported package.
+        deploymentLogUrl:
+          type: string
+          format: uri
+          description: URL to retrieve the full deployment log.
+      required:
+      - status
   parameters:
     deploymentUuid:
       name: deploymentUuid

@@ -1,0 +1,7 @@
+generated: '2026-10-03'
+method: derived
+source: none
+deployment:
+  mode: none
+  endpoint: "https://appian.com"
+  verified: derived

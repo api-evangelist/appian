@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/appian/main/json-schema/appian-import-deployment-result-schema.json",
+  "title": "ImportDeploymentResult",
+  "description": "Result of an import deployment operation, including a summary of imported, failed, and skipped objects, Admin Console settings, plug-ins, and database scripts.",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/appian-results-api-openapi.yml#/components/schemas/ImportDeploymentResult",
+  "type": "object",
+  "properties": {
+    "status": {
+      "$ref": "#/$defs/DeploymentStatus"
+    },
+    "summary": {
+      "type": "object",
+      "description": "Summary of the import deployment operation results.",
+      "properties": {
+        "objects": {
+          "$ref": "#/$defs/ImportSummaryCount"
+        },
+        "adminConsoleSettings": {
+          "$ref": "#/$defs/ImportSummaryCount"
+        },
+        "plugins": {
+          "type": "object",
+          "description": "Summary of plug-in import results.",
+          "properties": {
+            "total": {
+              "type": "integer",
+              "description": "Total number of plug-ins in the package.",
+              "minimum": 0
+            },
+            "imported": {
+              "type": "integer",
+              "description": "Number of plug-ins successfully imported.",
+              "minimum": 0
+            },
+            "skipped": {
+              "type": "integer",
+              "description": "Number of plug-ins skipped during import.",
+              "minimum": 0
+            }
+          }
+        },
+        "databaseScripts": {
+          "type": "integer",
+          "description": "Number of database scripts executed during import.",
+          "minimum": 0
+        },
+        "deploymentLogUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to retrieve the full deployment log."
+        }
+      }
+    }
+  },
+  "required": [
+    "status",
+    "summary"
+  ],
+  "$defs": {
+    "DeploymentStatus": {
+      "type": "string",
+      "description": "The current status of a deployment operation. IN_PROGRESS indicates the operation is still running. COMPLETED indicates success. Other statuses indicate various error or review states.",
+      "enum": [
+        "IN_PROGRESS",
+        "COMPLETED",
+        "COMPLETED_WITH_ERRORS",
+        "COMPLETED_WITH_IMPORT_ERRORS",
+        "COMPLETED_WITH_PUBLISH_ERRORS",
+        "FAILED",
+        "PENDING_REVIEW",
+        "REJECTED"
+      ]
+    },
+    "ImportSummaryCount": {
+      "type": "object",
+      "description": "Summary count of items in an import deployment, showing total, imported, failed, and skipped counts.",
+      "properties": {
+        "total": {
+          "type": "integer",
+          "description": "Total number of items in the package.",
+          "minimum": 0
+        },
+        "imported": {
+          "type": "integer",
+          "description": "Number of items successfully imported.",
+          "minimum": 0
+        },
+        "failed": {
+          "type": "integer",
+          "description": "Number of items that failed to import.",
+          "minimum": 0
+        },
+        "skipped": {
+          "type": "integer",
+          "description": "Number of items skipped during import.",
+          "minimum": 0
+        }
+      }
+    }
+  }
+}

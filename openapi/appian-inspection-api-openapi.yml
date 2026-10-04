@@ -93,53 +93,6 @@ components:
               $ref: '#/components/schemas/InspectionProblems'
       required:
       - status
-    InspectionWarning:
-      type: object
-      description: A warning identified during package inspection that may affect deployment but would not prevent it.
-      properties:
-        warningMessage:
-          type: string
-          description: A description of the warning condition.
-        objectName:
-          type: string
-          description: The name of the object associated with the warning.
-        objectUuid:
-          type: string
-          format: uuid
-          description: The UUID of the object associated with the warning.
-    InspectionRequest:
-      type: object
-      description: Request body for creating a package inspection operation. Requires the deployment package and Admin Console settings files, with an optional import customization file.
-      properties:
-        json:
-          type: string
-          description: JSON string containing the inspection configuration with file name references for the attached files.
-        adminConsoleSettingsFileName:
-          type: string
-          format: binary
-          description: Admin Console settings ZIP file to use for the inspection.
-        packageFileName:
-          type: string
-          format: binary
-          description: The deployment package ZIP file to inspect.
-        customizationFileName:
-          type: string
-          format: binary
-          description: Optional import customization properties file to include in the inspection.
-    InspectionError:
-      type: object
-      description: An error identified during package inspection that would prevent successful deployment.
-      properties:
-        errorMessage:
-          type: string
-          description: A description of the error condition.
-        objectName:
-          type: string
-          description: The name of the object affected by the error.
-        objectUuid:
-          type: string
-          format: uuid
-          description: The UUID of the object affected by the error.
     InspectionResponse:
       type: object
       description: Response returned when an inspection operation is successfully initiated. Contains the UUID for tracking the inspection.
@@ -157,6 +110,20 @@ components:
       required:
       - uuid
       - url
+    InspectionWarning:
+      type: object
+      description: A warning identified during package inspection that may affect deployment but would not prevent it.
+      properties:
+        warningMessage:
+          type: string
+          description: A description of the warning condition.
+        objectName:
+          type: string
+          description: The name of the object associated with the warning.
+        objectUuid:
+          type: string
+          format: uuid
+          description: The UUID of the object associated with the warning.
     ImportSummaryCount:
       type: object
       description: Summary count of items in an import deployment, showing total, imported, failed, and skipped counts.
@@ -177,6 +144,39 @@ components:
           type: integer
           description: Number of items skipped during import.
           minimum: 0
+    InspectionError:
+      type: object
+      description: An error identified during package inspection that would prevent successful deployment.
+      properties:
+        errorMessage:
+          type: string
+          description: A description of the error condition.
+        objectName:
+          type: string
+          description: The name of the object affected by the error.
+        objectUuid:
+          type: string
+          format: uuid
+          description: The UUID of the object affected by the error.
+    InspectionRequest:
+      type: object
+      description: Request body for creating a package inspection operation. Requires the deployment package and Admin Console settings files, with an optional import customization file.
+      properties:
+        json:
+          type: string
+          description: JSON string containing the inspection configuration with file name references for the attached files.
+        adminConsoleSettingsFileName:
+          type: string
+          format: binary
+          description: Admin Console settings ZIP file to use for the inspection.
+        packageFileName:
+          type: string
+          format: binary
+          description: The deployment package ZIP file to inspect.
+        customizationFileName:
+          type: string
+          format: binary
+          description: Optional import customization properties file to include in the inspection.
     InspectionProblems:
       type: object
       description: Collection of errors and warnings identified during a package inspection.

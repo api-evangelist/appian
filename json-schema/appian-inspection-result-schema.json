@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/appian/main/json-schema/appian-inspection-result-schema.json",
+  "title": "InspectionResult",
+  "description": "Result of a package inspection operation, including expected object counts and any problems identified.",
+  "x-generated": "2026-10-03",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/appian-inspection-api-openapi.yml#/components/schemas/InspectionResult",
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string",
+      "description": "The current status of the inspection operation.",
+      "enum": [
+        "IN_PROGRESS",
+        "COMPLETED",
+        "FAILED"
+      ]
+    },
+    "summary": {
+      "type": "object",
+      "description": "Summary of the inspection findings.",
+      "properties": {
+        "objectsExpected": {
+          "$ref": "#/$defs/ImportSummaryCount"
+        },
+        "adminConsoleSettingsExpected": {
+          "$ref": "#/$defs/ImportSummaryCount"
+        },
+        "problems": {
+          "$ref": "#/$defs/InspectionProblems"
+        }
+      }
+    }
+  },
+  "required": [
+    "status"
+  ],
+  "$defs": {
+    "ImportSummaryCount": {
+      "type": "object",
+      "description": "Summary count of items in an import deployment, showing total, imported, failed, and skipped counts.",
+      "properties": {
+        "total": {
+          "type": "integer",
+          "description": "Total number of items in the package.",
+          "minimum": 0
+        },
+        "imported": {
+          "type": "integer",
+          "description": "Number of items successfully imported.",
+          "minimum": 0
+        },
+        "failed": {
+          "type": "integer",
+          "description": "Number of items that failed to import.",
+          "minimum": 0
+        },
+        "skipped": {
+          "type": "integer",
+          "description": "Number of items skipped during import.",
+          "minimum": 0
+        }
+      }
+    },
+    "InspectionError": {
+      "type": "object",
+      "description": "An error identified during package inspection that would prevent successful deployment.",
+      "properties": {
+        "errorMessage": {
+          "type": "string",
+          "description": "A description of the error condition."
+        },
+        "objectName": {
+          "type": "string",
+          "description": "The name of the object affected by the error."
+        },
+        "objectUuid": {
+          "type": "string",
+          "format": "uuid",
+          "description": "The UUID of the object affected by the error."
+        }
+      }
+    },
+    "InspectionProblems": {
+      "type": "object",
+      "description": "Collection of errors and warnings identified during a package inspection.",
+      "properties": {
+        "totalErrors": {
+          "type": "integer",
+          "description": "Total number of errors found during inspection.",
+          "minimum": 0
+        },
+        "totalWarnings": {
+          "type": "integer",
+          "description": "Total number of warnings found during inspection.",
+          "minimum": 0
+        },
+        "errors": {
+          "type": "array",
+          "description": "Array of error details identified during inspection.",
+          "items": {
+            "$ref": "#/$defs/InspectionError"
+          }
+        },
+        "warnings": {
+          "type": "array",
+          "description": "Array of warning details identified during inspection.",
+          "items": {
+            "$ref": "#/$defs/InspectionWarning"
+          }
+        }
+      }
+    },
+    "InspectionWarning": {
+      "type": "object",
+      "description": "A warning identified during package inspection that may affect deployment but would not prevent it.",
+      "properties": {
+        "warningMessage": {
+          "type": "string",
+          "description": "A description of the warning condition."
+        },
+        "objectName": {
+          "type": "string",
+          "description": "The name of the object associated with the warning."
+        },
+        "objectUuid": {
+          "type": "string",
+          "format": "uuid",
+          "description": "The UUID of the object associated with the warning."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+# Appian Academy
+
+## Courses
+
+## Paths
+- [Advanced Expressions (Senior Developers)](/path/advanced-expressions-senior-developers)
+- [Advanced Interface Design (Senior Developers)](/path/advanced-interface-design-senior-developers)
+- [Advanced Process Modeling (Senior Developers)](/path/advanced-process-modeling-senior-developers)
+- [Analyze Processes and Data with Process HQ](/path/analyze-processes-and-data-with-process-hq)
+- [Appian Administrator](/path/appian-administrator)
+- [Appian Advanced UX Design (Senior Developers)](/path/appian-advanced-ux-design-senior-developers)
+- [Appian AI](/path/appian-ai)
+- [Appian Analyst](/path/appian-analyst)
+- [Appian Case Management Studio](/path/appian-case-management-studio)
+- [Appian Developer](/path/appian-developer)
+- [Appian Developer (español)](/path/appian-developer-espanol)
+- [Appian Developer Supplement](/path/appian-developer-supplement)
+- [Appian DocCenter](/path/appian-doccenter)
+- [Appian Lead Developer](/path/appian-lead-developer)
+- [Appian University Bootcamp](/path/appian-university-bootcamp)
+- [Delivery Methodology (Senior Developers)](/path/delivery-methodology-senior-developers)
+- [Government Acquisition Management Fundamentals](/path/government-acquisition-management-fundamentals)
+- [Implement an Appian Solution](/path/implement-an-appian-solution)
+- [Integrations (Senior Developers)](/path/integrations-senior-developers)
+- [Robotic Process Automation](/path/robotic-process-automation)
+- [Set Up Process HQ](/path/set-up-process-hq)
+- [Testing and Quality Assurance (Senior Developers)](/path/testing-and-quality-assurance-senior-developers)
+- [Work with Data in Appian](/path/work-with-data-in-appian)

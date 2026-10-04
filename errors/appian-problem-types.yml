@@ -1,0 +1,41 @@
+generated: '2026-10-03'
+method: derived
+generator: derive-problem-types.py
+source:
+- openapi/appian-export-api-openapi.yml
+- openapi/appian-import-api-openapi.yml
+- openapi/appian-inspection-api-openapi.yml
+- openapi/appian-packages-api-openapi.yml
+- openapi/appian-results-api-openapi.yml
+format: custom
+envelope:
+  media_type: null
+  schema: null
+coverage:
+  operations: 7
+  statuses_declared: 4
+problems:
+- status: 400
+  title: Bad Request
+  description: Bad request. The request payload is malformed or missing required fields.
+  operations: 3
+  media_types: []
+  schema: null
+- status: 401
+  title: Unauthorized
+  description: Authentication failed. The API key is missing or invalid.
+  operations: 7
+  media_types: []
+  schema: null
+- status: 403
+  title: Forbidden
+  description: The deployment action is not permitted. The Admin Console settings may restrict this deployment flow.
+  operations: 2
+  media_types: []
+  schema: null
+- status: 404
+  title: Not Found
+  description: The specified deployment UUID was not found.
+  operations: 4
+  media_types: []
+  schema: null
