@@ -1,0 +1,39 @@
+# Front Door AI Index — appian — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: appian
+  lexicon_version: '1.0'
+  probed_at: '2026-09-25'
+  host: www.appian.com
+  final_host: appian.com
+  ownership: own
+  owner: appian
+  shares_host_with: null
+  inherited_from: null
+  alias_of: null
+  verdict: scored
+  score: 96
+  band: 6
+  band_label: dominant
+  host_score: 96
+  density: 30.37
+  words: 3161
+  tiers:
+    agentic: 16
+    core: 80
+    model: 0
+  ambiguous: 68
+  top_terms:
+    AI: 71
+    automation: 51
+    agent: 11
+    AI agent: 10
+    generative ai: 6
+    intelligence: 6
+    agentic: 3
+    copilot: 2
+    LLMs: 1
+    artificial intelligence: 1
+    large language model: 1
+    prompts: 1
