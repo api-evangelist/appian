@@ -15,3 +15,16 @@
   relationship: distribution-channel
   status: not-a-workflow
   arazzo: null
+- slug: appian-guidewire-own
+  label: Guidewire (own)
+  partner: guidewire
+  partner_name: Guidewire (own)
+  category: Accelerator; Customer Communication;Data & Reports; PolicyCenter
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://marketplace.guidewire.com/product/01tPW000008QAGrYAO/01tPW000008QAGrYAO
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
