@@ -69,18 +69,6 @@ paths:
           description: The specified deployment UUID was not found.
 components:
   schemas:
-    DeploymentStatus:
-      type: string
-      description: The current status of a deployment operation. IN_PROGRESS indicates the operation is still running. COMPLETED indicates success. Other statuses indicate various error or review states.
-      enum:
-      - IN_PROGRESS
-      - COMPLETED
-      - COMPLETED_WITH_ERRORS
-      - COMPLETED_WITH_IMPORT_ERRORS
-      - COMPLETED_WITH_PUBLISH_ERRORS
-      - FAILED
-      - PENDING_REVIEW
-      - REJECTED
     DatabaseScript:
       type: object
       description: Represents a database script included in an export or import deployment.
@@ -98,47 +86,18 @@ components:
           type: string
           format: uri
           description: URL to download the database script file.
-    ImportDeploymentResult:
-      type: object
-      description: Result of an import deployment operation, including a summary of imported, failed, and skipped objects, Admin Console settings, plug-ins, and database scripts.
-      properties:
-        status:
-          $ref: '#/components/schemas/DeploymentStatus'
-        summary:
-          type: object
-          description: Summary of the import deployment operation results.
-          properties:
-            objects:
-              $ref: '#/components/schemas/ImportSummaryCount'
-            adminConsoleSettings:
-              $ref: '#/components/schemas/ImportSummaryCount'
-            plugins:
-              type: object
-              description: Summary of plug-in import results.
-              properties:
-                total:
-                  type: integer
-                  description: Total number of plug-ins in the package.
-                  minimum: 0
-                imported:
-                  type: integer
-                  description: Number of plug-ins successfully imported.
-                  minimum: 0
-                skipped:
-                  type: integer
-                  description: Number of plug-ins skipped during import.
-                  minimum: 0
-            databaseScripts:
-              type: integer
-              description: Number of database scripts executed during import.
-              minimum: 0
-            deploymentLogUrl:
-              type: string
-              format: uri
-              description: URL to retrieve the full deployment log.
-      required:
-      - status
-      - summary
+    DeploymentStatus:
+      type: string
+      description: The current status of a deployment operation. IN_PROGRESS indicates the operation is still running. COMPLETED indicates success. Other statuses indicate various error or review states.
+      enum:
+      - IN_PROGRESS
+      - COMPLETED
+      - COMPLETED_WITH_ERRORS
+      - COMPLETED_WITH_IMPORT_ERRORS
+      - COMPLETED_WITH_PUBLISH_ERRORS
+      - FAILED
+      - PENDING_REVIEW
+      - REJECTED
     ImportSummaryCount:
       type: object
       description: Summary count of items in an import deployment, showing total, imported, failed, and skipped counts.
@@ -195,6 +154,47 @@ components:
           description: URL to retrieve the full deployment log.
       required:
       - status
+    ImportDeploymentResult:
+      type: object
+      description: Result of an import deployment operation, including a summary of imported, failed, and skipped objects, Admin Console settings, plug-ins, and database scripts.
+      properties:
+        status:
+          $ref: '#/components/schemas/DeploymentStatus'
+        summary:
+          type: object
+          description: Summary of the import deployment operation results.
+          properties:
+            objects:
+              $ref: '#/components/schemas/ImportSummaryCount'
+            adminConsoleSettings:
+              $ref: '#/components/schemas/ImportSummaryCount'
+            plugins:
+              type: object
+              description: Summary of plug-in import results.
+              properties:
+                total:
+                  type: integer
+                  description: Total number of plug-ins in the package.
+                  minimum: 0
+                imported:
+                  type: integer
+                  description: Number of plug-ins successfully imported.
+                  minimum: 0
+                skipped:
+                  type: integer
+                  description: Number of plug-ins skipped during import.
+                  minimum: 0
+            databaseScripts:
+              type: integer
+              description: Number of database scripts executed during import.
+              minimum: 0
+            deploymentLogUrl:
+              type: string
+              format: uri
+              description: URL to retrieve the full deployment log.
+      required:
+      - status
+      - summary
   parameters:
     deploymentUuid:
       name: deploymentUuid
