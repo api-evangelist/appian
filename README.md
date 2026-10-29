@@ -1,4 +1,4 @@
-# Appian (appian)
+# Appian
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,285 +66,258 @@
 
 Appian is a low-code automation platform that accelerates the creation of high-impact business applications. The platform combines intelligent automation and enterprise low-code development to help organizations build apps and workflows rapidly.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/appian/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/appian/refs/heads/main/apis.yml)
+**Areas:** Automation · Business Process Management · Enterprise Software · Low-Code · Process Automation · RPA · Workflows
 
-## Scope
+## Appian on APIs.io
 
-- **Type:** Index
-- **Position:** Consumer
-- **Access:** 3rd-Party
+Everything profiled for Appian is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/appian/](https://apis.io/providers/appian/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (12)
 
-- Automation
-- BPM
-- Business Process Management
-- Enterprise Software
-- Low-Code
-- Process Automation
-- RPA
-- Workflow
+- [Appian Application Package Details API](https://apis.io/apis/appian/appian/) — This endpoint uses the UUID of an application to retrieve data about any in-flight packages for the application. It can be used to link packages to change…
+- [Appian Deployment REST API](https://apis.io/apis/appian/deployment-rest-api/) — The Appian Deployment REST API provides endpoints for exporting, inspecting, and importing applications and packages. It enables automation of CI/CD…
+- [Appian Web APIs](https://apis.io/apis/appian/web-apis/) — Appian Web APIs expose Appian data and services to external systems through REST web services. Each Web API associates a URL and HTTP method combination…
+- [Appian RPA REST API](https://apis.io/apis/appian/rpa-rest-api/) — The Appian RPA REST API exposes robotic process automation functionality to external systems. Endpoints are accessed via the format…
+- [Appian Integration SDK](https://apis.io/apis/appian/integration-sdk/) — The Appian Integration SDK enables developers to build connected system plug-ins that extend Appian's low-code integration capabilities. Plug-ins are built…
+- [Appian UI SDK](https://apis.io/apis/appian/ui-sdk/) — The Appian UI SDK lets developers design custom component plug-ins to extend Appian interfaces by adding new components that integrate with external…
+- [Appian Suite API](https://apis.io/apis/appian/appian-suite-api/) — The Appian Suite API provides Java-based access to platform capabilities for managing processes, documents, users, and groups. It supports building smart…
+- [Appian Export API](https://apis.io/apis/appian/appian-export-api/) — Operations for exporting applications and packages from an Appian environment.
+- [Appian Import API](https://apis.io/apis/appian/appian-import-api/) — Operations for importing and deploying applications and packages into an Appian environment.
+- [Appian Inspection API](https://apis.io/apis/appian/appian-inspection-api/) — Operations for inspecting packages before deployment to identify potential issues, errors, and warnings.
+- [Appian Packages API](https://apis.io/apis/appian/appian-packages-api/) — Operations for retrieving package details associated with an Appian application.
+- [Appian Results API](https://apis.io/apis/appian/appian-results-api/) — Operations for retrieving the status, results, and logs of deployments and inspections.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2025-02-08
-- **Modified:** 2026-05-19
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### Arazzo workflows (7)
 
-### Appian Application Package Details API
+Multi-step workflows that chain operations into a business task.
 
-This endpoint uses the UUID of an application to retrieve data about any in-flight packages for the application. It can be used to link packages to change management systems or get identifiers for packages to use for a deployment.
+- [Appian Get Deployment Status and Log](https://apis.io/arazzos/appian/appian-deployment-status-and-log-workflow/)
+- [Appian Export an Application Package](https://apis.io/arazzos/appian/appian-export-application-package-workflow/)
+- [Appian Export a Full Application](https://apis.io/arazzos/appian/appian-export-full-application-workflow/)
+- [Appian Import a Deployment and Confirm Results](https://apis.io/arazzos/appian/appian-import-deployment-workflow/)
+- [Appian Inspect a Package Before Deployment](https://apis.io/arazzos/appian/appian-inspect-package-workflow/)
+- [Appian Gated Inspect-then-Import Promotion](https://apis.io/arazzos/appian/appian-inspect-then-import-workflow/)
+- [Appian Resolve a Named Package and Export It](https://apis.io/arazzos/appian/appian-resolve-and-export-named-package-workflow/)
 
-- **Human URL:** [https://docs.appian.com/suite/help/25.4/Application_Package_Details_API.html](https://docs.appian.com/suite/help/25.4/Application_Package_Details_API.html)
+#### Agentic access (1)
 
-#### Tags
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- Deployment
-- Packages
+- [Appian Agentic Access](https://apis.io/agentic-access/appian/appian-agentic-access/)
 
-#### Properties
+#### JSON Schema (42)
 
-- [Documentation](https://docs.appian.com/suite/help/25.4/Application_Package_Details_API.html)
-- [Reference](https://docs.appian.com/suite/help/25.4/Application_Package_Details_API.html)
-- [Authentication](https://docs.appian.com/suite/help/25.4/Web_API_Authentication.html)
-- [Postman Collection](collections/appian-application-package-details.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/appian-application-package-details.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/appian-deployment-rest.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/appian-deployment-rest.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+The data models the API reads and writes.
 
-### Appian Deployment REST API
+- [DatabaseScript](https://apis.io/schemas/appian/appian-databasescript/)
+- [DeploymentRequest](https://apis.io/schemas/appian/appian-deployment-request/)
+- [DeploymentResponse](https://apis.io/schemas/appian/appian-deployment-response/)
+- [DeploymentRequest](https://apis.io/schemas/appian/appian-deploymentrequest/)
+- [DeploymentResponse](https://apis.io/schemas/appian/appian-deploymentresponse/)
+- [DeploymentStatus](https://apis.io/schemas/appian/appian-deploymentstatus/)
+- [ExportDeploymentResult](https://apis.io/schemas/appian/appian-export-deployment-result/)
+- [ExportConfiguration](https://apis.io/schemas/appian/appian-exportconfiguration/)
+- [ExportDeploymentResult](https://apis.io/schemas/appian/appian-exportdeploymentresult/)
+- [ImportDeploymentResult](https://apis.io/schemas/appian/appian-import-deployment-result/)
+- [ImportConfiguration](https://apis.io/schemas/appian/appian-importconfiguration/)
+- [ImportDeploymentResult](https://apis.io/schemas/appian/appian-importdeploymentresult/)
+- [ImportSummaryCount](https://apis.io/schemas/appian/appian-importsummarycount/)
+- [InspectionRequest](https://apis.io/schemas/appian/appian-inspection-request/)
+- [InspectionResponse](https://apis.io/schemas/appian/appian-inspection-response/)
+- [InspectionResult](https://apis.io/schemas/appian/appian-inspection-result/)
+- [InspectionError](https://apis.io/schemas/appian/appian-inspectionerror/)
+- [InspectionProblems](https://apis.io/schemas/appian/appian-inspectionproblems/)
+- [InspectionRequest](https://apis.io/schemas/appian/appian-inspectionrequest/)
+- [InspectionResponse](https://apis.io/schemas/appian/appian-inspectionresponse/)
+- [InspectionResult](https://apis.io/schemas/appian/appian-inspectionresult/)
+- [InspectionWarning](https://apis.io/schemas/appian/appian-inspectionwarning/)
+- [Package](https://apis.io/schemas/appian/appian-package/)
+- [PackageListResponse](https://apis.io/schemas/appian/appian-package-list-response/)
+- [PackageListResponse](https://apis.io/schemas/appian/appian-packagelistresponse/)
+- …and 17 more published on APIs.io
 
-The Appian Deployment REST API provides endpoints for exporting, inspecting, and importing applications and packages. It enables automation of CI/CD pipelines including exports, inspections, and imports, and supports post-deployment processes for external deployments.
+#### JSON Structure (18)
 
-- **Human URL:** [https://docs.appian.com/suite/help/25.4/Deployment_Rest_API.html](https://docs.appian.com/suite/help/25.4/Deployment_Rest_API.html)
+Data models expressed in JSON Structure.
 
-#### Tags
+- [Appian Structure](https://apis.io/json-structure/appian/appian-structure/)
+- [Application Package Details Package List Response Structure](https://apis.io/json-structure/appian/application-package-details-package-list-response-structure/)
+- [Application Package Details Package Structure](https://apis.io/json-structure/appian/application-package-details-package-structure/)
+- [Deployment Rest Database Script Structure](https://apis.io/json-structure/appian/deployment-rest-database-script-structure/)
+- [Deployment Rest Deployment Request Structure](https://apis.io/json-structure/appian/deployment-rest-deployment-request-structure/)
+- [Deployment Rest Deployment Response Structure](https://apis.io/json-structure/appian/deployment-rest-deployment-response-structure/)
+- [Deployment Rest Deployment Status Structure](https://apis.io/json-structure/appian/deployment-rest-deployment-status-structure/)
+- [Deployment Rest Export Configuration Structure](https://apis.io/json-structure/appian/deployment-rest-export-configuration-structure/)
+- [Deployment Rest Export Deployment Result Structure](https://apis.io/json-structure/appian/deployment-rest-export-deployment-result-structure/)
+- [Deployment Rest Import Configuration Structure](https://apis.io/json-structure/appian/deployment-rest-import-configuration-structure/)
+- [Deployment Rest Import Deployment Result Structure](https://apis.io/json-structure/appian/deployment-rest-import-deployment-result-structure/)
+- [Deployment Rest Import Summary Count Structure](https://apis.io/json-structure/appian/deployment-rest-import-summary-count-structure/)
+- [Deployment Rest Inspection Error Structure](https://apis.io/json-structure/appian/deployment-rest-inspection-error-structure/)
+- [Deployment Rest Inspection Problems Structure](https://apis.io/json-structure/appian/deployment-rest-inspection-problems-structure/)
+- [Deployment Rest Inspection Request Structure](https://apis.io/json-structure/appian/deployment-rest-inspection-request-structure/)
+- [Deployment Rest Inspection Response Structure](https://apis.io/json-structure/appian/deployment-rest-inspection-response-structure/)
+- [Deployment Rest Inspection Result Structure](https://apis.io/json-structure/appian/deployment-rest-inspection-result-structure/)
+- [Deployment Rest Inspection Warning Structure](https://apis.io/json-structure/appian/deployment-rest-inspection-warning-structure/)
 
-- CI/CD
-- Deployment
-- Packages
+#### JSON-LD (1)
 
-#### Properties
+Linked-data contexts for the provider's vocabulary.
 
-- [Documentation](https://docs.appian.com/suite/help/25.4/Deployment_Rest_API.html)
-- [Reference](https://docs.appian.com/suite/help/25.4/Export_Package_API.html)
-- [Authentication](https://docs.appian.com/suite/help/25.4/Web_API_Authentication.html)
-- [Postman Collection](collections/appian-application-package-details.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/appian-application-package-details.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/appian-deployment-rest.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/appian-deployment-rest.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Appian Context](https://apis.io/jsonld/appian/appian-context/)
 
-### Appian Web APIs
+#### Vocabulary (1)
 
-Appian Web APIs expose Appian data and services to external systems through REST web services. Each Web API associates a URL and HTTP method combination with an expression, supporting GET, POST, PUT, DELETE, and PATCH methods. Web APIs support OpenAPI 3.0.1 specification export for documentation sharing.
+The provider's domain terms, defined.
 
-- **Human URL:** [https://docs.appian.com/suite/help/25.4/Web_APIs.html](https://docs.appian.com/suite/help/25.4/Web_APIs.html)
+- [Appian Domain Vocabulary](https://apis.io/vocabularies/appian/appian-vocabulary/)
 
-#### Tags
+#### Examples (17)
 
-- Integration
-- REST
-- Web API
+Example requests and responses.
 
-#### Properties
+- [Application Package Details Package Example](https://apis.io/examples/appian/application-package-details-package-example/)
+- [Application Package Details Package List Response Example](https://apis.io/examples/appian/application-package-details-package-list-response-example/)
+- [Deployment Rest Database Script Example](https://apis.io/examples/appian/deployment-rest-database-script-example/)
+- [Deployment Rest Deployment Request Example](https://apis.io/examples/appian/deployment-rest-deployment-request-example/)
+- [Deployment Rest Deployment Response Example](https://apis.io/examples/appian/deployment-rest-deployment-response-example/)
+- [Deployment Rest Deployment Status Example](https://apis.io/examples/appian/deployment-rest-deployment-status-example/)
+- [Deployment Rest Export Configuration Example](https://apis.io/examples/appian/deployment-rest-export-configuration-example/)
+- [Deployment Rest Export Deployment Result Example](https://apis.io/examples/appian/deployment-rest-export-deployment-result-example/)
+- [Deployment Rest Import Configuration Example](https://apis.io/examples/appian/deployment-rest-import-configuration-example/)
+- [Deployment Rest Import Deployment Result Example](https://apis.io/examples/appian/deployment-rest-import-deployment-result-example/)
+- [Deployment Rest Import Summary Count Example](https://apis.io/examples/appian/deployment-rest-import-summary-count-example/)
+- [Deployment Rest Inspection Error Example](https://apis.io/examples/appian/deployment-rest-inspection-error-example/)
+- [Deployment Rest Inspection Problems Example](https://apis.io/examples/appian/deployment-rest-inspection-problems-example/)
+- [Deployment Rest Inspection Request Example](https://apis.io/examples/appian/deployment-rest-inspection-request-example/)
+- [Deployment Rest Inspection Response Example](https://apis.io/examples/appian/deployment-rest-inspection-response-example/)
+- [Deployment Rest Inspection Result Example](https://apis.io/examples/appian/deployment-rest-inspection-result-example/)
+- [Deployment Rest Inspection Warning Example](https://apis.io/examples/appian/deployment-rest-inspection-warning-example/)
 
-- [Documentation](https://docs.appian.com/suite/help/25.4/Web_APIs.html)
-- [Tutorial](https://docs.appian.com/suite/help/25.4/Web_API_Tutorial.html)
-- [Getting Started Guide](https://docs.appian.com/suite/help/25.4/Designing_Web_APIs.html)
-- [Authentication](https://docs.appian.com/suite/help/25.4/Web_API_Authentication.html)
-- [Reference](https://docs.appian.com/suite/help/25.4/passing-a-web-api-document-into-a-process-model.html)
-- [Postman Collection](collections/appian-application-package-details.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/appian-application-package-details.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/appian-deployment-rest.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/appian-deployment-rest.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Collections (13)
 
-### Appian RPA REST API
+Postman and Open Collection request collections.
 
-The Appian RPA REST API exposes robotic process automation functionality to external systems. Endpoints are accessed via the format https://.appiancloud.com/rpa/rest/oo/ and authenticated using a Bearer token with an API key in the Authorization header. RPA Queues and Scheduling are deprecated and will be removed in Appian 26.1.
+- [API Collection](https://apis.io/collections/appian/open-appian/)
+- [Appian Application Package Details API](https://apis.io/collections/appian/open-appian-application-package-details/)
+- [Appian Deployment REST API](https://apis.io/collections/appian/open-appian-deployment-rest/)
+- [Appian Application Package Details Export API](https://apis.io/collections/appian/open-appian-export-api/)
+- [Appian Application Package Details Export Import API](https://apis.io/collections/appian/open-appian-import-api/)
+- [Appian Application Package Details Export Inspection API](https://apis.io/collections/appian/open-appian-inspection-api/)
+- [Appian Application Package Details Export Packages API](https://apis.io/collections/appian/open-appian-packages-api/)
+- [Appian Application Package Details Export Results API](https://apis.io/collections/appian/open-appian-results-api/)
+- [Appian Application Package Details Export API](https://apis.io/collections/appian/postman-appian-export-api/)
+- [Appian Application Package Details Export Import API](https://apis.io/collections/appian/postman-appian-import-api/)
+- [Appian Application Package Details Export Inspection API](https://apis.io/collections/appian/postman-appian-inspection-api/)
+- [Appian Application Package Details Export Packages API](https://apis.io/collections/appian/postman-appian-packages-api/)
+- [Appian Application Package Details Export Results API](https://apis.io/collections/appian/postman-appian-results-api/)
 
-- **Human URL:** [https://docs.appian.com/suite/help/25.4/rpa-9.18/api-architecture.html](https://docs.appian.com/suite/help/25.4/rpa-9.18/api-architecture.html)
+#### Governance rules (2)
 
-#### Tags
+Spectral rulesets for the provider's contracts.
 
-- Robotic Process Automation
-- RPA
+- [Appian — jsonschema rules](https://apis.io/rules/appian/appian-jsonschema-spectral-rules/)
+- [Appian API Rules](https://apis.io/rules/appian/appian-rules/)
 
-#### Properties
+#### Security (3)
 
-- [Documentation](https://docs.appian.com/suite/help/25.4/rpa-9.18/api-architecture.html)
-- [Reference](https://docs.appian.com/suite/help/25.4/rpa-9.18/api-get-robotic-task-schedule-instructions.html)
-- [Authentication](https://docs.appian.com/suite/help/25.4/Web_API_Authentication.html)
-- [Deprecation  Notice](https://docs.appian.com/suite/help/25.4/rpa-9.18/api-architecture.html)
-- [Postman Collection](collections/appian-application-package-details.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/appian-application-package-details.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/appian-deployment-rest.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/appian-deployment-rest.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Authentication, trust centre, and vulnerability disclosure.
 
-### Appian Integration SDK
+- [Appian Authentication](https://apis.io/security/appian/appian-authentication/)
+- [Appian Domain Security](https://apis.io/security/appian/appian-domain-security/)
+- [Appian Vulnerability Disclosure](https://apis.io/security/appian/appian-vulnerability-disclosure/)
 
-The Appian Integration SDK enables developers to build connected system plug-ins that extend Appian's low-code integration capabilities. Plug-ins are built using Java and allow designers to interact with third-party services through a guided point-and-click interface. They can be distributed through the Appian AppMarket.
+#### Plans and pricing (1)
 
-- **Human URL:** [https://docs.appian.com/suite/help/25.4/connected-system-plug-in-landing.html](https://docs.appian.com/suite/help/25.4/connected-system-plug-in-landing.html)
+Published plans, tiers and prices.
 
-#### Tags
+- [Appian Plans Pricing](https://apis.io/plans/appian/appian-plans-pricing/)
 
-- Connected Systems
-- Integration
-- Plug-Ins
-- SDK
+#### Rate limits (1)
 
-#### Properties
+Published request limits.
 
-- [Documentation](https://docs.appian.com/suite/help/25.4/connected-system-plug-in-landing.html)
-- [Reference](https://docs.appian.com/suite/help/25.4/csp-javadocs.html)
-- [GitHub Repository](https://github.com/appian/integration-sdk-examples)
-- [Postman Collection](collections/appian-application-package-details.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/appian-application-package-details.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/appian-deployment-rest.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/appian-deployment-rest.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Appian Rate Limits](https://apis.io/rate-limits/appian/appian-rate-limits/)
 
-### Appian UI SDK
+#### FinOps (1)
 
-The Appian UI SDK lets developers design custom component plug-ins to extend Appian interfaces by adding new components that integrate with external systems. Components are built using standard web technologies including HTML, JavaScript, and CSS, and can leverage third-party libraries.
+What the API costs to run, by operation.
 
-- **Human URL:** [https://docs.appian.com/suite/help/25.4/ui-sdk-overview.html](https://docs.appian.com/suite/help/25.4/ui-sdk-overview.html)
+- [Appian Finops](https://apis.io/finops/appian/appian-finops/)
 
-#### Tags
+## Where to find this API
 
-- Components
-- Plug-Ins
-- SDK
-- UI
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-#### Properties
-
-- [Documentation](https://docs.appian.com/suite/help/25.4/ui-sdk-overview.html)
-- [Reference](https://docs.appian.com/suite/help/25.4/component-plugins.html)
-- [Getting Started](https://docs.appian.com/suite/help/25.4/develop-first-component.html)
-- [Changelog](https://docs.appian.com/suite/help/25.4/ui-sdk-versions.html)
-- [Postman Collection](collections/appian-application-package-details.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/appian-application-package-details.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/appian-deployment-rest.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/appian-deployment-rest.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Appian Suite API
-
-The Appian Suite API provides Java-based access to platform capabilities for managing processes, documents, users, and groups. It supports building smart service plug-ins, function plug-ins, data type plug-ins, and servlet plug-ins to extend the Appian platform using annotated Java classes.
-
-- **Human URL:** [https://docs.appian.com/suite/help/25.4/extending-appian.html](https://docs.appian.com/suite/help/25.4/extending-appian.html)
-
-#### Tags
-
-- Extensibility
-- Java
-- Plug-Ins
-
-#### Properties
-
-- [Documentation](https://docs.appian.com/suite/help/25.4/extending-appian.html)
-- [Reference](https://docs.appian.com/suite/help/25.4/Custom_Smart_Service_Plug-ins.html)
-- [Reference](https://docs.appian.com/suite/help/25.4/Custom_Function_Plug-ins.html)
-- [Postman Collection](collections/appian-application-package-details.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/appian-application-package-details.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/appian-deployment-rest.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/appian-deployment-rest.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
-
-- [Arazzo Workflows](arazzo/) — [Arazzo Specification](https://spec.openapis.org/arazzo/latest.html)
-- [Portal](https://community.appian.com)
+- [Website](https://www.appian.com)
 - [Documentation](https://docs.appian.com)
-- [Getting Started](https://docs.appian.com/suite/help/latest/Getting_Started.html)
-- [Authentication](https://docs.appian.com/suite/help/latest/Web_API_Authentication.html)
-- [Support](https://community.appian.com/support)
-- [Blog](https://appian.com/blog)
+- [Getting started](https://docs.appian.com/suite/help/latest/Getting_Started.html)
 - [Pricing](https://appian.com/platform/pricing.html)
-- [Terms of Service](https://www.appian.com/terms-of-service.html)
-- [Privacy Policy](https://www.appian.com/privacy.html)
-- [Developer Portal](https://appian.com/developers)
-- [GitHub Organization](https://github.com/appian)
-- [Marketplace](https://community.appian.com/b/appmarket)
-- [Training](https://academy.appian.com/)
-- [Courses](https://community.appian.com/learn/courses)
-- [Status Page](https://status.appiancloud.com/)
-- [Trust Center](https://trustcenter.appian.com/)
+- [Support](https://community.appian.com/support)
+- [Changelog](https://docs.appian.com/suite/help/25.4/Appian_Release_Notes.html)
+- [Blog](https://appian.com/blog)
 - [Security](https://appian.com/support/resources/trust/security)
 - [Compliance](https://appian.com/support/resources/trust/compliance)
-- [Contact](https://appian.com/contact-us)
-- [X (Twitter)](https://x.com/Appian)
-- [LinkedIn](https://www.linkedin.com/company/appian-corporation)
-- [S D Ks](https://docs.appian.com/suite/help/25.4/connected-system-plug-in-landing.html)
-- [S D K Examples](https://github.com/appian/integration-sdk-examples)
-- [Sandbox](https://appian.com/landing/community-edition/get-started)
-- [A P I Authentication](https://docs.appian.com/suite/help/25.4/Web_API_Authentication.html)
-- [Changelog](https://docs.appian.com/suite/help/25.4/Appian_Release_Notes.html)
-- [Whats New](https://appian.com/products/platform/whats-new)
-- [Login](https://community.appian.com/p/login2)
-- [Extending Appian](https://docs.appian.com/suite/help/25.4/extending-appian.html)
-- [Java Docs](https://docs.appian.com/suite/help/25.4/csp-javadocs.html)
-- [U I S D Ks](https://docs.appian.com/suite/help/25.4/ui-sdk-overview.html)
-- [Website](https://www.appian.com)
-- [JSON-LD](json-ld/appian-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-- [JSON Schema](json-schema/application-package-details-package-list-response-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/application-package-details-package-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/deployment-rest-database-script-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/deployment-rest-deployment-request-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/deployment-rest-deployment-response-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/deployment-rest-deployment-status-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/deployment-rest-export-configuration-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/deployment-rest-export-deployment-result-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/deployment-rest-import-configuration-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/deployment-rest-import-deployment-result-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/deployment-rest-import-summary-count-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/deployment-rest-inspection-error-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/deployment-rest-inspection-problems-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/deployment-rest-inspection-request-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/deployment-rest-inspection-response-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/deployment-rest-inspection-result-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/deployment-rest-inspection-warning-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Structure](json-structure/application-package-details-package-list-response-structure.json)
-- [JSON Structure](json-structure/application-package-details-package-structure.json)
-- [JSON Structure](json-structure/deployment-rest-database-script-structure.json)
-- [JSON Structure](json-structure/deployment-rest-deployment-request-structure.json)
-- [JSON Structure](json-structure/deployment-rest-deployment-response-structure.json)
-- [JSON Structure](json-structure/deployment-rest-deployment-status-structure.json)
-- [JSON Structure](json-structure/deployment-rest-export-configuration-structure.json)
-- [JSON Structure](json-structure/deployment-rest-export-deployment-result-structure.json)
-- [JSON Structure](json-structure/deployment-rest-import-configuration-structure.json)
-- [JSON Structure](json-structure/deployment-rest-import-deployment-result-structure.json)
-- [JSON Structure](json-structure/deployment-rest-import-summary-count-structure.json)
-- [JSON Structure](json-structure/deployment-rest-inspection-error-structure.json)
-- [JSON Structure](json-structure/deployment-rest-inspection-problems-structure.json)
-- [JSON Structure](json-structure/deployment-rest-inspection-request-structure.json)
-- [JSON Structure](json-structure/deployment-rest-inspection-response-structure.json)
-- [JSON Structure](json-structure/deployment-rest-inspection-result-structure.json)
-- [JSON Structure](json-structure/deployment-rest-inspection-warning-structure.json)
-- [Example](examples/application-package-details-package-example.json)
-- [Example](examples/application-package-details-package-list-response-example.json)
-- [Example](examples/deployment-rest-database-script-example.json)
-- [Example](examples/deployment-rest-deployment-request-example.json)
-- [Example](examples/deployment-rest-deployment-response-example.json)
-- [Example](examples/deployment-rest-deployment-status-example.json)
-- [Example](examples/deployment-rest-export-configuration-example.json)
-- [Example](examples/deployment-rest-export-deployment-result-example.json)
-- [Example](examples/deployment-rest-import-configuration-example.json)
-- [Example](examples/deployment-rest-import-deployment-result-example.json)
-- [Example](examples/deployment-rest-import-summary-count-example.json)
-- [Example](examples/deployment-rest-inspection-error-example.json)
-- [Example](examples/deployment-rest-inspection-problems-example.json)
-- [Example](examples/deployment-rest-inspection-request-example.json)
-- [Example](examples/deployment-rest-inspection-response-example.json)
-- [Example](examples/deployment-rest-inspection-result-example.json)
-- [Example](examples/deployment-rest-inspection-warning-example.json)
-- [Features](undefined)
-- [Use Cases](undefined)
-- [Integrations](undefined)
+- [Trust centre](https://trustcenter.appian.com/)
+- [Terms of service](https://www.appian.com/terms-of-service.html)
+- [Privacy policy](https://www.appian.com/privacy.html)
+- [GitHub](https://github.com/appian)
+- [Status](https://status.appiancloud.com/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
-**FN:** Appian Corporation
-**Email:** support@appian.com
-**URL:** https://www.appian.com
+**Kin Score 67.5** — exemplar · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 64.3 |
+| Contract quality | 66.0 |
+| Contract governance | 45.5 |
+| Operational transparency | 63.2 |
+| Developer ergonomics | 74.4 |
+| Access clarity | 68.4 |
+
+**Agent readiness 22.4** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | documented (partial credit) |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 35.3** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/appian/](https://apis.io/providers/appian/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Appian: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/appian/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
