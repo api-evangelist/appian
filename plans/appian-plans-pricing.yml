@@ -1,0 +1,89 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-10-28'
+method: searched
+source: https://appian.com/products/pricing
+sources:
+- https://appian.com/products/pricing
+- https://appian.com/platform/pricing.html
+provenance:
+  tool: engine/economics/harvest_pricing.py
+  run: 20261028T120612
+  grounding: every price_text was found verbatim in the fetched page text
+audience: business-product
+pricing_basis: negotiated
+delivery:
+  delivery: managed+licensed
+  method: page
+  read: '2026-10-28'
+  evidence: Deploy in self-managed, hybrid clouds (AWS, Azure, Google), or on-premises.
+  managed_tier: Standard
+published: false
+note: No numeric price is published on the pricing page; Tier comparison page states pricing is 'per user,
+  per month, per app' but shows no dollar amounts; only quantity limits. A free Community Edition is offered
+  alongside paid tiers; self-managed/on-premises deployment mentioned.
+plan_count: 4
+plans:
+- name: Standard
+  price_text: Priced per user, per month, per app.
+  period: month
+  unit: per user, per app
+  included_quota: Single data source, 4M rows/record type; 5 bots; one portal per app; 200K AI Actions
+    per month
+- name: Advanced
+  price_text: Priced per user, per month, per app.
+  period: month
+  unit: per user, per app
+  included_quota: Multiple data sources, 20M rows/record type; 25 bots; unlimited portals; 500K AI Actions
+    per month
+- name: Premium
+  price_text: Priced per user, per month, per app.
+  period: month
+  unit: per user, per app
+  included_quota: Multiple data sources, no row limit/record type; unlimited bots; 1M AI Actions per month
+- name: Appian Community Edition
+  price_text: Free access to a dedicated Appian platform instance.
+  period: none
+  included_quota: Personal development environment
+rate_limit_statements:
+- The AI Action limit for AI at the Standard tier is 200K AI Actions per month. The AI Action limit for
+  AI at the Advanced tier is 500K AI Actions per month. The AI Action limit for AI at the Premium tier
+  is 1M AI Actions per month.
+- Cloud Secure Link supports up to 500 connections per customer on both the Advanced and Premium tiers.
+- 50,000 pages per month
+x-canonical:
+  generated: '2026-11-01'
+  vocabulary: engine/economics/plans-canonical.yml
+  models: []
+  units: []
+  plans:
+  - name: Standard
+    access: other
+    model: unstated
+    model_how: derived
+    units:
+    - other
+    periods:
+    - month
+  - name: Advanced
+    access: other
+    model: unstated
+    model_how: derived
+    units:
+    - other
+    periods:
+    - month
+  - name: Premium
+    access: other
+    model: unstated
+    model_how: derived
+    units:
+    - other
+    periods:
+    - month
+  - name: Appian Community Edition
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods:
+    - none
