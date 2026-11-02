@@ -51,7 +51,7 @@ rate_limit_statements:
 - Cloud Secure Link supports up to 500 connections per customer on both the Advanced and Premium tiers.
 - 50,000 pages per month
 x-canonical:
-  generated: '2026-11-01'
+  generated: '2026-11-02'
   vocabulary: engine/economics/plans-canonical.yml
   models: []
   units: []
