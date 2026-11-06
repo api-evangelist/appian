@@ -51,17 +51,18 @@ rate_limit_statements:
 - Cloud Secure Link supports up to 500 connections per customer on both the Advanced and Premium tiers.
 - 50,000 pages per month
 x-canonical:
-  generated: '2026-11-02'
+  generated: '2026-11-06'
   vocabulary: engine/economics/plans-canonical.yml
   models: []
-  units: []
+  units:
+  - seat
   plans:
   - name: Standard
     access: other
     model: unstated
     model_how: derived
     units:
-    - other
+    - seat
     periods:
     - month
   - name: Advanced
@@ -69,7 +70,7 @@ x-canonical:
     model: unstated
     model_how: derived
     units:
-    - other
+    - seat
     periods:
     - month
   - name: Premium
@@ -77,7 +78,7 @@ x-canonical:
     model: unstated
     model_how: derived
     units:
-    - other
+    - seat
     periods:
     - month
   - name: Appian Community Edition
